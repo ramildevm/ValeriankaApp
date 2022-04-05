@@ -24,5 +24,16 @@ namespace ValeriankaApp
         {
             InitializeComponent();
         }
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+        {
+            //ClientMainWindow cmw = new ClientMainWindow();
+            this.Close();
+            //cmw.ShowDialog();
+        }
     }
 }

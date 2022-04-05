@@ -5,8 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" 
+        Height="458" Width="750">
+    <Window.Resources>
+        <Style x:Key="Lbl13" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+        </Style>
+        <Style x:Key="LblLeft" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="Margin" Value="12,0,0,0"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel.Background>
+            <ImageBrush ImageSource="Images/LoginBack.png" Opacity="0.9"/>
+        </StackPanel.Background>
+        <Label Content="Valerianka" FontFamily="Rockwell" FontSize="36" HorizontalAlignment="Center" Foreground="#68CACD" FontWeight="Bold" Margin="0,62,0,0"/>
+        <Label Foreground="White" Content="Заботимся о вашем здоровье 24 на 7!" Style="{StaticResource ResourceKey=Lbl13}" Margin="247,0">
+
+        </Label>
+        <Border Width="200" Height="219" Background="#68CACD" CornerRadius="10" Margin="0,19,0,0">
+            <StackPanel >
+
+                <Label Content="Добро пожаловать!" Style="{StaticResource Lbl13}" Margin="0,5,0,5"/>
+                <Label Content="Логин" Style="{StaticResource LblLeft}" />
+
+                <TextBox x:Name="txtLogin" Width="171" Height="25" VerticalContentAlignment="Center" Background="White">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Пароль" Style="{StaticResource LblLeft}"/>
+                <TextBox x:Name="txtPassword" Width="171" Height="25" VerticalContentAlignment="Center" Background="White">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <TextBlock Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="12"><Hyperlink Foreground="#150098" Click="Hyperlink_Click">Нет аккаунта? Создайте ее!</Hyperlink></TextBlock>
+                <Button Content="Войти" Width="171" Height="36" Background="White" Margin="0,17,0,0" BorderThickness="0" Click="ButtonLogin_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </Window>
