@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Valerianka Аптека" 
         Height="458" Width="750">
     <Window.Resources>
         <Style x:Key="Lbl13" TargetType="Label">
@@ -51,7 +51,7 @@
                     </TextBox.Resources>
                 </TextBox>
                 <TextBlock Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="12"><Hyperlink Foreground="#150098" Click="Hyperlink_Click">Нет аккаунта? Создайте ее!</Hyperlink></TextBlock>
-                <Button Content="Войти" Width="171" Height="36" Background="White" Margin="0,17,0,0" BorderThickness="0" Click="ButtonLogin_Click">
+                <Button Content="Войти" Width="171" Height="36" FontWeight="Bold" Background="White" Margin="0,17,0,0" BorderThickness="0" Click="ButtonLogin_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
