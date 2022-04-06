@@ -5,8 +5,140 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="EmployeeMainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="EmployeeMainWindow" Height="458" Width="750">
+    <Window.Resources>
+        <Style x:Key="Lbl13" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+        </Style>
+        <Style x:Key="LblLeft" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="Margin" Value="12,0,0,0"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
+            <Grid Grid.Column="1">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="ButtonCatalog_Click" Cursor="Hand">
+                    <TextBlock TextDecorations="Underline" Text="Товары"  />
+                </Button>
+                <Button Grid.Column="1" Content="Заказы" Click="ButtonOrders_Click" Cursor="Hand"/>
+            </Grid>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Width="37" Height="37">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse Fill="#E6E6E6"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Height="Auto" Background="#E5E5E5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBox Height="25" Margin="5" BorderThickness="1" Grid.Column="0" x:Name="searchTxt">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <ScrollViewer>
+            <WrapPanel x:Name="contentPanel" Background="#E5E5E5">
+                <WrapPanel.Resources>
+                    <Style TargetType="Border" x:Key="contentBorderStyle">
+                        <Setter Property="Width" Value="220"/>
+                        <Setter Property="Height" Value="260"/>
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="Margin" Value="18,18,0,18"/>
+                        <Setter Property="Background" Value="White"/>
+                    </Style>
+                    <Style TargetType="StackPanel" x:Key="productSpStyle">
+                        <Setter Property="Width" Value="710"/>
+                        <Setter Property="Margin" Value="10"/>
+                        <Setter Property="Background" Value="White"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Margin" Value="12,0,0,0" />
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Width" Value="206" />
+                        <Setter Property="Height" Value="153" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="Opacity" Value="0.9" />
+                        <Setter Property="Stretch" Value="Uniform" />
+                    </Style>
+                    <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="10" BorderThickness="1" Background="#68CACD">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </WrapPanel.Resources>
+                <!--content here-->
+            </WrapPanel>
+        </ScrollViewer>
+    </DockPanel>
 </Window>
