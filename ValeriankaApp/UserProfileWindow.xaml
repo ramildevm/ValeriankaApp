@@ -1,0 +1,177 @@
+﻿<Window x:Class="ValeriankaApp.UserProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ValeriankaApp"
+        mc:Ignorable="d"
+        Title="Профиль" 
+        Height="500" Width="800">
+    <Window.Resources>
+        <Style x:Key="TxtBl" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="LeftLbl" TargetType="Label">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
+            <Grid Grid.Column="1">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="ButtonCatalog_Click" Cursor="Hand">
+                    <TextBlock TextDecorations="Underline" Text="Каталог"  />
+                </Button>
+                <Button Grid.Column="1" Content="Мои заказы" Click="ButtonMyOrders_Click" Cursor="Hand"/>
+                <Button Grid.Column="2" Content="Корзина" Click="ButtonCart_Click" />
+            </Grid>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Width="37" Height="37">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse Fill="#E6E6E6"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Name="Base" Height="410" Background="#E6E6E6">
+            <Border CornerRadius="10" Margin="10" Height="390" Width="Auto"  Background="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="33*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Мой профиль" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,5,0,0" Grid.Column="1"/>
+                    <Label Content="Данные аккаунта" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="0"/>
+                    <Label Content="Логин" Style="{StaticResource LeftLbl}" Margin="10,0,0,240" Grid.Column="0"/>
+                    <TextBox x:Name="txtLogin" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,200" BorderThickness="0" Grid.Column="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Email" Style="{StaticResource LeftLbl}" Margin="10,3,0,150" Grid.Column="0"/>
+                    <TextBox x:Name="txtEmail" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,110" BorderThickness="0" Grid.Column="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,60" Grid.Column="0"/>
+                    <TextBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,20" BorderThickness="0" Grid.Column="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Подтвердите пароль" Style="{StaticResource LeftLbl}" Margin="10,33,0,0" Grid.Column="0"/>
+                    <TextBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,73,0,0" BorderThickness="0" Grid.Column="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Button Margin="15,150,0,0" Width="130" Height="27" Background="#A500F3" Content="Удалить аккаунт" Foreground="White" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Roboto" Click="DeleteButton_Click" Grid.Column="0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Border CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,338,0,0" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0">
+                        <TextBlock Text="Выйти из системы" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Opacity="0.3"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+                    <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="2"/>
+                    <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="0,0,0,240" Grid.Column="2"/>
+                    <TextBox x:Name="txtFIO" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,200" BorderThickness="0" Grid.Column="2">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Номер" Style="{StaticResource LeftLbl}" Margin="0,3,0,150" Grid.Column="2"/>
+                    <TextBox x:Name="txtNumber" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,110" BorderThickness="0" Grid.Column="2">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Адрес магазина по умолчанию" Style="{StaticResource LeftLbl}" Margin="0,3,0,60" Grid.Column="2"/>
+                    <TextBox x:Name="txtBaseAddress" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,20" BorderThickness="0" Grid.Column="2">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Border CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2">
+                        <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Opacity="0.3"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</Window>
