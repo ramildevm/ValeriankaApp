@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ValeriankaApp.AdminSubWindows
+namespace ValeriankaApp
 {
     /// <summary>
-    /// Логика взаимодействия для MyProfileAdminWindow.xaml
+    /// Логика взаимодействия для UserProfileWindow.xaml
     /// </summary>
-    public partial class MyProfileAdminWindow : Window
+    public partial class UserProfileWindow : Window
     {
-        public MyProfileAdminWindow()
+        public UserProfileWindow()
         {
             InitializeComponent();
         }
@@ -40,9 +40,9 @@ namespace ValeriankaApp.AdminSubWindows
 
         private void SaveChanges_Click(object sender, MouseButtonEventArgs e)
         {
-            AdminWindow adminWindow = new AdminWindow();
+            
             this.Close();
-            adminWindow.ShowDialog();
+            
         }
     }
 }

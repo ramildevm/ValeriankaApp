@@ -70,8 +70,14 @@
     <Compile Include="EmployeeMainWindow.xaml.cs">
       <DependentUpon>EmployeeMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrderingWindow.xaml.cs">
+      <DependentUpon>OrderingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfileWindow.xaml.cs">
+      <DependentUpon>UserProfileWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AdminSubWindows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
@@ -105,7 +111,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OrderingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\супрастин.jpg" />
+    <Resource Include="Images\Suprastin.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
