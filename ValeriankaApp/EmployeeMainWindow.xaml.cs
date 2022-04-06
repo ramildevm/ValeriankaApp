@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 namespace ValeriankaApp
 {
     /// <summary>
-    /// Логика взаимодействия для ClientMainWindow.xaml
+    /// Логика взаимодействия для EmployeeMainWindow.xaml
     /// </summary>
-    public partial class ClientMainWindow : Window
+    public partial class EmployeeMainWindow : Window
     {
         List<TextBox> quantityList = new List<TextBox>();
-        public ClientMainWindow()
+        public EmployeeMainWindow()
         {
             InitializeComponent();
             LoadContent();
@@ -39,7 +39,7 @@ namespace ValeriankaApp
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
-            Image img = new Image() { Source = (ImageSource)(new ImageSourceConverter().ConvertFrom(AppDomain.CurrentDomain.BaseDirectory + "/Images/супрастин.jpg")) };
+            Image img = new Image() { };
             TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
             TextBlock availabilityTxt = new TextBlock() { Text = "Наличие:", Margin = new Thickness(12, 0, 3, 0) };
@@ -47,20 +47,14 @@ namespace ValeriankaApp
             priceTxt.Inlines.Add(new TextBlock() { Text = $" {price} руб.", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
 
             //Bottom
-            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
-            Button reduceBtn = new Button() { Tag = i, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
-            reduceBtn.Click += ButtonReduce_Click;
-            TextBox quantityTxtBox = new TextBox() { Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
-            quantityTxtBox.TextChanged += QuantityTxtBox_TextChanged;
-            quantityList.Add(quantityTxtBox);
-            Button increaseBtn = new Button() { Tag = i, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
-            increaseBtn.Click += ButtonIncrease_Click;
-            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0) };
-            addBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
-            bottomSp.Children.Add(reduceBtn);
-            bottomSp.Children.Add(quantityTxtBox);
-            bottomSp.Children.Add(increaseBtn);
-            bottomSp.Children.Add(addBtn);
+            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 5, 0, 0) };
+            Button changeBtn = new Button() { Width = 80, Height = 30, Content = "Изменить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 6) };
+            changeBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
+            Button delBtn = new Button() { Width = 80, Height = 30, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 6) };
+       
+            delBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
+            bottomSp.Children.Add(changeBtn);
+            bottomSp.Children.Add(delBtn);
 
             //добавление данных
             nameUp.Text += name;
@@ -118,7 +112,7 @@ namespace ValeriankaApp
         {
 
         }
-        private void ButtonMyOrders_Click(object sender, RoutedEventArgs e)
+        private void ButtonOrders_Click(object sender, RoutedEventArgs e)
         {
 
         }
