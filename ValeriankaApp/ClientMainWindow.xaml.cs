@@ -27,22 +27,25 @@ namespace ValeriankaApp
         }
         void LoadContent()
         {
-            Random rand = new Random();
-            string text = "Some recipe description. сведения о Horizondation";
-            int price = 1200;
-            for (int i = 0; i < 10; i++)
+            using (var db = new Pharmacy_ValeriankaEntities())
             {
-                AddProductPanel(i, $"Name {i}", "от горла", rand.Next(1, 20), i * 1000);
+                List<Product> products = (from p in db.Product select p).ToList<Product>();
+                int i = 0;
+                foreach (var product in products)
+                {
+                    AddProductPanel(i, product.ProductName, product.ProductPurpose, product.ProductCount, product.ProductPrice);
+                    i++;
+                }
             }
         }
         void AddProductPanel(int i, string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
-            Image img = new Image() { Source = (ImageSource)(new ImageSourceConverter().ConvertFrom(AppDomain.CurrentDomain.BaseDirectory + "/Images/супрастин.jpg")) };
+            Image img = new Image() {  };
             TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
-            TextBlock availabilityTxt = new TextBlock() { Text = "Наличие:", Margin = new Thickness(12, 0, 3, 0) };
+            TextBlock availabilityTxt = new TextBlock() { Text = "Наличие: ", Margin = new Thickness(12, 0, 3, 0) };
             TextBlock priceTxt = new TextBlock() { Text = "Цена: " };
             priceTxt.Inlines.Add(new TextBlock() { Text = $" {price} руб.", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
 
@@ -66,6 +69,7 @@ namespace ValeriankaApp
             nameUp.Text += name;
             purposeTxt.Text += purpose;
             availabilityTxt.Text += quantity.ToString();
+
             //Добавление элементов в контейнер
             var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10), Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
             var sp2 = new StackPanel() { };
