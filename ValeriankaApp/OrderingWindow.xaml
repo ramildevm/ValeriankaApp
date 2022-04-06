@@ -1,0 +1,171 @@
+﻿<Window x:Class="ValeriankaApp.OrderingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ValeriankaApp"
+        mc:Ignorable="d"
+        Title="OrderingWindow" 
+         Height="490" Width="800">
+    <Window.Resources>
+        <Style x:Key="TxtBl" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="LeftLbl" TargetType="Label">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
+            <Grid Grid.Column="1">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="ButtonCatalog_Click" Cursor="Hand">
+                    <TextBlock Text="Каталог"  />
+                </Button>
+                <Button Grid.Column="1" Content="Мои заказы" Click="ButtonMyOrders_Click" Cursor="Hand"/>
+                <Button Grid.Column="2" Content="Корзина" Click="ButtonCart_Click" />
+            </Grid>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Width="37" Height="37">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse Fill="#E6E6E6"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Name="Base" Height="410" Background="#E6E6E6">
+            <Border CornerRadius="10" Margin="10" Height="390" Width="Auto"  Background="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="40*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Оформление" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,5,0,0" Grid.Column="1"/>
+                    <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="0"/>
+                    <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="10,0,0,240" Grid.Column="0"/>
+                    <TextBox x:Name="txtFIO" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,200" BorderThickness="0" Grid.Column="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Номер" Style="{StaticResource LeftLbl}" Margin="10,3,0,150" Grid.Column="0"/>
+                    <TextBox x:Name="txtNumber" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,110" BorderThickness="0" Grid.Column="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Доставка" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,155,0,0" Grid.Column="0"/>
+                    <RadioButton Margin="15,180,0,0" Content="г. Казань, ул. Кул Гали, д.7" FontFamily="Roboto" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="Address1RadioBtn" Grid.Column="0"/>
+                    <RadioButton Margin="15,200,0,0" Content="г. Казань, ул. Большая Красная, д.55" FontFamily="Roboto" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="Address2RadioBtn" Grid.Column="0"/>
+                    <Border CornerRadius="10" Background="#68CACD" Width="95" Height="32" HorizontalAlignment="Left" Margin="10,338,0,0" MouseLeftButtonUp="CancelButton_Click" Grid.Column="0">
+                        <TextBlock Text="Отмена" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Opacity="0.3"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+                    <Label Content="Тип оплаты" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="2"/>
+                    <RadioButton Margin="47,70,0,0" Content="Наличными при получении" FontWeight="Bold" BorderThickness="1" FontFamily="Roboto" BorderBrush="Black" Name="MoneyRadioBtn" Grid.Column="2"/>
+                    <RadioButton Margin="47,90,0,0" Content="Картой онлайн" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" FontFamily="Roboto" Name="CardRadioBtn" Grid.Column="2"/>
+                    <Border Grid.Column="2" Background="#E6E6E6" Width="217" Height="109" Margin="0,0,20,50" CornerRadius="10">
+                        <StackPanel>
+                            <Label Content="Номер карты" FontWeight="Medium" FontFamily="Roboto" Margin="10,12,0,0"/>
+                            <TextBox Margin="5,0,5,0" BorderThickness="0" Name="txtNumberOfCard">
+                                <TextBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="3"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30*"/>
+                                    <ColumnDefinition Width="79*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Месяц и год" FontWeight="Medium" FontFamily="Roboto" Margin="10,0,0,0" Grid.ColumnSpan="2"/>
+                                <TextBox Margin="20,25,140,0" BorderThickness="0" Name="txtMonthAndYear" Grid.ColumnSpan="2">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                                <Label Content="CVV" FontWeight="Medium" FontFamily="Roboto" Margin="80.5,2,0,0" Grid.Column="1"/>
+                                <TextBox Margin="85.5,25,15,0" BorderThickness="0" Grid.Column="1" Name="txtCVVCode">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Label Content="Итоговая цена: " FontWeight="Medium" FontFamily="Roboto" Margin="32,310,0,0" Grid.Column="2" FontSize="16"/>
+                    <Label Content="0 руб." FontWeight="Bold" FontFamily="Roboto" Margin="150,310,0,0" Grid.Column="2" FontSize="16" Foreground="#A500F3" Name="TotalPrice"/>
+                    <Border CornerRadius="10" Background="#68CACD" Width="131" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="ConfirmOrderButton_Click" Grid.Column="2">
+                        <TextBlock Text="Оформить заказ" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Opacity="0.3"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</Window>

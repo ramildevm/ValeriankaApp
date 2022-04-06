@@ -89,9 +89,9 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Label Content="Роль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
-                    <RadioButton Margin="20,5,0,0" Content="Клиент" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnClient"/>
-                    <RadioButton Margin="20,5,0,0" Content="Сотрудник" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnEmployee"/>
-                    <RadioButton Margin="20,5,0,0" Content="Админ" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnAdmin"/>
+                    <RadioButton Margin="20,5,0,0" Content="Клиент" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnClient" FontFamily="Roboto"/>
+                    <RadioButton Margin="20,5,0,0" Content="Сотрудник" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnEmployee" FontFamily="Roboto"/>
+                    <RadioButton Margin="20,5,0,0" Content="Админ" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnAdmin" FontFamily="Roboto"/>
                     <Grid>
                         <Border CornerRadius="10" Background="#68CACD" Width="105" Height="32" HorizontalAlignment="Right" Margin="135,57" MouseLeftButtonUp="CancelButton_Click">
                             <TextBlock Text="Отмена" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
