@@ -24,7 +24,12 @@ namespace ValeriankaApp.AdminSubWindows
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void AddNewUserButton_Click(object sender, MouseButtonEventArgs e)
         {
 
         }

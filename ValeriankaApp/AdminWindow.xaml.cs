@@ -38,6 +38,7 @@ namespace ValeriankaApp
         private void MyProfile_Click(object sender, MouseButtonEventArgs e)
         {
             AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
+            this.Close();
             MPAW.ShowDialog();
         }
 

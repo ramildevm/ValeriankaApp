@@ -5,8 +5,121 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp.AdminSubWindows"
         mc:Ignorable="d"
-        Title="MyProfileAdminWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Mой профиль" 
+        Height="500" Width="800">
+    <Window.Resources>
+        <Style x:Key="TxtBl" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="LeftLbl" TargetType="Label">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <Grid Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="26*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" TextDecorations="Underline">
+                <TextBlock.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" Grid.Column="2" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Мой профиль" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <Button Grid.Column="3" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,20,0" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="45"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <StackPanel Name="Base" Height="410" Background="#E6E6E6">
+            <Border CornerRadius="10" Margin="10" Height="390" Width="Auto"  Background="White">
+                <StackPanel>
+                    <Label Content="Мой профиль" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <Label Content="Данные аккаунта" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,10,0,0"/>
+                    <Label Content="Логин" Style="{StaticResource LeftLbl}" Margin="10,0,0,0"/>
+                    <TextBox x:Name="txtLogin" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Email" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
+                    <TextBox x:Name="txtEmail" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
+                    <TextBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Подтвердите пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
+                    <TextBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Button Margin="15,10,0,0" Width="130" Height="27" Background="#A500F3" Content="Удалить аккаунт" Foreground="White" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Roboto" Click="DeleteButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Grid>
+                        <Border CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,57" MouseLeftButtonUp="OutOfSystem_Click">
+                            <TextBlock Text="Выйти из системы" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect Opacity="0.3"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Border>
+                        <Border CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="9,57" MouseLeftButtonUp="SaveChanges_Click">
+                            <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect Opacity="0.3"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </StackPanel>
 </Window>

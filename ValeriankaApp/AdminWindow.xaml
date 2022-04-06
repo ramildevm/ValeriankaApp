@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
         Title="Valerianka Админ" 
-        Height="450" Width="800">
+        Height="500" Width="800">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -27,10 +27,22 @@
                     <ColumnDefinition Width="26*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" MouseLeftButtonUp="Users_Click" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" TextDecorations="Underline"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" MouseLeftButtonUp="AddUser_Click" Grid.Column="2" HorizontalAlignment="Center"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Мой профиль" MouseLeftButtonUp="MyProfile_Click" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0"/>
-                <Button Grid.Column="3" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,20,0" BorderThickness="0" Click="Button_Click">
+                <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" MouseLeftButtonUp="Users_Click" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" TextDecorations="Underline" Cursor="Hand">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Opacity="0.3"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" MouseLeftButtonUp="AddUser_Click" Grid.Column="2" HorizontalAlignment="Center" Cursor="Hand">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Opacity="0.3"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Style="{StaticResource TxtBl}" Text="Мой профиль" MouseLeftButtonUp="MyProfile_Click" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" Cursor="Hand">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Opacity="0.3"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Button Grid.Column="3" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,20,0" BorderThickness="0" Click="Button_Click" Cursor="Hand">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="45"/>
@@ -38,7 +50,7 @@
                     </Button.Resources>
                 </Button>
             </Grid>
-            <StackPanel Margin="0,0,0,0" Name="UserView" Height="350" Background="#E6E6E6">
+            <StackPanel Margin="0,0,0,0" Name="UserView" Height="410" Background="#E6E6E6">
 
             </StackPanel>
         </StackPanel>

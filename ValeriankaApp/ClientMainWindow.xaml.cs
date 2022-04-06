@@ -39,7 +39,7 @@ namespace ValeriankaApp
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
-            Image img = new Image() { Source = (ImageSource)(new ImageSourceConverter().ConvertFrom("C:/Users/ramil/source/repos/BakeryShopApp/BakeryShopApp/Images/супрастин.jpg")) };
+            Image img = new Image() { Source = (ImageSource)(new ImageSourceConverter().ConvertFrom("/ValeriankaApp;component/Images/Suprastin.jpg")) };
             TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
             TextBlock availabilityTxt = new TextBlock() { Text = "Наличие:", Margin = new Thickness(12, 0, 3, 0) };

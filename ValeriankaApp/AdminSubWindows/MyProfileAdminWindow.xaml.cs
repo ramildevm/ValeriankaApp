@@ -23,5 +23,26 @@ namespace ValeriankaApp.AdminSubWindows
         {
             InitializeComponent();
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            AdminWindow adminWindow = new AdminWindow();
+            this.Close();
+            adminWindow.ShowDialog();
+        }
+
+        private void OutOfSystem_Click(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.ShowDialog();
+        }
+
+        private void SaveChanges_Click(object sender, MouseButtonEventArgs e)
+        {
+            AdminWindow adminWindow = new AdminWindow();
+            this.Close();
+            adminWindow.ShowDialog();
+        }
     }
 }
