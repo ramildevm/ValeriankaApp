@@ -142,5 +142,8 @@
   <ItemGroup>
     <Resource Include="AdminSubWindows\LoginBack.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\супрастин.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
