@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace ValeriankaApp.AdminSubWindows
 {
     /// <summary>
-    /// Логика взаимодействия для AddEmployeeWindow.xaml
+    /// Логика взаимодействия для MyProfileAdminWindow.xaml
     /// </summary>
-    public partial class AddEmployeeWindow : Window
+    public partial class MyProfileAdminWindow : Window
     {
-        public AddEmployeeWindow()
+        public MyProfileAdminWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

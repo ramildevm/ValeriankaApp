@@ -21,17 +21,24 @@
         <StackPanel>
             <Grid Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="22*"/>
+                    <ColumnDefinition Width="22*"/>
                     <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="29*"/>
-                    <ColumnDefinition Width="27*"/>
-                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="26*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Valerianka" FontFamily="Rockwell" FontSize="36" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold" Grid.Column="0" Height="50" Margin="10,0,0,0"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" MouseLeftButtonUp="AddUser_Click" Grid.Column="1" HorizontalAlignment="Left"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Добавить сотрудника" MouseLeftButtonUp="AddEmloyee_Click" Grid.Column="2" HorizontalAlignment="Left"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Обновить" MouseLeftButtonUp="Update_Click" Grid.Column="3" HorizontalAlignment="Left"/>
+                <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
+                <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" MouseLeftButtonUp="Users_Click" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" TextDecorations="Underline"/>
+                <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" MouseLeftButtonUp="AddUser_Click" Grid.Column="2" HorizontalAlignment="Center"/>
+                <TextBlock Style="{StaticResource TxtBl}" Text="Мой профиль" MouseLeftButtonUp="MyProfile_Click" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                <Button Grid.Column="3" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,20,0" BorderThickness="0" Click="Button_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="45"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
-            <StackPanel Margin="0,0,0,0" Name="UserView" Height="350">
+            <StackPanel Margin="0,0,0,0" Name="UserView" Height="350" Background="#E6E6E6">
 
             </StackPanel>
         </StackPanel>

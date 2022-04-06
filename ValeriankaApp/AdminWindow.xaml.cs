@@ -24,21 +24,27 @@ namespace ValeriankaApp
             InitializeComponent();
         }
 
+        private void Users_Click(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
         private void AddUser_Click(object sender, MouseButtonEventArgs e)
         {
             AdminSubWindows.AddUserWindow AUW = new AdminSubWindows.AddUserWindow();
             AUW.ShowDialog();
         }
 
-        private void AddEmloyee_Click(object sender, MouseButtonEventArgs e)
+        private void MyProfile_Click(object sender, MouseButtonEventArgs e)
         {
-            AdminSubWindows.AddEmployeeWindow AEW = new AdminSubWindows.AddEmployeeWindow();
-            AEW.ShowDialog();
+            AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
+            MPAW.ShowDialog();
         }
 
-        private void Update_Click(object sender, MouseButtonEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
+            MPAW.ShowDialog();
         }
     }
 }

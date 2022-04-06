@@ -55,11 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdminSubWindows\AddEmployeeWindow.xaml.cs">
-      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AdminSubWindows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminSubWindows\MyProfileAdminWindow.xaml.cs">
+      <DependentUpon>MyProfileAdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
@@ -67,11 +67,11 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AdminSubWindows\AddEmployeeWindow.xaml">
+    <Page Include="AdminSubWindows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminSubWindows\AddUserWindow.xaml">
+    <Page Include="AdminSubWindows\MyProfileAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
