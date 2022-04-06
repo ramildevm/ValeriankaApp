@@ -34,11 +34,9 @@ namespace ValeriankaApp
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            //ClientMainWindow cmw = new ClientMainWindow();
-            AdminWindow adminWindow = new AdminWindow();
+            ClientMainWindow cmw = new ClientMainWindow();
             this.Hide();
-            //cmw.ShowDialog();
-            adminWindow.ShowDialog();
+            cmw.ShowDialog();
         }
     }
 }
