@@ -90,7 +90,7 @@
                     </Style>                    
                 </TextBox.Resources>
             </TextBox>
-            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
+            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" Click="ButtonSearch_Click" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

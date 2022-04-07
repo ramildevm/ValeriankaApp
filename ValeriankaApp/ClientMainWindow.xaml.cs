@@ -25,11 +25,20 @@ namespace ValeriankaApp
             InitializeComponent();
             LoadContent();
         }
-        void LoadContent()
+        void LoadContent(string searchText = "")
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                List<Product> products = (from p in db.Product select p).ToList<Product>();
+                List<Product> products;
+                if (searchText == "")
+                {
+                    products = (from p in db.Product select p).ToList<Product>();
+                }
+                else
+                {
+                    IEnumerable<Product> productsSet = (from p in db.Product select p);
+                    products = productsSet.Where(product => product.ProductName.Contains($"{searchText}")).ToList<Product>();
+                }
                 int i = 0;
                 foreach (var product in products)
                 {
@@ -42,7 +51,7 @@ namespace ValeriankaApp
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
-            Image img = new Image() {  };
+            Image img = new Image() { };
             TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
             TextBlock availabilityTxt = new TextBlock() { Text = "Наличие: ", Margin = new Thickness(12, 0, 3, 0) };
@@ -120,7 +129,8 @@ namespace ValeriankaApp
         }
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
-
+            contentPanel.Children.Clear();
+            LoadContent();
         }
         private void ButtonMyOrders_Click(object sender, RoutedEventArgs e)
         {
@@ -129,6 +139,14 @@ namespace ValeriankaApp
         private void ButtonCart_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            
+                contentPanel.Children.Clear();
+                LoadContent(searchTxt.Text);
+            
         }
     }
 }
