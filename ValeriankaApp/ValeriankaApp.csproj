@@ -103,6 +103,9 @@
     <Compile Include="OrderingWindow.xaml.cs">
       <DependentUpon>OrderingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrderListWindow.xaml.cs">
+      <DependentUpon>OrderListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Orders.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OrderingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OrderListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
