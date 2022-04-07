@@ -27,18 +27,38 @@ namespace ValeriankaApp
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
             var register = new RegisterWindow();
-            this.Hide();
+            this.Close();
             register.ShowDialog();
-            this.Show();
         }
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            ClientMainWindow cmw = new ClientMainWindow();
-            AdminWindow adminWindow = new AdminWindow();
-            this.Hide();
-            adminWindow.ShowDialog();
-            //cmw.ShowDialog();
+            string result = LoginMethod(txtLogin.Text, txtPassword.Password);
+            MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
+            if (result == $"Добро пожаловать, {txtLogin.Text}!")
+            {
+                ClientMainWindow cmw = new ClientMainWindow();
+                //AdminWindow adminWindow = new AdminWindow();
+                this.Close();
+                //adminWindow.ShowDialog();
+                cmw.ShowDialog();
+            }
+        }
+
+        private string LoginMethod(string login, string password)
+        {
+            if (login.Length == 0 || password.Length == 0)
+                return "Не все поля заполнены!";
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                Users user = (from u in db.Users where u.UserLogin == login select u).FirstOrDefault();
+                if (user == null)
+                    return "Пользователя с таким логином не существует!";
+                if (user.UserPassword != password)
+                    return "Неверный пароль!";
+                SystemContext.User = user;
+            }
+            return $"Добро пожаловать, {login}!";
         }
     }
 }

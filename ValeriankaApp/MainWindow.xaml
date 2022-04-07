@@ -31,10 +31,8 @@
         </Label>
         <Border Width="200" Height="219" Background="#68CACD" CornerRadius="10" Margin="0,19,0,0">
             <StackPanel >
-
                 <Label Content="Добро пожаловать!" Style="{StaticResource Lbl13}" Margin="0,5,0,5"/>
                 <Label Content="Логин" Style="{StaticResource LblLeft}" />
-
                 <TextBox x:Name="txtLogin" Width="171" Height="25" VerticalContentAlignment="Center" Background="White">
                     <TextBox.Resources>
                         <Style TargetType="Border">
@@ -42,14 +40,10 @@
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
-                <Label Content="Пароль" Style="{StaticResource LblLeft}"/>
-                <TextBox x:Name="txtPassword" Width="171" Height="25" VerticalContentAlignment="Center" Background="White">
-                    <TextBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                <Label Content="Пароль" Style="{StaticResource LblLeft}"/>                
+                <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
+                    <PasswordBox x:Name="txtPassword" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                </Border>
                 <TextBlock Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="12"><Hyperlink Foreground="#150098" Click="Hyperlink_Click">Нет аккаунта? Создайте его!</Hyperlink></TextBlock>
                 <Button Content="Войти" Width="171" Height="36" FontWeight="Bold" Background="White" Margin="0,17,0,0" BorderThickness="0" Click="ButtonLogin_Click">
                     <Button.Resources>
