@@ -22,24 +22,40 @@ namespace ValeriankaApp
         public AdminWindow()
         {
             InitializeComponent();
-            LoadContent();
+            LoadContent(searchTxt.Text);
         }
 
-        void LoadContent()
+        void LoadContent(string searchText)
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                List<Users> users = (from u in db.Users select u).ToList<Users>();
-                int i = 0;
-                foreach (var user in users)
+                List<Users> users;
+                try
                 {
-                    AddNewUser(user.UserLogin, user.UserEmail, user.UserRole);
-                    i++;
+                    if (searchText == "")
+                    {
+                        users = (from u in db.Users select u).ToList<Users>();
+                    }
+                    else
+                    {
+                        IEnumerable<Users> userSet = (from u in db.Users select u);
+                        users = userSet.Where(user => user.UserLogin.Contains($"{searchText}")).ToList<Users>();
+                    }
+                    int i = 0;
+                    foreach (var user in users)
+                    {
+                        AddNewUser(i, user.UserLogin, user.UserEmail, user.UserRole);
+                        i++;
+                    }
+                }
+                catch
+                {
+
                 }
             }
         }
 
-        void AddNewUser(string login, string email, string role)
+        void AddNewUser(int i, string login, string email, string role)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)UserView.Resources["contentBorderStyle"] };
             var mainGrid = new Grid() { };
@@ -55,15 +71,17 @@ namespace ValeriankaApp
             TxtEmail.Inlines.Add(new TextBlock() { Text = $" {email}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
             TxtRole.Inlines.Add(new TextBlock() { Text = $" {role}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
             WrapPanel wp = new WrapPanel() { };
-            Button deleteBtn = new Button() { Width = 81, Height = 23, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(700, 0, 0, 0), FontWeight = FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Right };
+            Button deleteBtn = new Button() { Width = 81, Height = 23, Content = "Удалить", Foreground = Brushes.White, FontWeight = FontWeights.Bold, Cursor = Cursors.Hand };
             deleteBtn.Style = (Style)UserView.Resources["RoundedButtonStyle"];
             Grid.SetColumn(deleteBtn, 1);
+            deleteBtn.Name = login;
+            deleteBtn.Click += DeleteButtonOnClick;
+
             sp.Children.Add(TxtLogin);
             sp.Children.Add(TxtEmail);
             sp.Children.Add(TxtRole);
             mainGrid.Children.Add(sp);
             mainGrid.Children.Add(deleteBtn);
-
             borderPanel.Child = mainGrid;
             UserView.Children.Add(borderPanel);
         }
@@ -71,7 +89,7 @@ namespace ValeriankaApp
         private void Users_Click(object sender, MouseButtonEventArgs e)
         {
             UserView.Children.Clear();
-            LoadContent();
+            LoadContent(searchTxt.Text);
         }
 
         private void AddUser_Click(object sender, MouseButtonEventArgs e)
@@ -92,6 +110,32 @@ namespace ValeriankaApp
             AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
             this.Close();
             MPAW.ShowDialog();
+        }
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            UserView.Children.Clear();
+            LoadContent(searchTxt.Text);
+        }
+
+        private void DeleteButtonOnClick(object sender, EventArgs eventArgs)
+        {
+            var button = (Button)sender;
+            if (button != null)
+            {
+                using (var db = new Pharmacy_ValeriankaEntities())
+                {
+                    var user = db.Users.FirstOrDefault(x => x.UserLogin == button.Name);
+                    if (user == null)
+                    {
+                        return;
+                    }
+                    db.Users.Remove(user);
+                    db.SaveChanges();
+                    UserView.Children.Clear();
+                    LoadContent(searchTxt.Text);
+                }
+            }
         }
     }
 }

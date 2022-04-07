@@ -18,9 +18,10 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
@@ -54,7 +55,29 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ScrollViewer Grid.Row="1">
+        <Grid DockPanel.Dock="Top" Height="Auto" Background="#E5E5E5" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                
+            </Grid.ColumnDefinitions>
+            <TextBox Height="25" Margin="5" BorderThickness="1" Grid.Column="0" x:Name="searchTxt">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" Click="ButtonSearch_Click" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <ScrollViewer Grid.Row="2">
             <Border CornerRadius="10"  Margin="10" Background="#E6E6E6" Padding="0,0,0,5">
                 <StackPanel Name="UserView">
                     <StackPanel.Resources>

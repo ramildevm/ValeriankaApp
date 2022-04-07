@@ -48,7 +48,10 @@ namespace ValeriankaApp
                         i++;
                     }
                 }
-                catch { }
+                catch 
+                {
+                    
+                }
             }
         }
         void AddProductPanel(int i, string name, string purpose, int quantity, int price)

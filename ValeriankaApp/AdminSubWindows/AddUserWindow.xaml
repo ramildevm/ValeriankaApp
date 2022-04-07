@@ -81,13 +81,13 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
-                    <TextBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
-                        <TextBox.Resources>
+                    <PasswordBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
                     <Label Content="Роль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
                     <RadioButton Margin="20,5,0,0" Content="Клиент" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnClient" FontFamily="Roboto"/>
                     <RadioButton Margin="20,5,0,0" Content="Сотрудник" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnEmployee" FontFamily="Roboto"/>
