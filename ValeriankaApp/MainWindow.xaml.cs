@@ -37,8 +37,8 @@ namespace ValeriankaApp
             ClientMainWindow cmw = new ClientMainWindow();
             AdminWindow adminWindow = new AdminWindow();
             this.Hide();
-            //adminWindow.ShowDialog();
-            cmw.ShowDialog();
+            adminWindow.ShowDialog();
+            //cmw.ShowDialog();
         }
     }
 }

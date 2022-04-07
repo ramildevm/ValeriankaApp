@@ -17,7 +17,7 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <DockPanel>
         <StackPanel>
             <Grid Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
                 <Grid.ColumnDefinitions>
@@ -50,9 +50,42 @@
                     </Button.Resources>
                 </Button>
             </Grid>
-            <WrapPanel Margin="0,0,0,0" Name="UserView" Height="410" Background="#E6E6E6">
-
-            </WrapPanel>
+            <ScrollViewer>
+                <WrapPanel Name="UserView" Background="#E6E6E6" Height="Auto">
+                    <WrapPanel.Resources>
+                        <Style TargetType="Border" x:Key="contentBorderStyle">
+                            <Setter Property="Width" Value="744"/>
+                            <Setter Property="Height" Value="94"/>
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Margin" Value="10,5,0,0"/>
+                            <Setter Property="Background" Value="White"/>
+                        </Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Width" Value="744"/>
+                            <Setter Property="Margin" Value="10"/>
+                            <Setter Property="Background" Value="White"/>
+                        </Style>
+                        <Style TargetType="TextBlock" x:Key="Lbl">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="TextWrapping" Value="WrapWithOverFlow"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="10,0,0,0" />
+                            <Setter Property="Foreground" Value="#A500F3"/>
+                        </Style>
+                        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border CornerRadius="10" BorderThickness="1" Background="#A500F3">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </WrapPanel.Resources>
+                </WrapPanel>
+            </ScrollViewer>
         </StackPanel>
-    </Grid>
+    </DockPanel>
 </Window>

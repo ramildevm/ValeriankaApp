@@ -22,21 +22,49 @@ namespace ValeriankaApp
         public AdminWindow()
         {
             InitializeComponent();
+            LoadContent();
         }
 
-        void LoadUserView()
+        void LoadContent()
         {
-
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                List<Users> users = (from u in db.Users select u).ToList<Users>();
+                int i = 0;
+                foreach (var user in users)
+                {
+                    AddNewUser(user.UserLogin, user.UserEmail, user.UserRole);
+                    i++;
+                }
+            }
         }
 
-        void AddNewUser()
+        void AddNewUser(string login, string email, string role)
         {
+            var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)UserView.Resources["contentBorderStyle"] };
+            StackPanel sp = new StackPanel() { };
+            TextBlock TxtLogin = new TextBlock() { Text = "Логин: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0) };
+            TextBlock TxtEmail = new TextBlock() { Text = "Email: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 5, 0, 0) };
+            TextBlock TxtRole = new TextBlock() { Text = "Роль: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 5, 0, 0) };
+            TxtLogin.Inlines.Add(new TextBlock() { Text = $" {login}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
+            TxtEmail.Inlines.Add(new TextBlock() { Text = $" {email}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
+            TxtRole.Inlines.Add(new TextBlock() { Text = $" {role}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
+            WrapPanel wp = new WrapPanel() { };
+            Button deleteBtn = new Button() { Width = 81, Height = 23, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(634, -23, 0, 0), FontWeight = FontWeights.Bold };
+            deleteBtn.Style = (Style)UserView.Resources["RoundedButtonStyle"];
 
+            sp.Children.Add(TxtLogin);
+            sp.Children.Add(TxtEmail);
+            wp.Children.Add(TxtRole);
+            wp.Children.Add(deleteBtn);
+            sp.Children.Add(wp);
+            borderPanel.Child = sp;
+            UserView.Children.Add(borderPanel);
         }
 
         private void Users_Click(object sender, MouseButtonEventArgs e)
         {
-            
+            LoadContent();
         }
 
         private void AddUser_Click(object sender, MouseButtonEventArgs e)
@@ -55,6 +83,7 @@ namespace ValeriankaApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
+            this.Close();
             MPAW.ShowDialog();
         }
     }
