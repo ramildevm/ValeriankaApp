@@ -30,21 +30,25 @@ namespace ValeriankaApp
             using (var db = new Pharmacy_ValeriankaEntities())
             {
                 List<Product> products;
-                if (searchText == "")
+                try
                 {
-                    products = (from p in db.Product select p).ToList<Product>();
+                    if (searchText == "")
+                    {
+                        products = (from p in db.Product select p).ToList<Product>();
+                    }
+                    else
+                    {
+                        IEnumerable<Product> productsSet = (from p in db.Product select p);
+                        products = productsSet.Where(product => product.ProductName.Contains($"{searchText}")).ToList<Product>();
+                    }
+                    int i = 0;
+                    foreach (var product in products)
+                    {
+                        AddProductPanel(i, product.ProductName, product.ProductPurpose, product.ProductCount, product.ProductPrice);
+                        i++;
+                    }
                 }
-                else
-                {
-                    IEnumerable<Product> productsSet = (from p in db.Product select p);
-                    products = productsSet.Where(product => product.ProductName.Contains($"{searchText}")).ToList<Product>();
-                }
-                int i = 0;
-                foreach (var product in products)
-                {
-                    AddProductPanel(i, product.ProductName, product.ProductPurpose, product.ProductCount, product.ProductPrice);
-                    i++;
-                }
+                catch { }
             }
         }
         void AddProductPanel(int i, string name, string purpose, int quantity, int price)
@@ -143,10 +147,8 @@ namespace ValeriankaApp
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-            
-                contentPanel.Children.Clear();
-                LoadContent(searchTxt.Text);
-            
+            contentPanel.Children.Clear();
+            LoadContent(searchTxt.Text);
         }
     }
 }

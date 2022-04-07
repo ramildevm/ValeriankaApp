@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="Valerianka Админ" 
+        Title="Valerianka Админ"
+        Name="window"
         Height="500" Width="800">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
@@ -17,51 +18,53 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <DockPanel>
-        <StackPanel>
-            <Grid Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="22*"/>
-                    <ColumnDefinition Width="22*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="26*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" MouseLeftButtonUp="Users_Click" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" TextDecorations="Underline" Cursor="Hand">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Opacity="0.3"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" MouseLeftButtonUp="AddUser_Click" Grid.Column="2" HorizontalAlignment="Center" Cursor="Hand">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Opacity="0.3"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-                <TextBlock Style="{StaticResource TxtBl}" Text="Мой профиль" MouseLeftButtonUp="MyProfile_Click" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" Cursor="Hand">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Opacity="0.3"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-                <Button Grid.Column="3" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,20,0" BorderThickness="0" Click="Button_Click" Cursor="Hand">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="45"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </Grid>
-            <ScrollViewer>
-                <WrapPanel Name="UserView" Background="#E6E6E6" Height="Auto">
-                    <WrapPanel.Resources>
-                        <Style TargetType="Border" x:Key="contentBorderStyle">
-                            <Setter Property="Width" Value="744"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="26*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" MouseLeftButtonUp="Users_Click" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" TextDecorations="Underline" Cursor="Hand">
+                <TextBlock.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" MouseLeftButtonUp="AddUser_Click" Grid.Column="2" HorizontalAlignment="Center" Cursor="Hand">
+                <TextBlock.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Мой профиль" MouseLeftButtonUp="MyProfile_Click" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" Cursor="Hand">
+                <TextBlock.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <Button Grid.Column="3" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,20,0" BorderThickness="0" Click="Button_Click" Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="45"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <Border CornerRadius="10"  Margin="10" Background="#E6E6E6" Padding="0,0,0,5">
+                <StackPanel Name="UserView">
+                    <StackPanel.Resources>
+                        <Style TargetType="Border" x:Key="contentBorderStyle" >
                             <Setter Property="Height" Value="94"/>
                             <Setter Property="CornerRadius" Value="10"/>
-                            <Setter Property="Margin" Value="10,5,0,0"/>
+                            <Setter Property="Margin" Value="8,8,8,0"/>
                             <Setter Property="Background" Value="White"/>
                         </Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Width" Value="744"/>
+                        <Style TargetType="Grid">
                             <Setter Property="Margin" Value="10"/>
                             <Setter Property="Background" Value="White"/>
                         </Style>
@@ -73,6 +76,8 @@
                             <Setter Property="Foreground" Value="#A500F3"/>
                         </Style>
                         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,47,0,0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
@@ -83,9 +88,9 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </WrapPanel.Resources>
-                </WrapPanel>
-            </ScrollViewer>
-        </StackPanel>
-    </DockPanel>
+                    </StackPanel.Resources>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
 </Window>
