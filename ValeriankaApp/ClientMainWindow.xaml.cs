@@ -19,11 +19,18 @@ namespace ValeriankaApp
     /// </summary>
     public partial class ClientMainWindow : Window
     {
+        Boolean isCatalog;
         List<TextBox> quantityList = new List<TextBox>();
         public ClientMainWindow()
         {
             InitializeComponent();
+            isCatalog = true;
             LoadContent();
+            try
+            {
+                btnProfile.Content = SystemContext.User.UserLogin;
+            }
+            catch { }
         }
         void LoadContent(string searchText = "")
         {
@@ -34,11 +41,18 @@ namespace ValeriankaApp
                 {
                     if (searchText == "")
                     {
-                        products = (from p in db.Product select p).ToList<Product>();
+                        if (isCatalog)
+                            products = (from p in db.Product select p).ToList<Product>();
+                        else
+                            products = LoadShopCartProducts(db);
                     }
                     else
                     {
-                        IEnumerable<Product> productsSet = (from p in db.Product select p);
+                        IEnumerable<Product> productsSet;
+                        if (isCatalog)
+                            productsSet = (from p in db.Product select p);
+                        else
+                            productsSet = LoadShopCartProducts(db);
                         products = productsSet.Where(product => product.ProductName.Contains($"{searchText}")).ToList<Product>();
                     }
                     int i = 0;
@@ -48,12 +62,19 @@ namespace ValeriankaApp
                         i++;
                     }
                 }
-                catch 
-                {
-                    
-                }
+                catch { }
             }
         }
+
+        private List<Product> LoadShopCartProducts(Pharmacy_ValeriankaEntities db)
+        {
+            var shopCart = (from p in db.Product
+                            join sc in db.Basket on p.ProductID equals sc.ProductID
+                            where sc.ClientID == SystemContext.User.UserID
+                            select p).ToList<Product>();
+            return shopCart;
+        }
+
         void AddProductPanel(int i, string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
@@ -110,17 +131,6 @@ namespace ValeriankaApp
             }
             catch { if ((sender as TextBox).Text != "") (sender as TextBox).Text = "1"; }
         }
-
-        void LoadProduct()
-        {
-            contentPanel.Children.Clear();
-            StackPanel sp = new StackPanel() { Style = (Style)contentPanel.Resources["productSpStyle"] };
-
-
-            contentPanel.Children.Add(sp);
-
-        }
-
         private void ButtonIncrease_Click(object sender, RoutedEventArgs e)
         {
             int tag = Convert.ToInt32(((Button)sender).Tag);
@@ -136,6 +146,8 @@ namespace ValeriankaApp
         }
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
+            isCatalog = true;
+            SetButton();
             contentPanel.Children.Clear();
             LoadContent();
         }
@@ -145,7 +157,24 @@ namespace ValeriankaApp
         }
         private void ButtonCart_Click(object sender, RoutedEventArgs e)
         {
+            isCatalog = false;
+            SetButton();
+            contentPanel.Children.Clear();
+            LoadContent();
+        }
 
+        private void SetButton()
+        {
+            if (isCatalog)
+            {
+                txtCatalog.TextDecorations = TextDecorations.Underline;
+                txtShopCart.TextDecorations = null;
+            }
+            else
+            {
+                txtShopCart.TextDecorations = TextDecorations.Underline;
+                txtCatalog.TextDecorations = null;
+            }
         }
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
