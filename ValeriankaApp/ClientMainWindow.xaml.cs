@@ -153,5 +153,12 @@ namespace ValeriankaApp
             contentPanel.Children.Clear();
             LoadContent(searchTxt.Text);
         }
+
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfileWindow upw = new UserProfileWindow();
+            this.Close();
+            upw.ShowDialog();
+        }
     }
 }

@@ -8,7 +8,8 @@ namespace ValeriankaApp
 {
     static class SystemContext
     {
-        public static Users User { get; set; } = null;       
-        public static Product Product { get; set; } = null;       
+        public static Users User { get; set; } = null;
+        public static Product Product { get; set; } = null;
+        public static Client Client { get; set; } = null;
     }
 }

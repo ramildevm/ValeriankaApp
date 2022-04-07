@@ -80,21 +80,21 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
-                    <TextBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
-                        <TextBox.Resources>
+                    <PasswordBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
                     <Label Content="Подтвердите пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,0"/>
-                    <TextBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
-                        <TextBox.Resources>
+                    <PasswordBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,0" BorderThickness="0">
+                        <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
                     <Button Margin="15,10,0,0" Width="130" Height="27" Background="#A500F3" Content="Удалить аккаунт" Foreground="White" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Roboto" Click="DeleteButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">

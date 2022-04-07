@@ -57,14 +57,14 @@
                 <Button Grid.Column="2" Content="Корзина" Click="ButtonCart_Click" />
             </Grid>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
+                <Button Content="Мой профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" Click="ButtonMyProfile_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter />
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button  Width="37" Height="37">
+                <Button  Width="37" Height="37" Click="ButtonMyProfile_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
