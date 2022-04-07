@@ -42,8 +42,13 @@ namespace ValeriankaApp
         void AddNewUser(string login, string email, string role)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)UserView.Resources["contentBorderStyle"] };
+            var mainGrid = new Grid() { };
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star)});
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength()});
+
             StackPanel sp = new StackPanel() { };
-            TextBlock TxtLogin = new TextBlock() { Text = "Логин: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0) };
+            Grid.SetColumn(sp, 0);
+            TextBlock TxtLogin = new TextBlock() {Text = "Логин: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0) };
             TextBlock TxtEmail = new TextBlock() { Text = "Email: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 5, 0, 0) };
             TextBlock TxtRole = new TextBlock() { Text = "Роль: ", Style = (Style)UserView.Resources["Lbl"], Margin = new Thickness(0, 5, 0, 0) };
             TxtLogin.Inlines.Add(new TextBlock() { Text = $" {login}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
@@ -52,13 +57,14 @@ namespace ValeriankaApp
             WrapPanel wp = new WrapPanel() { };
             Button deleteBtn = new Button() { Width = 81, Height = 23, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(700, 0, 0, 0), FontWeight = FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Right };
             deleteBtn.Style = (Style)UserView.Resources["RoundedButtonStyle"];
-
+            Grid.SetColumn(deleteBtn, 1);
             sp.Children.Add(TxtLogin);
             sp.Children.Add(TxtEmail);
-            wp.Children.Add(TxtRole);
-            wp.Children.Add(deleteBtn);
-            sp.Children.Add(wp);
-            borderPanel.Child = sp;
+            sp.Children.Add(TxtRole);
+            mainGrid.Children.Add(sp);
+            mainGrid.Children.Add(deleteBtn);
+
+            borderPanel.Child = mainGrid;
             UserView.Children.Add(borderPanel);
         }
 

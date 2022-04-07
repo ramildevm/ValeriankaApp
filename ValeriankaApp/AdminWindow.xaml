@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="Valerianka Админ" 
+        Title="Valerianka Админ"
+        Name="window"
         Height="500" Width="800">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
@@ -17,8 +18,12 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <DockPanel Width="Auto" Height="Auto">
-        <Grid Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD" DockPanel.Dock="Top">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,0" Name="ButtonsView" Height="60" Background="#68CACD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="22*"/>
                 <ColumnDefinition Width="22*"/>
@@ -49,40 +54,43 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ScrollViewer>
-            <WrapPanel Name="UserView" Background="#E6E6E6" Height="Auto">
-                <WrapPanel.Resources>
-                    <Style TargetType="Border" x:Key="contentBorderStyle">
-                        <Setter Property="Height" Value="94"/>
-                        <Setter Property="CornerRadius" Value="10"/>
-                        <Setter Property="Margin" Value="10,5,10,0"/>
-                        <Setter Property="Background" Value="White"/>
-                    </Style>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Width" Value="2400"/>
-                        <Setter Property="Margin" Value="10"/>
-                        <Setter Property="Background" Value="White"/>
-                    </Style>
-                    <Style TargetType="TextBlock" x:Key="Lbl">
-                        <Setter Property="FontSize" Value="14"/>
-                        <Setter Property="TextWrapping" Value="WrapWithOverFlow"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Margin" Value="10,0,0,0" />
-                        <Setter Property="Foreground" Value="#A500F3"/>
-                    </Style>
-                    <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="10" BorderThickness="1" Background="#A500F3">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </WrapPanel.Resources>
-            </WrapPanel>
+        <ScrollViewer Grid.Row="1">
+            <Border CornerRadius="10"  Margin="10" Background="#E6E6E6" Padding="0,0,0,5">
+                <StackPanel Name="UserView">
+                    <StackPanel.Resources>
+                        <Style TargetType="Border" x:Key="contentBorderStyle" >
+                            <Setter Property="Height" Value="94"/>
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Margin" Value="8,8,8,0"/>
+                            <Setter Property="Background" Value="White"/>
+                        </Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Margin" Value="10"/>
+                            <Setter Property="Background" Value="White"/>
+                        </Style>
+                        <Style TargetType="TextBlock" x:Key="Lbl">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="TextWrapping" Value="WrapWithOverFlow"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="10,0,0,0" />
+                            <Setter Property="Foreground" Value="#A500F3"/>
+                        </Style>
+                        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,47,0,0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border CornerRadius="10" BorderThickness="1" Background="#A500F3">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                </StackPanel>
+            </Border>
         </ScrollViewer>
-    </DockPanel>
+    </Grid>
 </Window>
