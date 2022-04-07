@@ -44,5 +44,20 @@ namespace ValeriankaApp
             this.Close();
             
         }
+
+        private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonMyOrders_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonCart_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

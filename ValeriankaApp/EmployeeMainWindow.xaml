@@ -1,11 +1,11 @@
-﻿<Window x:Class="ValeriankaApp.ClientMainWindow"
+﻿<Window x:Class="ValeriankaApp.EmployeeMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="ClientMainWindow" Height="458" Width="750">
+        Title="EmployeeMainWindow" Height="458" Width="750">
     <Window.Resources>
         <Style x:Key="Lbl13" TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
@@ -48,13 +48,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Click="ButtonCatalog_Click" Cursor="Hand">
-                    <TextBlock TextDecorations="Underline" Text="Каталог"  />
+                    <TextBlock TextDecorations="Underline" Text="Товары"  />
                 </Button>
-                <Button Grid.Column="1" Content="Мои заказы" Click="ButtonMyOrders_Click" Cursor="Hand"/>
-                <Button Grid.Column="2" Content="Корзина" Click="ButtonCart_Click" />
+                <Button Grid.Column="1" Content="Заказы" Click="ButtonOrders_Click" Cursor="Hand"/>
             </Grid>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
@@ -80,14 +78,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                
+
             </Grid.ColumnDefinitions>
             <TextBox Height="25" Margin="5" BorderThickness="1" Grid.Column="0" x:Name="searchTxt">
                 <TextBox.Resources>
-                    <Style TargetType="Border">                    
+                    <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                         <Setter Property="BorderThickness" Value="0"/>
-                    </Style>                    
+                    </Style>
                 </TextBox.Resources>
             </TextBox>
             <Button Grid.Column="1" Content="Найти" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
@@ -103,7 +101,7 @@
                 <WrapPanel.Resources>
                     <Style TargetType="Border" x:Key="contentBorderStyle">
                         <Setter Property="Width" Value="220"/>
-                        <Setter Property="Height" Value="280"/>
+                        <Setter Property="Height" Value="260"/>
                         <Setter Property="CornerRadius" Value="10"/>
                         <Setter Property="Margin" Value="18,18,0,18"/>
                         <Setter Property="Background" Value="White"/>
@@ -115,9 +113,9 @@
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="13"/>
-                        <Setter Property="TextWrapping" Value="WrapWithOverFlow"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Margin" Value="12,0,0,0" />
+                        <Setter Property="Cursor" Value="Hand"/>
                     </Style>
                     <Style TargetType="Image">
                         <Setter Property="Width" Value="206" />
@@ -127,6 +125,7 @@
                         <Setter Property="Stretch" Value="Uniform" />
                     </Style>
                     <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+                        <Setter Property="Cursor" Value="Hand"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
