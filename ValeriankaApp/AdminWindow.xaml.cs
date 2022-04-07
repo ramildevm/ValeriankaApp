@@ -50,7 +50,7 @@ namespace ValeriankaApp
             TxtEmail.Inlines.Add(new TextBlock() { Text = $" {email}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
             TxtRole.Inlines.Add(new TextBlock() { Text = $" {role}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
             WrapPanel wp = new WrapPanel() { };
-            Button deleteBtn = new Button() { Width = 81, Height = 23, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(634, -23, 0, 0), FontWeight = FontWeights.Bold };
+            Button deleteBtn = new Button() { Width = 81, Height = 23, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(700, 0, 0, 0), FontWeight = FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Right };
             deleteBtn.Style = (Style)UserView.Resources["RoundedButtonStyle"];
 
             sp.Children.Add(TxtLogin);
@@ -64,6 +64,7 @@ namespace ValeriankaApp
 
         private void Users_Click(object sender, MouseButtonEventArgs e)
         {
+            UserView.Children.Clear();
             LoadContent();
         }
 
