@@ -56,11 +56,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Click="ButtonCatalog_Click" Cursor="Hand">
+                <Button Grid.Column="0" Cursor="Hand">
                     <TextBlock Text="Каталог"  />
                 </Button>
-                <Button Grid.Column="1" Content="Мои заказы" Click="ButtonMyOrders_Click" Cursor="Hand"/>
-                <Button Grid.Column="2" Content="Корзина" Click="ButtonCart_Click" />
+                <Button Grid.Column="1" Content="Мои заказы" Cursor="Hand"/>
+                <Button Grid.Column="2" Content="Корзина" />
             </Grid>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button  Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">

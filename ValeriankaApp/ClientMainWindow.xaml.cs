@@ -28,8 +28,6 @@ namespace ValeriankaApp
         void LoadContent()
         {
             Random rand = new Random();
-            string text = "Some recipe description. сведения о Horizondation";
-            int price = 1200;
             for (int i = 0; i < 10; i++)
             {
                 AddProductPanel(i, $"Name {i}", "от горла", rand.Next(1, 20), i * 1000);
@@ -39,7 +37,7 @@ namespace ValeriankaApp
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
-            Image img = new Image() { Source = (ImageSource)(new ImageSourceConverter().ConvertFrom("/ValeriankaApp;component/Images/Suprastin.jpg")) };
+            Image img = new Image() { Source = (ImageSource)(new ImageSourceConverter().ConvertFrom("C:/Users/sasha/Source/Repos/ValeriankaApp/ValeriankaApp/Images/Suprastin.jpg")) };
             TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
             TextBlock availabilityTxt = new TextBlock() { Text = "Наличие:", Margin = new Thickness(12, 0, 3, 0) };

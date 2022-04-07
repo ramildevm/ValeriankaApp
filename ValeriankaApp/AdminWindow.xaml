@@ -50,9 +50,9 @@
                     </Button.Resources>
                 </Button>
             </Grid>
-            <StackPanel Margin="0,0,0,0" Name="UserView" Height="410" Background="#E6E6E6">
+            <WrapPanel Margin="0,0,0,0" Name="UserView" Height="410" Background="#E6E6E6">
 
-            </StackPanel>
+            </WrapPanel>
         </StackPanel>
     </Grid>
 </Window>

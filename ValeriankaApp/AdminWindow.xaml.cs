@@ -24,6 +24,16 @@ namespace ValeriankaApp
             InitializeComponent();
         }
 
+        void LoadUserView()
+        {
+
+        }
+
+        void AddNewUser()
+        {
+
+        }
+
         private void Users_Click(object sender, MouseButtonEventArgs e)
         {
             
