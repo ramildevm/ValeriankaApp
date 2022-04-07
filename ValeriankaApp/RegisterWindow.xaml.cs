@@ -23,13 +23,41 @@ namespace ValeriankaApp
         {
             InitializeComponent();
         }
-        private void ButtonReg_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            var loginPage = new MainWindow();
             this.Close();
+            loginPage.ShowDialog();
+        }
+        string registerMethod(string login, string password, string confirmPas, string email)
+        {
+            if (email.Length ==0)
+                return "Не все поля заполнены!";
+            if (login.Length < 5 || login.Length == 0)
+                return "Логин должен содержать от 5 символов!";
+            if (password.Length < 8 || password.Length == 0)
+                return "Минимальный размер пароля: 8 символов!";
+            if (password != confirmPas)
+                return "Пароли не соответсвуют друг другу!";
+            using(var db = new Pharmacy_ValeriankaEntities())
+            {
+                Users user = (from u in db.Users where u.UserLogin == login select u).FirstOrDefault<Users>();
+                if (user != null)
+                    return "Пользователь с таким логином уже существует!";
+                db.Users.Add(new Users() {UserLogin = login,UserPassword = password,UserEmail = email });
+                db.SaveChanges();
+            }
+            return "Регистрация прошла успешно!";
+        }
+
+        private void ButtonReg_Click(object sender, RoutedEventArgs e)
+        {
+            string result = registerMethod(txtLogin.Text, txtPassword.Password, txtPasswordConfirm.Password, txtEmail.Text);
+            MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(txtPassword.Password, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
+          
+            if (result == "Регистрация прошла успешно!")
+                ButtonBack_Click(this, new RoutedEventArgs());
         }
     }
 }

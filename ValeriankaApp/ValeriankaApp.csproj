@@ -121,6 +121,7 @@
     <Compile Include="ShopAddressLink.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SystemContext.cs" />
     <Compile Include="UserProfileWindow.xaml.cs">
       <DependentUpon>UserProfileWindow.xaml</DependentUpon>
     </Compile>

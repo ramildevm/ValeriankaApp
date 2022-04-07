@@ -21,6 +21,17 @@
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="Margin" Value="12,0,0,0"/>
         </Style>
+        <Style x:Key="RoundedPasswordStyle" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border CornerRadius="5" BorderThickness="1" Background="White" BorderBrush="#ABADB3">
+                            <PasswordBox BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>                
+            </Setter>
+        </Style>
     </Window.Resources>
     <StackPanel>
         <StackPanel.Background>
@@ -54,21 +65,13 @@
                     </TextBox.Resources>
                 </TextBox>
                 <Label Content="Пароль" Style="{StaticResource LblLeft}"/>
-                <PasswordBox x:Name="txtPassword" Width="Auto" Margin="15,0,15,0" Height="25" VerticalContentAlignment="Center" Background="White">
-                    <PasswordBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </PasswordBox.Resources>
-                </PasswordBox>
+                <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
+                    <PasswordBox x:Name="txtPassword" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                </Border>
                 <Label Content="Потвердите пароль" Style="{StaticResource LblLeft}"/>
-                <TextBox x:Name="txtPasswordConfirm" Width="Auto" Margin="15,0,15,0" Height="25" VerticalContentAlignment="Center" Background="White">
-                    <TextBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
+                    <PasswordBox x:Name="txtPasswordConfirm" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                </Border>
                 <Button Content="Зарегистрироваться" Width="171" Height="36" FontWeight="Bold" Background="White" Margin="0,17,0,14" BorderThickness="0" Click="ButtonReg_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
