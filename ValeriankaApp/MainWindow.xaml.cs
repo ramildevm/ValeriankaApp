@@ -37,11 +37,32 @@ namespace ValeriankaApp
             MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
             if (result == $"Добро пожаловать, {txtLogin.Text}!")
             {
-                ClientMainWindow cmw = new ClientMainWindow();
-                //AdminWindow adminWindow = new AdminWindow();
-                this.Close();
-                //adminWindow.ShowDialog();
-                cmw.ShowDialog();
+                using (var db = new Pharmacy_ValeriankaEntities())
+                {
+                    Users user = (from u in db.Users where u.UserLogin == txtLogin.Text select u).FirstOrDefault();
+                    if (user.UserRole == "User")
+                    {
+                        ClientMainWindow cmw = new ClientMainWindow();
+                        this.Close();
+                        cmw.ShowDialog();
+                    }
+                    else if (user.UserRole == "Employee")
+                    {
+                        EmployeeMainWindow emw = new EmployeeMainWindow();
+                        this.Close();
+                        emw.ShowDialog();
+                    }
+                    else if (user.UserRole == "Admin")
+                    {
+                        AdminWindow aw = new AdminWindow();
+                        this.Close();
+                        aw.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Произошла ошибка с определением роли пользователя", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
 

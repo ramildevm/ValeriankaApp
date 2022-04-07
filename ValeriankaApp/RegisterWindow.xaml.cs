@@ -44,7 +44,7 @@ namespace ValeriankaApp
                 Users user = (from u in db.Users where u.UserLogin == login select u).FirstOrDefault<Users>();
                 if (user != null)
                     return "Пользователь с таким логином уже существует!";
-                db.Users.Add(new Users() {UserLogin = login,UserPassword = password,UserEmail = email });
+                db.Users.Add(new Users() {UserLogin = login,UserPassword = password,UserEmail = email, UserRole = "User" });
                 db.SaveChanges();
             }
             return "Регистрация прошла успешно!";
@@ -54,8 +54,6 @@ namespace ValeriankaApp
         {
             string result = registerMethod(txtLogin.Text, txtPassword.Password, txtPasswordConfirm.Password, txtEmail.Text);
             MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
-            MessageBox.Show(txtPassword.Password, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
-          
             if (result == "Регистрация прошла успешно!")
                 ButtonBack_Click(this, new RoutedEventArgs());
         }
