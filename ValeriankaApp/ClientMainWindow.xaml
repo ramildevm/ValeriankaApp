@@ -20,7 +20,7 @@
             <Setter Property="Margin" Value="12,0,0,0"/>
         </Style>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel  Background="#E5E5E5">
         <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -51,20 +51,15 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Click="ButtonCatalog_Click" Cursor="Hand">
-                    <TextBlock TextDecorations="Underline" Text="Каталог"  />
+                    <TextBlock x:Name="txtCatalog" TextDecorations="Underline" Text="Каталог"  />
                 </Button>
                 <Button Grid.Column="1" Content="Мои заказы" Click="ButtonMyOrders_Click" Cursor="Hand"/>
-                <Button Grid.Column="2" Content="Корзина" Click="ButtonCart_Click" />
-            </Grid>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button Content="Мой профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" Click="ButtonMyProfile_Click">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter />
-                        </ControlTemplate>
-                    </Button.Template>
+                <Button Grid.Column="2" Click="ButtonCart_Click" Cursor="Hand">
+                    <TextBlock x:Name="txtShopCart" Text="Корзина"  />
                 </Button>
-                <Button  Width="37" Height="37" Click="ButtonMyProfile_Click">
+            </Grid>
+            <DockPanel Grid.Column="2" >
+                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -74,7 +69,14 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </StackPanel>
+                <Button HorizontalAlignment="Right" x:Name="btnProfile" Content="" DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
         </Grid>
         <Grid DockPanel.Dock="Top" Height="Auto" Background="#E5E5E5">
             <Grid.ColumnDefinitions>
@@ -98,7 +100,7 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ScrollViewer>
+        <ScrollViewer DockPanel.Dock="Top">
             <WrapPanel x:Name="contentPanel" Background="#E5E5E5">
                 <WrapPanel.Resources>
                     <Style TargetType="Border" x:Key="contentBorderStyle">
@@ -141,5 +143,12 @@
                 <!--content here-->
             </WrapPanel>
         </ScrollViewer>
+        <Button DockPanel.Dock="Bottom" x:Name="goOrderBtn" Click="ButtonOrder_Click" BorderThickness="0"  Visibility="Hidden" Cursor="Hand"  VerticalAlignment="Bottom"  Height="37" Width="131" FontWeight="Bold" Foreground="White" Content="Оформить заказ" Background="#68CACD" HorizontalAlignment="Right" Margin="0,-60,25,15">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </DockPanel>
 </Window>

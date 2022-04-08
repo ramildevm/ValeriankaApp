@@ -36,7 +36,6 @@ namespace ValeriankaApp
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             string result = LoginMethod(txtLogin.Text, txtPassword.Password);
-            MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
             if (result == $"Добро пожаловать, {txtLogin.Text}!")
             {
                 using (var db = new Pharmacy_ValeriankaEntities())
@@ -66,8 +65,11 @@ namespace ValeriankaApp
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
-
         private string LoginMethod(string login, string password)
         {
             if (login.Length == 0 || password.Length == 0)
@@ -79,6 +81,8 @@ namespace ValeriankaApp
                     return "Пользователя с таким логином не существует!";
                 if (user.UserPassword != password)
                     return "Неверный пароль!";
+                if(user.UserRole == "User")
+                    SystemContext.Client = (from c in db.Client where c.UserID == user.UserID select c).FirstOrDefault();
                 SystemContext.User = user;
             }
             return $"Добро пожаловать, {login}!";
