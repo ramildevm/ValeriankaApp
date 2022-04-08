@@ -132,7 +132,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Border CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,338,0,0" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0">
+                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,338,0,0" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0">
                         <TextBlock Text="Выйти из системы" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
@@ -164,7 +164,7 @@
                             </Style>
                         </ComboBox.Resources>
                     </ComboBox>
-                    <Border CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2">
+                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2">
                         <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
