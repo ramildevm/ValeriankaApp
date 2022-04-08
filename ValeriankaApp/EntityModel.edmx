@@ -286,7 +286,7 @@
           <Property Name="ProductType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductPurpose" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductManufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductCount" Type="Int32" Nullable="false" />
           <Property Name="ProductPrice" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Basket" Relationship="Self.FK__Basket__ProductI__4CA06362" FromRole="Product" ToRole="Basket" />

@@ -82,6 +82,9 @@
     <Compile Include="ClientMainWindow.xaml.cs">
       <DependentUpon>ClientMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeCreateWindow.xaml.cs">
+      <DependentUpon>EmployeeCreateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeMainWindow.xaml.cs">
       <DependentUpon>EmployeeMainWindow.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmployeeCreateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
