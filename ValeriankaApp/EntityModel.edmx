@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Pharmacy_ValeriankaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Pharmacy_ValeriankaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Basket">
           <Key>
             <PropertyRef Name="BasketID" />
@@ -20,9 +20,9 @@
           </Key>
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="ClientFIO" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ClientNumber" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ClientPreferredAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ClientFIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="ClientNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="ClientPreferredAddress" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -231,8 +231,7 @@
             <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Pharmacy_ValeriankaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -253,9 +252,9 @@
           </Key>
           <Property Name="ClientID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="ClientFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientPreferredAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="ClientNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="ClientPreferredAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
           <NavigationProperty Name="Basket" Relationship="Self.FK__Basket__ClientID__4BAC3F29" FromRole="Client" ToRole="Basket" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Client__UserID__48CFD27E" FromRole="Client" ToRole="Users" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ClientID__5070F446" FromRole="Client" ToRole="Orders" />
