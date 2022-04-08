@@ -59,7 +59,8 @@
                 </Button>
             </Grid>
             <DockPanel Grid.Column="2" >
-                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0">
+
+                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0" Click="ButtonMyProfile_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -82,14 +83,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                
+
             </Grid.ColumnDefinitions>
             <TextBox Height="25" Margin="5" BorderThickness="1" Grid.Column="0" x:Name="searchTxt">
                 <TextBox.Resources>
-                    <Style TargetType="Border">                    
+                    <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                         <Setter Property="BorderThickness" Value="0"/>
-                    </Style>                    
+                    </Style>
                 </TextBox.Resources>
             </TextBox>
             <Button Grid.Column="1" Content="Найти" Width="100" Height="25" Click="ButtonSearch_Click" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >

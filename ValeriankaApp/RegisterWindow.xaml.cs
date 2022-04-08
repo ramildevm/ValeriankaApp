@@ -46,7 +46,7 @@ namespace ValeriankaApp
                     return "Пользователь с таким логином уже существует!";
 
                 Users user2 = db.Users.Add(new Users() { UserLogin = login, UserPassword = password, UserEmail = email, UserRole = "User" });
-                db.Client.Add(new Client() {ClientID= user2.UserID, UserID =  user2.UserID});
+                db.Client.Add(new Client() {UserID =  user2.UserID, ClientFIO = null, ClientNumber = null, ClientPreferredAddress = null });
                 db.SaveChanges();
             }
             return "Регистрация прошла успешно!";

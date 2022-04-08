@@ -29,6 +29,7 @@ namespace ValeriankaApp
             try
             {
                 btnProfile.Content = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
             }
             catch { }
         }
@@ -70,7 +71,7 @@ namespace ValeriankaApp
         {
             var shopCart = (from p in db.Product
                             join sc in db.Basket on p.ProductID equals sc.ProductID
-                            where sc.ClientID == SystemContext.User.UserID
+                            where sc.ClientID == SystemContext.Client.ClientID
                             select p).ToList<Product>();
             return shopCart;
         }
@@ -90,10 +91,10 @@ namespace ValeriankaApp
             StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
             Button reduceBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             reduceBtn.Click += ButtonReduce_Click;
-            TextBox quantityTxtBox = new TextBox() { Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
+            TextBox quantityTxtBox = new TextBox() { MaxLength = 3, Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
             if (!isCatalog)
             {
-                using(var db = new Pharmacy_ValeriankaEntities())
+                using (var db = new Pharmacy_ValeriankaEntities())
                 {
                     var client = SystemContext.Client;
                     var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
@@ -105,7 +106,7 @@ namespace ValeriankaApp
             quantityList[product.ProductID] = quantityTxtBox;
             Button increaseBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             increaseBtn.Click += ButtonIncrease_Click;
-            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0),Cursor=Cursors.Hand };
+            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0), Cursor = Cursors.Hand };
 
             if (isCatalog)
                 addBtn.Click += ButtonAdd_Click;
@@ -155,16 +156,16 @@ namespace ValeriankaApp
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            using(var db = new Pharmacy_ValeriankaEntities())
+            using (var db = new Pharmacy_ValeriankaEntities())
             {
                 var client = SystemContext.Client;
                 var product = ((Product)(sender as Button).Tag);
                 var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
-                if(productShopCart == null)
-                    db.Basket.Add(new Basket() {ClientID = client.ClientID,ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text)});
+                if (productShopCart == null)
+                    db.Basket.Add(new Basket() { ClientID = client.ClientID, ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text) });
                 else
                 {
-                    productShopCart.BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text);
+                    productShopCart.BasketProductCount += Convert.ToInt32(quantityList[product.ProductID].Text);
                     db.Entry(productShopCart).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
@@ -173,13 +174,13 @@ namespace ValeriankaApp
 
         private void QuantityTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 if (Convert.ToInt32((sender as TextBox).Text) < 1)
                     (sender as TextBox).Text = "1";
                 if (!isCatalog)
                 {
-                    using(var db = new Pharmacy_ValeriankaEntities())
+                    using (var db = new Pharmacy_ValeriankaEntities())
                     {
                         var productShopCart = ((Basket)(sender as TextBox).Tag);
                         productShopCart.BasketProductCount = Convert.ToInt32((sender as TextBox).Text);
@@ -187,12 +188,13 @@ namespace ValeriankaApp
                         db.SaveChanges();
                     }
                 }
-            //}
-            //catch 
-            //{ 
-            //    if ((sender as TextBox).Text != "") 
-            //        (sender as TextBox).Text = "1"; 
-            //}
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if ((sender as TextBox).Text != "")
+                    (sender as TextBox).Text = "1";
+            }
         }
         private void ButtonIncrease_Click(object sender, RoutedEventArgs e)
         {
@@ -204,8 +206,7 @@ namespace ValeriankaApp
         {
             int tag = Convert.ToInt32(((Button)sender).Tag);
             int num = Convert.ToInt32(quantityList[tag].Text);
-
-                quantityList[tag].Text = (num - 1).ToString();
+            quantityList[tag].Text = (num - 1).ToString();
         }
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
@@ -250,16 +251,18 @@ namespace ValeriankaApp
             LoadContent(searchTxt.Text);
         }
 
-
         private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
         {
             UserProfileWindow upw = new UserProfileWindow();
             this.Close();
             upw.ShowDialog();
         }
+
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
-        
+            OrderingWindow ow = new OrderingWindow();
+            this.Close();
+            ow.ShowDialog();
         }
     }
 }
