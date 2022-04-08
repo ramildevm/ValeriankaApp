@@ -114,7 +114,9 @@ namespace ValeriankaApp
         }
         private void ButtonOrders_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeOrderListWindow eolw = new EmployeeOrderListWindow();
+            this.Close();
+            eolw.ShowDialog();
         }
         private void ButtonCart_Click(object sender, RoutedEventArgs e)
         {

@@ -11,5 +11,7 @@ namespace ValeriankaApp
         public static Users User { get; set; } = null;
         public static Product Product { get; set; } = null;
         public static Client Client { get; set; } = null;
+        public static Shop Shop { get; set; } = null;
+        public static Orders Orders { get; set; } = null;
     }
 }

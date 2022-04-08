@@ -1,11 +1,11 @@
-﻿<Window x:Class="ValeriankaApp.OrderListWindow"
+﻿<Window x:Class="ValeriankaApp.EmployeeOrderListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="Заказы" 
+        Title="Заказы пользователей" 
         Height="500" Width="800">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
@@ -81,13 +81,13 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
+
         <ScrollViewer Grid.Row="2">
             <Border CornerRadius="10"  Margin="10" Background="#E6E6E6" Padding="0,0,0,5">
                 <StackPanel Name="OrdersView">
                     <StackPanel.Resources>
                         <Style TargetType="Border" x:Key="contentBorderStyle" >
-                            <Setter Property="Height" Value="84"/>
+                            <Setter Property="Height" Value="153"/>
                             <Setter Property="CornerRadius" Value="10"/>
                             <Setter Property="Margin" Value="8,8,8,0"/>
                             <Setter Property="Background" Value="White"/>
@@ -109,7 +109,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
-                                        <Border CornerRadius="10" BorderThickness="1" Background="#A500F3">
+                                        <Border CornerRadius="10" BorderThickness="1" Background="#68CACD">
                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
                                     </ControlTemplate>
