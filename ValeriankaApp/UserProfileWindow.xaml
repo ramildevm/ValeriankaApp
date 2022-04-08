@@ -110,21 +110,21 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,60" Grid.Column="0"/>
-                    <TextBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,20" BorderThickness="0" Grid.Column="0">
-                        <TextBox.Resources>
+                    <PasswordBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,20" BorderThickness="0" Grid.Column="0">
+                        <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
                     <Label Content="Подтвердите пароль" Style="{StaticResource LeftLbl}" Margin="10,33,0,0" Grid.Column="0"/>
-                    <TextBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,73,0,0" BorderThickness="0" Grid.Column="0">
-                        <TextBox.Resources>
+                    <PasswordBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,73,0,0" BorderThickness="0" Grid.Column="0">
+                        <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
                     <Button Margin="15,150,0,0" Width="130" Height="27" Background="#A500F3" Content="Удалить аккаунт" Foreground="White" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Roboto" Click="DeleteButton_Click" Grid.Column="0">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -157,13 +157,13 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Label Content="Адрес магазина по умолчанию" Style="{StaticResource LeftLbl}" Margin="0,3,0,60" Grid.Column="2"/>
-                    <TextBox x:Name="txtBaseAddress" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,20" BorderThickness="0" Grid.Column="2">
-                        <TextBox.Resources>
+                    <ComboBox x:Name="ComBoxBaseAddress" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,20" BorderThickness="0" Grid.Column="2">
+                        <ComboBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                        </ComboBox.Resources>
+                    </ComboBox>
                     <Border CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2">
                         <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>

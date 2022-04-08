@@ -55,8 +55,6 @@ namespace ValeriankaApp
         {
             string result = registerMethod(txtLogin.Text, txtPassword.Password, txtPasswordConfirm.Password, txtEmail.Text);
             MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
-            MessageBox.Show(txtPassword.Password, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
-          
             if (result == "Регистрация прошла успешно!")
                 ButtonBack_Click(this, new RoutedEventArgs());
         }

@@ -248,9 +248,11 @@ namespace ValeriankaApp
             LoadContent(searchTxt.Text);
         }
 
-        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            UserProfileWindow upw = new UserProfileWindow();
+            this.Close();
+            upw.ShowDialog();
         }
     }
 }

@@ -26,6 +26,16 @@ namespace ValeriankaApp.AdminSubWindows
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserLogin == SystemContext.User.UserLogin);
+                if (user == null)
+                {
+                    return;
+                }
+                db.Users.Remove(user);
+                db.SaveChanges();
+            }
             MainWindow mainWindow = new MainWindow();
             this.Close();
             mainWindow.ShowDialog();
@@ -40,6 +50,29 @@ namespace ValeriankaApp.AdminSubWindows
 
         private void SaveChanges_Click(object sender, MouseButtonEventArgs e)
         {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                Client client = new Client();
+                SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+                string user = SystemContext.User.UserLogin;
+                if (txtLogin.Text != "" || txtEmail.Text != "" || txtPassword.Password != "")
+                {
+                    if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != user)
+                    {
+                        SystemContext.User.UserLogin = txtLogin.Text;
+                    }
+                    if (txtEmail.Text != "" && txtEmail.Text != SystemContext.User.UserEmail)
+                    {
+                        SystemContext.User.UserEmail = txtEmail.Text;
+                    }
+                    if (txtPassword.Password == txtPasswordConfirm.Password && txtPassword.Password != "" && txtPassword.Password.Length >= 8 && SystemContext.User.UserPassword != txtPassword.Password)
+                    {
+                        SystemContext.User.UserPassword = txtPassword.Password;
+                    }
+                    db.Entry(SystemContext.User).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
             AdminWindow adminWindow = new AdminWindow();
             this.Close();
             adminWindow.ShowDialog();

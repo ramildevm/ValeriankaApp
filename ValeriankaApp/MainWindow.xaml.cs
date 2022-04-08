@@ -23,6 +23,8 @@ namespace ValeriankaApp
         public MainWindow()
         {
             InitializeComponent();
+            txtLogin.Text = "Damirka";
+            txtPassword.Password = "qqqqwwww";
         }
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
@@ -36,11 +38,32 @@ namespace ValeriankaApp
             string result = LoginMethod(txtLogin.Text, txtPassword.Password);
             if (result == $"Добро пожаловать, {txtLogin.Text}!")
             {
-                ClientMainWindow cmw = new ClientMainWindow();
-                //AdminWindow adminWindow = new AdminWindow();
-                this.Close();
-                //adminWindow.ShowDialog();
-                cmw.ShowDialog();
+                using (var db = new Pharmacy_ValeriankaEntities())
+                {
+                    Users user = (from u in db.Users where u.UserLogin == txtLogin.Text select u).FirstOrDefault();
+                    if (user.UserRole == "User")
+                    {
+                        ClientMainWindow cmw = new ClientMainWindow();
+                        this.Close();
+                        cmw.ShowDialog();
+                    }
+                    else if (user.UserRole == "Employee")
+                    {
+                        EmployeeMainWindow emw = new EmployeeMainWindow();
+                        this.Close();
+                        emw.ShowDialog();
+                    }
+                    else if (user.UserRole == "Admin")
+                    {
+                        AdminWindow aw = new AdminWindow();
+                        this.Close();
+                        aw.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Произошла ошибка с определением роли пользователя", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
             else
             {
