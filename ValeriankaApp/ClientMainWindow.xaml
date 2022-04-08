@@ -20,7 +20,7 @@
             <Setter Property="Margin" Value="12,0,0,0"/>
         </Style>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel  Background="#E5E5E5">
         <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -55,7 +55,7 @@
                 </Button>
                 <Button Grid.Column="1" Content="Мои заказы" Click="ButtonMyOrders_Click" Cursor="Hand"/>
                 <Button Grid.Column="2" Click="ButtonCart_Click" Cursor="Hand">
-                    <TextBlock x:Name="txtShopCart" Text="Каталог"  />
+                    <TextBlock x:Name="txtShopCart" Text="Корзина"  />
                 </Button>
             </Grid>
             <DockPanel Grid.Column="2" >
@@ -101,7 +101,7 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ScrollViewer>
+        <ScrollViewer DockPanel.Dock="Top">
             <WrapPanel x:Name="contentPanel" Background="#E5E5E5">
                 <WrapPanel.Resources>
                     <Style TargetType="Border" x:Key="contentBorderStyle">
@@ -144,5 +144,12 @@
                 <!--content here-->
             </WrapPanel>
         </ScrollViewer>
+        <Button DockPanel.Dock="Bottom" x:Name="goOrderBtn" Click="ButtonOrder_Click" BorderThickness="0"  Visibility="Hidden" Cursor="Hand"  VerticalAlignment="Bottom"  Height="37" Width="131" FontWeight="Bold" Foreground="White" Content="Оформить заказ" Background="#68CACD" HorizontalAlignment="Right" Margin="0,-60,25,15">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </DockPanel>
 </Window>

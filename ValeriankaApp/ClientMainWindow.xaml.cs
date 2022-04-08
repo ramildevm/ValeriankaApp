@@ -20,7 +20,7 @@ namespace ValeriankaApp
     public partial class ClientMainWindow : Window
     {
         Boolean isCatalog;
-        List<TextBox> quantityList = new List<TextBox>();
+        Dictionary<int, TextBox> quantityList = new Dictionary<int, TextBox>();
         public ClientMainWindow()
         {
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace ValeriankaApp
                     int i = 0;
                     foreach (var product in products)
                     {
-                        AddProductPanel(i, product.ProductName, product.ProductPurpose, product.ProductCount, product.ProductPrice);
+                        AddProductPanel(product, product.ProductName, product.ProductPurpose, product.ProductCount, product.ProductPrice);
                         i++;
                     }
                 }
@@ -75,7 +75,7 @@ namespace ValeriankaApp
             return shopCart;
         }
 
-        void AddProductPanel(int i, string name, string purpose, int quantity, int price)
+        void AddProductPanel(Product product, string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
@@ -88,15 +88,34 @@ namespace ValeriankaApp
 
             //Bottom
             StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
-            Button reduceBtn = new Button() { Tag = i, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
+            Button reduceBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             reduceBtn.Click += ButtonReduce_Click;
             TextBox quantityTxtBox = new TextBox() { Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
+            if (!isCatalog)
+            {
+                using(var db = new Pharmacy_ValeriankaEntities())
+                {
+                    var client = SystemContext.Client;
+                    var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
+                    quantityTxtBox.Text = productShopCart.BasketProductCount.ToString();
+                    quantityTxtBox.Tag = productShopCart;
+                }
+            }
             quantityTxtBox.TextChanged += QuantityTxtBox_TextChanged;
-            quantityList.Add(quantityTxtBox);
-            Button increaseBtn = new Button() { Tag = i, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
+            quantityList[product.ProductID] = quantityTxtBox;
+            Button increaseBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             increaseBtn.Click += ButtonIncrease_Click;
-            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0) };
+            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0),Cursor=Cursors.Hand };
+
+            if (isCatalog)
+                addBtn.Click += ButtonAdd_Click;
+            else
+            {
+                addBtn.Content = "Убрать";
+                addBtn.Click += ButtonRemove_Click;
+            }
             addBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
+            addBtn.Tag = product;
             bottomSp.Children.Add(reduceBtn);
             bottomSp.Children.Add(quantityTxtBox);
             bottomSp.Children.Add(increaseBtn);
@@ -122,14 +141,58 @@ namespace ValeriankaApp
             contentPanel.Children.Add(borderPanel);
         }
 
+        private void ButtonRemove_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                var client = SystemContext.Client;
+                var product = ((Product)(sender as Button).Tag);
+                var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
+                db.Entry(productShopCart).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+            }
+            ButtonCart_Click(this, new RoutedEventArgs());
+        }
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            using(var db = new Pharmacy_ValeriankaEntities())
+            {
+                var client = SystemContext.Client;
+                var product = ((Product)(sender as Button).Tag);
+                var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
+                if(productShopCart == null)
+                    db.Basket.Add(new Basket() {ClientID = client.ClientID,ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text)});
+                else
+                {
+                    productShopCart.BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text);
+                    db.Entry(productShopCart).State = System.Data.Entity.EntityState.Modified;
+                }
+                db.SaveChanges();
+            }
+        }
+
         private void QuantityTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 if (Convert.ToInt32((sender as TextBox).Text) < 1)
                     (sender as TextBox).Text = "1";
-            }
-            catch { if ((sender as TextBox).Text != "") (sender as TextBox).Text = "1"; }
+                if (!isCatalog)
+                {
+                    using(var db = new Pharmacy_ValeriankaEntities())
+                    {
+                        var productShopCart = ((Basket)(sender as TextBox).Tag);
+                        productShopCart.BasketProductCount = Convert.ToInt32((sender as TextBox).Text);
+                        db.Entry(productShopCart).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+            //}
+            //catch 
+            //{ 
+            //    if ((sender as TextBox).Text != "") 
+            //        (sender as TextBox).Text = "1"; 
+            //}
         }
         private void ButtonIncrease_Click(object sender, RoutedEventArgs e)
         {
@@ -141,11 +204,12 @@ namespace ValeriankaApp
         {
             int tag = Convert.ToInt32(((Button)sender).Tag);
             int num = Convert.ToInt32(quantityList[tag].Text);
-            if (num > 1)
+
                 quantityList[tag].Text = (num - 1).ToString();
         }
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
+            goOrderBtn.Visibility = Visibility.Hidden;
             isCatalog = true;
             SetButton();
             contentPanel.Children.Clear();
@@ -157,6 +221,7 @@ namespace ValeriankaApp
         }
         private void ButtonCart_Click(object sender, RoutedEventArgs e)
         {
+            goOrderBtn.Visibility = Visibility.Visible;
             isCatalog = false;
             SetButton();
             contentPanel.Children.Clear();
@@ -181,6 +246,11 @@ namespace ValeriankaApp
         {
             contentPanel.Children.Clear();
             LoadContent(searchTxt.Text);
+        }
+
+        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
