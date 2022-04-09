@@ -23,6 +23,12 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadContent();
+            try
+            {
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
         }
 
         void LoadContent()
@@ -111,6 +117,28 @@ namespace ValeriankaApp
                 OrdersView.Children.Add(borderPanel);
             }
         }
+
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeProfileWindow epw = new EmployeeProfileWindow();
+            this.Close();
+            epw.ShowDialog();
+        }
+
+        private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeMainWindow emw = new EmployeeMainWindow();
+            this.Close();
+            emw.ShowDialog();
+        }
+
+        private void ButtonOrders_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeOrderListWindow eolw = new EmployeeOrderListWindow();
+            this.Close();
+            eolw.ShowDialog();
+        }
+
         private void DeleteButtonOnClick(object sender, EventArgs eventArgs)
         {
             var button = (Button)sender;

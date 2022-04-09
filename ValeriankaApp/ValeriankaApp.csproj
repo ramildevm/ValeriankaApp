@@ -91,6 +91,9 @@
     <Compile Include="EmployeeOrderListWindow.xaml.cs">
       <DependentUpon>EmployeeOrderListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeProfileWindow.xaml.cs">
+      <DependentUpon>EmployeeProfileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EmployeeOrderListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmployeeProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,6 +29,12 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadContent();
+            try
+            {
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
         }
 
         private void LoadContent()
@@ -89,16 +95,27 @@ namespace ValeriankaApp
 
         }
 
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeProfileWindow epw = new EmployeeProfileWindow();
+            this.Close();
+            epw.ShowDialog();
+        }
+
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
             var emp = new EmployeeMainWindow();
             this.Close();
             emp.ShowDialog();
         }
+
         private void ButtonOrders_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeOrderListWindow eolw = new EmployeeOrderListWindow();
+            this.Close();
+            eolw.ShowDialog();
         }
+
         public BitmapSource ByteArrayToImage(byte[] buffer)
         {
             using (var stream = new MemoryStream(buffer))
@@ -226,7 +243,6 @@ namespace ValeriankaApp
         {
             SystemContext.Product = null;
             ButtonCatalog_Click(this, new RoutedEventArgs());
-
         }
     }
 }

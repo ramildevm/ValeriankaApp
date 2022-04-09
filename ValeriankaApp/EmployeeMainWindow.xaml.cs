@@ -24,7 +24,14 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadContent();
+            try
+            {
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
         }
+
         void LoadContent(string searchText = "")
         {
             using (var db = new Pharmacy_ValeriankaEntities())
@@ -91,6 +98,13 @@ namespace ValeriankaApp
             borderPanel.Child = sp;
             sp.Children.Add(borderPanel2);
             contentPanel.Children.Add(borderPanel);
+        }
+
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeProfileWindow epw = new EmployeeProfileWindow();
+            this.Close();
+            epw.ShowDialog();
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
