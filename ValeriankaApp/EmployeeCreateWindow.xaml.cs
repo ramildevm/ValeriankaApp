@@ -35,32 +35,37 @@ namespace ValeriankaApp
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
+                var product = SystemContext.Product;
+                //SystemContext.Product = (from p in db.Product where p.ProductID == 1 select p).FirstOrDefault();
                 //var product = SystemContext.Product;
-                var product = (from p in db.Product where p.ProductID == 1 select p).FirstOrDefault();
-                if (product == null)
-                    return;
+
 
                 List<Shop> shopList = (from s in db.Shop select s).ToList();
 
                 foreach (var shop in shopList)
                 {
                     string address = shop.ShopAddress;
-                    var shopLabel = new TextBlock() { Text = $"● {address}" };
+                    var shopLabel = new TextBlock() { Margin = new Thickness(0, 5, 0, 0), Text = $"● {address}" };
                     adressListPanel.Children.Add(shopLabel);
 
-                    var border = new Border() { BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(5) };
-                    var quantityTxt = new TextBox() { Background = Brushes.Transparent, BorderThickness = new Thickness(0) };
+                    var border = new Border() { BorderBrush = Brushes.Gray, Height = 25, BorderThickness = new Thickness(1), MinWidth = 197, Background = Brushes.White, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 5, 20, 0), CornerRadius = new CornerRadius(5) };
+                    var quantityTxt = new TextBox() { Background = Brushes.Transparent, FontSize = 14, BorderThickness = new Thickness(0) };
                     if (!isCreate)
                     {
-                        quantityTxt.Text = (from sc in db.ShopAddressLink
-                                            where sc.ProductID == product.ProductID & sc.ShopID == shop.ShopID
-                                            select sc).FirstOrDefault().ShopAddressLinkAvailability.ToString();
+                        var productShop = (from sc in db.ShopAddressLink
+                                           where sc.ProductID == product.ProductID & sc.ShopID == shop.ShopID
+                                           select sc).FirstOrDefault();
+                        if (productShop != null)
+                            quantityTxt.Text = productShop.ShopAddressLinkAvailability.ToString();
+
                     }
                     quantityTxt.Tag = shop;
                     quantityTxtList.Add(quantityTxt);
                     border.Child = quantityTxt;
-                    adressListPanel.Children.Add(border);
+                    adressTxtPanel.Children.Add(border);
                 }
+                if (product == null)
+                    return;
 
                 if (!isCreate)
                 {
@@ -121,7 +126,11 @@ namespace ValeriankaApp
         }
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            CheckData();
+            string result = CheckData();
+            MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
+            if (result == "Its ok")
+                ButtonCatalog_Click(this, new RoutedEventArgs());
+
         }
 
         private string CheckData()
@@ -131,35 +140,93 @@ namespace ValeriankaApp
                 type = typeTxt.Text,
                 purpose = purposeTxt.Text,
                 description = new TextRange(descriptionTxt.Document.ContentStart, descriptionTxt.Document.ContentEnd).Text;
+            int quantity, price;
             try
             {
-                int quantity = Convert.ToInt32(quantityTxt.Text),
-                    price = Convert.ToInt32(priceTxt.Text);
+                quantity = Convert.ToInt32(quantityTxt.Text);
+                price = Convert.ToInt32(priceTxt.Text);
+                if (quantity <= 0 || price <= 0)
+                    throw new Exception();
             }
             catch { return "Введены некорректные данные"; }
-
+            List<ShopAddressLink> productShopList = new List<ShopAddressLink>();
             foreach (var qTxt in quantityTxtList)
             {
-                if (qTxt.Text == "")
+                if (qTxt.Text != "")
                 {
                     try
                     {
-                        
+                        if (Convert.ToInt32(qTxt.Text) < 0)
+                            throw new Exception();
+                        else if (Convert.ToInt32(qTxt.Text) == 0)
+                            continue;
+                        productShopList.Add(new ShopAddressLink() { ProductID = SystemContext.Product.ProductID, ShopID = (qTxt.Tag as Shop).ShopID, ShopAddressLinkAvailability = Convert.ToInt32(qTxt.Text) });
                     }
                     catch
                     {
                         return "Введены некорректные данные";
                     }
                 }
-                else
-                {
-
-                }
             }
-            if ( name == "" || manufacturer == "" || type == "" || purpose == "" || description == "")
+            if (name == "" || manufacturer == "" || type == "" || purpose == "" || description == "")
                 return "Не все поля заполнены";
+            string result;
+            if (isCreate)
+            {
+                using (var db = new Pharmacy_ValeriankaEntities())
+                {
+                    var product = db.Product.Add(new Product() { ProductName = name, ProductType = type, ProductDescription = description, ProductCount = quantity, ProductManufacturer = manufacturer, ProductPurpose = purpose, ProductPrice = price, ProductImage = imageBytes });
+                    db.SaveChanges();
+                }
+                result = "Товар добавен";
+            }
+            else
+            {
+                using (var db = new Pharmacy_ValeriankaEntities())
+                {
+                    var product = SystemContext.Product;
+                    product.ProductName = name;
+                    product.ProductType = type;
+                    product.ProductCount = quantity;
+                    product.ProductDescription = description;
+                    product.ProductManufacturer = manufacturer;
+                    product.ProductPurpose = purpose;
+                    product.ProductPrice = price;
+                    product.ProductImage = imageBytes;
 
-            return "Its ok";
+                    db.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                result = "Товар изменен";
+            }
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                foreach (var shop in productShopList)
+                {
+                    //тут ошибка надо чтобы оно не обновляло а создавало если такого нет
+                    var productShop = (from sc in db.ShopAddressLink
+                                       where sc.ProductID == shop.ProductID & sc.ShopID == shop.ShopID
+                                       select sc).FirstOrDefault();
+                    if (productShop != null)
+                    {
+                        productShop.ShopAddressLinkAvailability = shop.ShopAddressLinkAvailability;
+                        db.Entry(productShop).State = System.Data.Entity.EntityState.Modified;
+                    }
+                    else
+                    {
+                        db.ShopAddressLink.Add(shop);
+                    }
+                }
+                db.SaveChanges();
+            }
+            return result;
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            SystemContext.Product = null;
+            ButtonCatalog_Click(this, new RoutedEventArgs());
+
         }
     }
 }

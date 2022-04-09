@@ -74,20 +74,34 @@ namespace ValeriankaApp
                             select p).ToList<Product>();
             return shopCart;
         }
-
+        public BitmapSource ByteArrayToImage(byte[] buffer)
+        {
+            using (var stream = new System.IO.MemoryStream(buffer))
+            {
+                return BitmapFrame.Create(stream,
+                    BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            }
+        }
         void AddProductPanel(Product product, string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
+            sp.Tag = product;
+            sp.MouseLeftButtonDown += Sp_MouseLeftButtonDown;
             Image img = new Image() { };
-            TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
+            if (product.ProductImage != null)
+                img.Source = ByteArrayToImage(product.ProductImage);
+            TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), FontWeight = FontWeights.Bold, Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
+            StackPanel.SetZIndex(nameUp, 1);
+            TextBlock backNameUp = new TextBlock() { Foreground = Brushes.White, Margin = new Thickness(17, -28, 0, 0), FontSize = 14, Background = Brushes.White};
+            backNameUp.Effect = new System.Windows.Media.Effects.BlurEffect() { Radius = 4,KernelType=System.Windows.Media.Effects.KernelType.Gaussian};
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
             TextBlock availabilityTxt = new TextBlock() { Text = "Наличие: ", Margin = new Thickness(12, 0, 3, 0) };
             TextBlock priceTxt = new TextBlock() { Text = "Цена: " };
             priceTxt.Inlines.Add(new TextBlock() { Text = $" {price} руб.", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
 
             //Bottom
-            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
+            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, -1) };
             Button reduceBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             reduceBtn.Click += ButtonReduce_Click;
             TextBox quantityTxtBox = new TextBox() { MaxLength=3, Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
@@ -123,14 +137,16 @@ namespace ValeriankaApp
 
             //добавление данных
             nameUp.Text += name;
+            backNameUp.Text += name;
             purposeTxt.Text += purpose;
             availabilityTxt.Text += quantity.ToString();
 
             //Добавление элементов в контейнер
-            var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10),MinHeight=115,  Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
+            var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10),MinHeight=113, Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
             var sp2 = new StackPanel() { };
             sp.Children.Add(img);
             sp.Children.Add(nameUp);
+            sp.Children.Add(backNameUp);
             sp2.Children.Add(purposeTxt);
             sp2.Children.Add(availabilityTxt);
             sp2.Children.Add(priceTxt);
@@ -139,6 +155,11 @@ namespace ValeriankaApp
             borderPanel.Child = sp;
             sp.Children.Add(borderPanel2);
             contentPanel.Children.Add(borderPanel);
+        }
+
+        private void Sp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)

@@ -5,21 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="EmployeeCreateWindow" Height="458" Width="750">
-    <Window.Resources>
-        <Style x:Key="Lbl13" TargetType="Label">
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-        </Style>
-        <Style x:Key="LblLeft" TargetType="Label">
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="Margin" Value="12,0,0,0"/>
-        </Style>
-    </Window.Resources>
+        Title="EmployeeCreateWindow" Height="658" Width="750">
     <DockPanel Background="#e6e6e6">
         <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>
@@ -100,7 +86,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Назад" HorizontalAlignment="Left" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="10,5,0,5" BorderThickness="1" Background="#A500F3" >
+                    <Button Grid.Column="0" Click="ButtonBack_Click" Content="Назад" HorizontalAlignment="Left" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="10,5,0,5" BorderThickness="1" Background="#A500F3" >
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10      "/>
@@ -130,7 +116,7 @@
                                 <Setter Property="Height" Value="25"/>
                                 <Setter Property="FontSize" Value="14"/>
                                 <Setter Property="Margin" Value="15,0,20,0"/>
-                                <Setter Property="Padding" Value="8,0,0,0"/>
+                                <Setter Property="Padding" Value="4,0,0,0"/>
                             </Style>
                         </StackPanel.Resources>
                         <Label Content="Название:"/>
@@ -194,7 +180,7 @@
                     </StackPanel>
                 </Grid>
                 <Label Margin="40,0,0,0" Content="В наличии:"/>
-                <Grid Margin="60,10,0,0">
+                <Grid Margin="60,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
