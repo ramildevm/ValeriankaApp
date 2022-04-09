@@ -15,5 +15,7 @@ namespace ValeriankaApp
         public static Orders Orders { get; set; } = null;
         public static Basket Basket { get; set; } = null;
         public static ShopAddressLink ShopAddressLink { get; set; } = null;
+
+        public static string typeWindow = "Каталог";
     }
 }

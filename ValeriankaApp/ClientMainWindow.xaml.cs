@@ -32,6 +32,24 @@ namespace ValeriankaApp
                 btnProfile.Click += ButtonMyProfile_Click;
             }
             catch { }
+
+            if (SystemContext.typeWindow == "Каталог")
+            {
+                goOrderBtn.Visibility = Visibility.Hidden;
+                isCatalog = true;
+                SetButton();
+                contentPanel.Children.Clear();
+                LoadContent();
+            }
+            else if (SystemContext.typeWindow == "Корзина")
+            {
+                goOrderBtn.Visibility = Visibility.Visible;
+                isCatalog = false;
+                SetButton();
+                contentPanel.Children.Clear();
+                LoadContent();
+            }
+            else { MessageBox.Show("Произошла ошибка"); }
         }
         void LoadContent(string searchText = "")
         {
@@ -154,6 +172,7 @@ namespace ValeriankaApp
             }
             ButtonCart_Click(this, new RoutedEventArgs());
         }
+        
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             using (var db = new Pharmacy_ValeriankaEntities())
@@ -161,38 +180,8 @@ namespace ValeriankaApp
                 var client = SystemContext.Client;
                 var product = ((Product)(sender as Button).Tag);
                 var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
-                if(productShopCart == null)
-                    db.Basket.Add(new Basket() {ClientID = client.ClientID, ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text)});
-                else
-                {
-                    productShopCart.BasketProductCount += Convert.ToInt32(quantityList[product.ProductID].Text);
-                    db.Entry(productShopCart).State = System.Data.Entity.EntityState.Modified;
-                }
-                db.SaveChanges();
-            }
-        }
-
-        private void QuantityTxtBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            using (var db = new Pharmacy_ValeriankaEntities())
-            {
-                var client = SystemContext.Client;
-                var product = ((Product)(sender as Button).Tag);
-                var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
-                db.Entry(productShopCart).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
-            }
-            ButtonCart_Click(this, new RoutedEventArgs());
-        }
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
-            using(var db = new Pharmacy_ValeriankaEntities())
-            {
-                var client = SystemContext.Client;
-                var product = ((Product)(sender as Button).Tag);
-                var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
-                if(productShopCart == null)
-                    db.Basket.Add(new Basket() {ClientID = client.ClientID,ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text)});
+                if (productShopCart == null)
+                    db.Basket.Add(new Basket() { ClientID = client.ClientID, ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text) });
                 else
                 {
                     productShopCart.BasketProductCount += Convert.ToInt32(quantityList[product.ProductID].Text);

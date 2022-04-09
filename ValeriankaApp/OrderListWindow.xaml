@@ -52,24 +52,16 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Cursor="Hand">
+                <Button Grid.Column="0" Cursor="Hand" Click="ClientMainButton_Click">
                     <TextBlock Text="Каталог"  />
                 </Button>
                 <Button Grid.Column="1" Cursor="Hand" Name="UpdateMyOrders">
                     <TextBlock TextDecorations="Underline" Text="Мои заказы"  />
                 </Button>
-                <Button Grid.Column="2" Content="Корзина" />
+                <Button Grid.Column="2" Content="Корзина" Click="ClientCardButton_Click" Cursor="Hand" />
             </Grid>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button  Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <TextBlock Text="Мой профиль"/>
-                </Button>
-                <Button  Width="37" Height="37">
+            <DockPanel Grid.Column="2" >
+                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0" Click="ButtonMyProfile_Click" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -79,7 +71,14 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </StackPanel>
+                <Button HorizontalAlignment="Right" x:Name="btnProfile" Content="" DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
         </Grid>
         
         <ScrollViewer Grid.Row="2">

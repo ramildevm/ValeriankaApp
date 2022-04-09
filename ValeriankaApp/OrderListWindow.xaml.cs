@@ -23,6 +23,12 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadContent();
+            try
+            {
+                btnProfile.Content = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
         }
 
         void LoadContent()
@@ -90,6 +96,29 @@ namespace ValeriankaApp
                 borderPanel.Child = mainGrid;
                 OrdersView.Children.Add(borderPanel);
             }
+        }
+
+        private void ClientMainButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemContext.typeWindow = "Каталог";
+            ClientMainWindow cmw = new ClientMainWindow();
+            this.Close();
+            cmw.ShowDialog();
+        }
+
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfileWindow upw = new UserProfileWindow();
+            this.Close();
+            upw.ShowDialog();
+        }
+
+        private void ClientCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemContext.typeWindow = "Корзина";
+            ClientMainWindow cmw = new ClientMainWindow();
+            this.Close();
+            cmw.ShowDialog();
         }
     }
 

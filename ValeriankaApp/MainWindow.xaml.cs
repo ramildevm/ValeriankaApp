@@ -23,9 +23,10 @@ namespace ValeriankaApp
         public MainWindow()
         {
             InitializeComponent();
-            txtLogin.Text = "ramil";
-            txtPassword.Password = "12345678";
+            txtLogin.Text = "Damirka";
+            txtPassword.Password = "qqqqwwww";
         }
+
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
             var register = new RegisterWindow();
@@ -43,6 +44,7 @@ namespace ValeriankaApp
                     Users user = (from u in db.Users where u.UserLogin == txtLogin.Text select u).FirstOrDefault();
                     if (user.UserRole == "User")
                     {
+                        SystemContext.typeWindow = "Каталог";
                         ClientMainWindow cmw = new ClientMainWindow();
                         this.Close();
                         cmw.ShowDialog();
@@ -70,6 +72,7 @@ namespace ValeriankaApp
                 MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
         private string LoginMethod(string login, string password)
         {
             if (login.Length == 0 || password.Length == 0)

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
         Title="Профиль" 
-        Height="490" Width="800">
+        Height="495" Width="800">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -20,14 +20,18 @@
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Height" Value="23"/>
+            <Setter Property="Height" Value="Auto"/>
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
     </Window.Resources>
-    <StackPanel>
-        <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Height="53" Background="#68CACD" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="3*"/>
@@ -56,22 +60,14 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Cursor="Hand">
+                <Button Grid.Column="0" Cursor="Hand" Click="ClientMainButton_Click">
                     <TextBlock Text="Каталог"  />
                 </Button>
-                <Button Grid.Column="1" Content="Мои заказы" Cursor="Hand"/>
-                <Button Grid.Column="2" Content="Корзина" />
+                <Button Grid.Column="1" Content="Мои заказы" Cursor="Hand" Click="MyOrdersButton_Click"/>
+                <Button Grid.Column="2" Content="Корзина" Cursor="Hand" Click="ClientCardButton_Click"/>
             </Grid>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button  Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <TextBlock TextDecorations="Underline" Text="Мой профиль"/>
-                </Button>
-                <Button  Width="37" Height="37">
+            <DockPanel Grid.Column="2" >
+                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0" Click="ButtonMyProfile_Click" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -81,90 +77,98 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </StackPanel>
+                <Button HorizontalAlignment="Right" x:Name="btnProfile" DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" >
+                    <TextBlock Name="btnProfileText" TextDecorations="Underline" Text=""/>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
         </Grid>
-        <StackPanel Name="Base" Height="410" Background="#E6E6E6">
-            <Border CornerRadius="10" Margin="10" Height="390" Width="Auto"  Background="White">
+        <DockPanel Background="#E6E6E6" Grid.Row="1">
+            <Border CornerRadius="10" Margin="10" Background="White">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="41*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="41*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Мой профиль" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,5,0,0" Grid.Column="1"/>
-                    <Label Content="Данные аккаунта" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="0"/>
-                    <Label Content="Логин" Style="{StaticResource LeftLbl}" Margin="10,0,0,240" Grid.Column="0"/>
-                    <TextBox x:Name="txtLogin" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,200" BorderThickness="0" Grid.Column="0">
+                    <Label Content="Мой профиль" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,0,0,0" Grid.Column="1" VerticalAlignment="Top"/>
+                    <Label Content="Данные аккаунта" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="65,25,0,0" Grid.Column="0" VerticalAlignment="Top"/>
+                    <Label Content="Логин" Style="{StaticResource LeftLbl}" Margin="10,58,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtLogin" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,77,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Email" Style="{StaticResource LeftLbl}" Margin="10,3,0,150" Grid.Column="0"/>
-                    <TextBox x:Name="txtEmail" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,110" BorderThickness="0" Grid.Column="0">
+                    <Label Content="Email" Style="{StaticResource LeftLbl}" Margin="10,103,0,0" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtEmail" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,123,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,3,0,60" Grid.Column="0"/>
-                    <PasswordBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,20" BorderThickness="0" Grid.Column="0">
+                    <Label Content="Пароль" Style="{StaticResource LeftLbl}" Margin="10,147,0,0" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <PasswordBox x:Name="txtPassword" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,168,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top">
                         <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </PasswordBox.Resources>
                     </PasswordBox>
-                    <Label Content="Подтвердите пароль" Style="{StaticResource LeftLbl}" Margin="10,33,0,0" Grid.Column="0"/>
-                    <PasswordBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,73,0,0" BorderThickness="0" Grid.Column="0">
+                    <Label Content="Подтвердите пароль" Style="{StaticResource LeftLbl}" Margin="10,191,0,0" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <PasswordBox x:Name="txtPasswordConfirm" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,212,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top">
                         <PasswordBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </PasswordBox.Resources>
                     </PasswordBox>
-                    <Button Margin="15,150,0,0" Width="130" Height="27" Background="#A500F3" Content="Удалить аккаунт" Foreground="White" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Roboto" Click="DeleteButton_Click" Grid.Column="0">
+                    <Button Margin="15,241,0,0" Width="130" Height="27" Background="#A500F3" Content="Удалить аккаунт" Foreground="White" FontWeight="Bold" FontFamily="Roboto" Click="DeleteButton_Click" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,338,0,0" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0">
+                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0" VerticalAlignment="Bottom">
                         <TextBlock Text="Выйти из системы" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
                             </TextBlock.Effect>
                         </TextBlock>
                     </Border>
-                    <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="2"/>
-                    <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="0,0,0,240" Grid.Column="2"/>
-                    <TextBox x:Name="txtFIO" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,200" BorderThickness="0" Grid.Column="2">
+                    <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Right" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="0,25,67,0" Grid.Column="2"  VerticalAlignment="Top"/>
+                    <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="0,58,217,0" Grid.Column="2"  VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="txtFIO" Width="242" Height="20" HorizontalAlignment="Right" Background="#E6E6E6" Margin="0,77,10,0" BorderThickness="0" Grid.Column="2" VerticalAlignment="Top">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Номер" Style="{StaticResource LeftLbl}" Margin="0,3,0,150" Grid.Column="2"/>
-                    <TextBox x:Name="txtNumber" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,110" BorderThickness="0" Grid.Column="2">
+                    <Label Content="Номер" Style="{StaticResource LeftLbl}" Margin="0,103,207,0" Grid.Column="2"  VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="txtNumber" Width="242" Height="20" HorizontalAlignment="Right" Background="#E6E6E6" Margin="0,123,10,0" BorderThickness="0" Grid.Column="2" VerticalAlignment="Top">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Адрес магазина по умолчанию" Style="{StaticResource LeftLbl}" Margin="0,3,0,60" Grid.Column="2"/>
-                    <ComboBox x:Name="ComBoxBaseAddress" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="5,0,0,20" BorderThickness="0" Grid.Column="2">
+                    <Label Content="Адрес магазина по умолчанию" Style="{StaticResource LeftLbl}" Margin="0,147,63,0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="ComBoxBaseAddress" Width="242" Height="20" HorizontalAlignment="Right" Background="#E6E6E6" Margin="0,168,10,0" BorderThickness="0" Grid.Column="2" VerticalAlignment="Top">
                         <ComboBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </ComboBox.Resources>
                     </ComboBox>
-                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2">
+                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2" VerticalAlignment="Bottom">
                         <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
@@ -173,6 +177,6 @@
                     </Border>
                 </Grid>
             </Border>
-        </StackPanel>
-    </StackPanel>
+        </DockPanel>
+    </Grid>
 </Window>

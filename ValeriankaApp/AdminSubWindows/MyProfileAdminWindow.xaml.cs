@@ -22,6 +22,17 @@ namespace ValeriankaApp.AdminSubWindows
         public MyProfileAdminWindow()
         {
             InitializeComponent();
+            try
+            {
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
+        }
+
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            InitializeComponent();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -76,6 +87,20 @@ namespace ValeriankaApp.AdminSubWindows
             AdminWindow adminWindow = new AdminWindow();
             this.Close();
             adminWindow.ShowDialog();
+        }
+
+        private void AdminUserListClick_Button(object sender, MouseButtonEventArgs e)
+        {
+            AdminWindow aw = new AdminWindow();
+            this.Close();
+            aw.ShowDialog();
+        }
+
+        private void AdminUserAddClick_Button(object sender, MouseButtonEventArgs e)
+        {
+            AddUserWindow auw = new AddUserWindow();
+            this.Close();
+            auw.ShowDialog();
         }
     }
 }
