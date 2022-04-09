@@ -33,20 +33,20 @@
         </Grid.RowDefinitions>
         <Grid Margin="0,0,0,0" Name="ButtonsView" Height="54" Background="#68CACD" Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="137"/>
+                <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="41*"/>
                 <ColumnDefinition Width="25*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
-            <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" MouseLeftButtonUp="AdminUserListClick_Button" Cursor="Hand">
+            <TextBlock Style="{StaticResource TxtBl}"  Text="Пользователи" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" MouseLeftButtonUp="AdminUserListClick_Button" Cursor="Hand">
                 <TextBlock.Effect>
                     <DropShadowEffect Opacity="0.3"/>
                 </TextBlock.Effect>
             </TextBlock>
             <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonUp="AdminUserAddClick_Button" Cursor="Hand" TextDecorations="Underline">
                 <TextBlock.Effect>
-                    <DropShadowEffect Opacity="0.0"/>
+                    <DropShadowEffect Opacity="0.3"/>
                 </TextBlock.Effect>
             </TextBlock>
             <DockPanel Grid.Column="3" >
@@ -60,7 +60,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button HorizontalAlignment="Right" x:Name="btnProfile" DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" >
+                <Button HorizontalAlignment="Right" x:Name="btnProfile"  DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" >
                     <TextBlock Name="btnProfileText" Text=""/>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -108,14 +108,14 @@
                     <RadioButton Margin="20,220,0,0" Content="Клиент" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnClient" FontFamily="Roboto" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <RadioButton Margin="20,240,0,0" Content="Сотрудник" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnEmployee" FontFamily="Roboto" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <RadioButton Margin="20,260,0,0" Content="Админ" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="RadioBtnAdmin" FontFamily="Roboto" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Border CornerRadius="10" Background="#68CACD" Width="105" Height="32" HorizontalAlignment="Right" Margin="0,0,125,10" MouseLeftButtonUp="CancelButton_Click" Grid.Column="2" VerticalAlignment="Bottom">
+                    <Border CornerRadius="10" Background="#68CACD" Width="105" Cursor="Hand" Height="32" HorizontalAlignment="Right" Margin="0,0,125,10" MouseLeftButtonUp="CancelButton_Click" Grid.Column="2" VerticalAlignment="Bottom">
                         <TextBlock Text="Отмена" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
                             </TextBlock.Effect>
                         </TextBlock>
                     </Border>
-                    <Border CornerRadius="10" Background="#68CACD" Width="105" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="AddNewUserButton_Click" Grid.Column="2" VerticalAlignment="Bottom">
+                    <Border CornerRadius="10" Background="#68CACD" Width="105" Cursor="Hand" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="AddNewUserButton_Click" Grid.Column="2" VerticalAlignment="Bottom">
                         <TextBlock Text="Добавить" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>

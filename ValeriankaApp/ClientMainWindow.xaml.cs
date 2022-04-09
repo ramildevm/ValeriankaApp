@@ -112,18 +112,20 @@ namespace ValeriankaApp
                 img.Source = ByteArrayToImage(product.ProductImage);
             TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), FontWeight = FontWeights.Bold, Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
             StackPanel.SetZIndex(nameUp, 1);
-            TextBlock backNameUp = new TextBlock() { Foreground = Brushes.White, Margin = new Thickness(17, -28, 0, 0), FontSize = 14, Background = Brushes.White};
-            backNameUp.Effect = new System.Windows.Media.Effects.BlurEffect() { Radius = 4,KernelType=System.Windows.Media.Effects.KernelType.Gaussian};
+            TextBlock backNameUp = new TextBlock() { Foreground = Brushes.White, Margin = new Thickness(0, -25, 0, 0), FontSize = 14, Background = Brushes.White};
+            backNameUp.Effect = new System.Windows.Media.Effects.BlurEffect() { Radius = 10,KernelType=System.Windows.Media.Effects.KernelType.Gaussian};
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
-            TextBlock availabilityTxt = new TextBlock() { Text = "Наличие: ", Margin = new Thickness(12, 0, 3, 0) };
+            TextBlock availabilityTxt = new TextBlock() { Text = "Количество: ", Margin = new Thickness(12, 0, 3, 0) };
             TextBlock priceTxt = new TextBlock() { Text = "Цена: " };
             priceTxt.Inlines.Add(new TextBlock() { Text = $" {price} руб.", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
 
             //Bottom
-            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, -1) };
+            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
             Button reduceBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             reduceBtn.Click += ButtonReduce_Click;
-            TextBox quantityTxtBox = new TextBox() { MaxLength = 3, Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
+            Border borderqTxt = new Border() { Width = 40, Height = 25, CornerRadius = new CornerRadius(5),BorderThickness=new Thickness(1),BorderBrush=Brushes.Gray };
+            TextBox quantityTxtBox = new TextBox() { MaxLength = 3, Text = "1", BorderThickness=new Thickness(0), Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
+            borderqTxt.Child = quantityTxtBox;
             if (!isCatalog)
             {
                 using (var db = new Pharmacy_ValeriankaEntities())
@@ -150,35 +152,42 @@ namespace ValeriankaApp
             addBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
             addBtn.Tag = product;
             bottomSp.Children.Add(reduceBtn);
-            bottomSp.Children.Add(quantityTxtBox);
+            bottomSp.Children.Add(borderqTxt);
             bottomSp.Children.Add(increaseBtn);
             bottomSp.Children.Add(addBtn);
+            var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10), Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
 
             //добавление данных
             nameUp.Text += name;
             backNameUp.Text += name;
             purposeTxt.Text += purpose;
             availabilityTxt.Text += quantity.ToString();
+            if (product.ProductType == "раствор")
+                availabilityTxt.Text += $" мл.";
+            else if (product.ProductType == "таблетки")
+                availabilityTxt.Text += $" таблеток.";
 
             //Добавление элементов в контейнер
-            var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10),MinHeight=113, Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
-            var sp2 = new StackPanel() { };
+            var sp2 = new StackPanel() { MinHeight = 73, Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
             sp.Children.Add(img);
             sp.Children.Add(nameUp);
             sp.Children.Add(backNameUp);
             sp2.Children.Add(purposeTxt);
             sp2.Children.Add(availabilityTxt);
             sp2.Children.Add(priceTxt);
-            sp2.Children.Add(bottomSp);
-            borderPanel2.Child = sp2;
+            borderPanel2.Child = bottomSp;
             borderPanel.Child = sp;
+            sp.Children.Add(sp2);
             sp.Children.Add(borderPanel2);
             contentPanel.Children.Add(borderPanel);
         }
 
         private void Sp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
+            SystemContext.Product = (sender as StackPanel).Tag as Product;
+            var piw = new ProductInfoWindow();
+            this.Close();
+            piw.ShowDialog();
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)

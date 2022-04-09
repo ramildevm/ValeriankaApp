@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="EmployeeCreateWindow" Height="658" Width="750">
+        Title="EmployeeCreateWindow" Height="458" Width="750">
     <DockPanel Background="#e6e6e6">
         <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>

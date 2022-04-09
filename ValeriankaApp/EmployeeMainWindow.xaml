@@ -20,7 +20,7 @@
             <Setter Property="Margin" Value="12,0,0,0"/>
         </Style>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel  Background="#E5E5E5">
         <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -96,12 +96,12 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ScrollViewer>
+        <ScrollViewer DockPanel.Dock="Top">
             <WrapPanel x:Name="contentPanel" Background="#E5E5E5">
                 <WrapPanel.Resources>
                     <Style TargetType="Border" x:Key="contentBorderStyle">
                         <Setter Property="Width" Value="220"/>
-                        <Setter Property="Height" Value="260"/>
+                        <Setter Property="Height" Value="280"/>
                         <Setter Property="CornerRadius" Value="10"/>
                         <Setter Property="Margin" Value="18,18,0,18"/>
                         <Setter Property="Background" Value="White"/>
@@ -113,9 +113,10 @@
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="Width" Value="Auto"/>
+                        <Setter Property="TextWrapping" Value="WrapWithOverFlow"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Margin" Value="12,0,0,0" />
-                        <Setter Property="Cursor" Value="Hand"/>
                     </Style>
                     <Style TargetType="Image">
                         <Setter Property="Width" Value="206" />
@@ -125,7 +126,6 @@
                         <Setter Property="Stretch" Value="Uniform" />
                     </Style>
                     <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
-                        <Setter Property="Cursor" Value="Hand"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
@@ -140,5 +140,12 @@
                 <!--content here-->
             </WrapPanel>
         </ScrollViewer>
+        <Button DockPanel.Dock="Bottom" x:Name="goOrderBtn" Click="ButtonAdd_Click" BorderThickness="0" Cursor="Hand"  VerticalAlignment="Bottom"  Height="30" Padding="12,0,12,0" FontWeight="Bold" Foreground="White" Content="Добавить" Background="#A500F3" HorizontalAlignment="Right" Margin="0,-40,25,10">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </DockPanel>
 </Window>

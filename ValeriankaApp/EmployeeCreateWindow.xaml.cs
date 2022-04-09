@@ -20,14 +20,15 @@ namespace ValeriankaApp
     /// </summary>
     public partial class EmployeeCreateWindow : Window
     {
-        public Boolean isCreate { get; set; } = false;
+        public Boolean isCreate { get; set; }
         List<TextBox> quantityTxtList = new List<TextBox>();
         List<ShopAddressLink> addressList = new List<ShopAddressLink>();
         byte[] imageBytes = null;
 
-        public EmployeeCreateWindow()
+        public EmployeeCreateWindow(Boolean flag)
         {
             InitializeComponent();
+            isCreate = flag;
             LoadContent();
             try
             {
