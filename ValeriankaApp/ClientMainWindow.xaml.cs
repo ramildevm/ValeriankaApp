@@ -29,8 +29,27 @@ namespace ValeriankaApp
             try
             {
                 btnProfile.Content = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
             }
             catch { }
+
+            if (SystemContext.typeWindow == "Каталог")
+            {
+                goOrderBtn.Visibility = Visibility.Hidden;
+                isCatalog = true;
+                SetButton();
+                contentPanel.Children.Clear();
+                LoadContent();
+            }
+            else if (SystemContext.typeWindow == "Корзина")
+            {
+                goOrderBtn.Visibility = Visibility.Visible;
+                isCatalog = false;
+                SetButton();
+                contentPanel.Children.Clear();
+                LoadContent();
+            }
+            else { MessageBox.Show("Произошла ошибка"); }
         }
         void LoadContent(string searchText = "")
         {
@@ -70,30 +89,44 @@ namespace ValeriankaApp
         {
             var shopCart = (from p in db.Product
                             join sc in db.Basket on p.ProductID equals sc.ProductID
-                            where sc.ClientID == SystemContext.User.UserID
+                            where sc.ClientID == SystemContext.Client.ClientID
                             select p).ToList<Product>();
             return shopCart;
         }
-
+        public BitmapSource ByteArrayToImage(byte[] buffer)
+        {
+            using (var stream = new System.IO.MemoryStream(buffer))
+            {
+                return BitmapFrame.Create(stream,
+                    BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            }
+        }
         void AddProductPanel(Product product, string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
+            sp.Tag = product;
+            sp.MouseLeftButtonDown += Sp_MouseLeftButtonDown;
             Image img = new Image() { };
-            TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
+            if (product.ProductImage != null)
+                img.Source = ByteArrayToImage(product.ProductImage);
+            TextBlock nameUp = new TextBlock() { Margin = new Thickness(17, -28, 0, 0), FontWeight = FontWeights.Bold, Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), FontSize = 16 };
+            StackPanel.SetZIndex(nameUp, 1);
+            TextBlock backNameUp = new TextBlock() { Foreground = Brushes.White, Margin = new Thickness(17, -28, 0, 0), FontSize = 14, Background = Brushes.White};
+            backNameUp.Effect = new System.Windows.Media.Effects.BlurEffect() { Radius = 4,KernelType=System.Windows.Media.Effects.KernelType.Gaussian};
             TextBlock purposeTxt = new TextBlock() { Text = "Назначение: " };
             TextBlock availabilityTxt = new TextBlock() { Text = "Наличие: ", Margin = new Thickness(12, 0, 3, 0) };
             TextBlock priceTxt = new TextBlock() { Text = "Цена: " };
             priceTxt.Inlines.Add(new TextBlock() { Text = $" {price} руб.", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
 
             //Bottom
-            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
+            StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, -1) };
             Button reduceBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             reduceBtn.Click += ButtonReduce_Click;
-            TextBox quantityTxtBox = new TextBox() { Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
+            TextBox quantityTxtBox = new TextBox() { MaxLength = 3, Text = "1", Width = 40, Height = 25, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
             if (!isCatalog)
             {
-                using(var db = new Pharmacy_ValeriankaEntities())
+                using (var db = new Pharmacy_ValeriankaEntities())
                 {
                     var client = SystemContext.Client;
                     var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
@@ -105,7 +138,7 @@ namespace ValeriankaApp
             quantityList[product.ProductID] = quantityTxtBox;
             Button increaseBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             increaseBtn.Click += ButtonIncrease_Click;
-            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0),Cursor=Cursors.Hand };
+            Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0), Cursor = Cursors.Hand };
 
             if (isCatalog)
                 addBtn.Click += ButtonAdd_Click;
@@ -123,14 +156,16 @@ namespace ValeriankaApp
 
             //добавление данных
             nameUp.Text += name;
+            backNameUp.Text += name;
             purposeTxt.Text += purpose;
             availabilityTxt.Text += quantity.ToString();
 
             //Добавление элементов в контейнер
-            var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10), Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
+            var borderPanel2 = new Border() { CornerRadius = new CornerRadius(0, 0, 10, 10),MinHeight=113, Background = (Brush)(new BrushConverter().ConvertFrom("#f6f6f6")) };
             var sp2 = new StackPanel() { };
             sp.Children.Add(img);
             sp.Children.Add(nameUp);
+            sp.Children.Add(backNameUp);
             sp2.Children.Add(purposeTxt);
             sp2.Children.Add(availabilityTxt);
             sp2.Children.Add(priceTxt);
@@ -139,6 +174,11 @@ namespace ValeriankaApp
             borderPanel.Child = sp;
             sp.Children.Add(borderPanel2);
             contentPanel.Children.Add(borderPanel);
+        }
+
+        private void Sp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
@@ -153,18 +193,19 @@ namespace ValeriankaApp
             }
             ButtonCart_Click(this, new RoutedEventArgs());
         }
+        
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            using(var db = new Pharmacy_ValeriankaEntities())
+            using (var db = new Pharmacy_ValeriankaEntities())
             {
                 var client = SystemContext.Client;
                 var product = ((Product)(sender as Button).Tag);
                 var productShopCart = (from sc in db.Basket where sc.ClientID == client.ClientID & sc.ProductID == product.ProductID select sc).FirstOrDefault<Basket>();
-                if(productShopCart == null)
-                    db.Basket.Add(new Basket() {ClientID = client.ClientID,ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text)});
+                if (productShopCart == null)
+                    db.Basket.Add(new Basket() { ClientID = client.ClientID, ProductID = product.ProductID, BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text) });
                 else
                 {
-                    productShopCart.BasketProductCount = Convert.ToInt32(quantityList[product.ProductID].Text);
+                    productShopCart.BasketProductCount += Convert.ToInt32(quantityList[product.ProductID].Text);
                     db.Entry(productShopCart).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
@@ -179,7 +220,7 @@ namespace ValeriankaApp
                     (sender as TextBox).Text = "1";
                 if (!isCatalog)
                 {
-                    using(var db = new Pharmacy_ValeriankaEntities())
+                    using (var db = new Pharmacy_ValeriankaEntities())
                     {
                         var productShopCart = ((Basket)(sender as TextBox).Tag);
                         productShopCart.BasketProductCount = Convert.ToInt32((sender as TextBox).Text);
@@ -188,10 +229,11 @@ namespace ValeriankaApp
                     }
                 }
             }
-            catch 
-            { 
-                if ((sender as TextBox).Text != "") 
-                    (sender as TextBox).Text = "1"; 
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if ((sender as TextBox).Text != "")
+                    (sender as TextBox).Text = "1";
             }
         }
         private void ButtonIncrease_Click(object sender, RoutedEventArgs e)
@@ -204,8 +246,7 @@ namespace ValeriankaApp
         {
             int tag = Convert.ToInt32(((Button)sender).Tag);
             int num = Convert.ToInt32(quantityList[tag].Text);
-
-                quantityList[tag].Text = (num - 1).ToString();
+            quantityList[tag].Text = (num - 1).ToString();
         }
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
@@ -217,7 +258,9 @@ namespace ValeriankaApp
         }
         private void ButtonMyOrders_Click(object sender, RoutedEventArgs e)
         {
-
+            OrderListWindow olw = new OrderListWindow();
+            this.Close();
+            olw.ShowDialog();
         }
         private void ButtonCart_Click(object sender, RoutedEventArgs e)
         {
@@ -253,6 +296,13 @@ namespace ValeriankaApp
             UserProfileWindow upw = new UserProfileWindow();
             this.Close();
             upw.ShowDialog();
+        }
+
+        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+        {
+            OrderingWindow ow = new OrderingWindow();
+            this.Close();
+            ow.ShowDialog();
         }
     }
 }

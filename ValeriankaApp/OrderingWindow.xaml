@@ -26,15 +26,19 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
     </Window.Resources>
-    <StackPanel>
-        <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
-            <Grid Grid.Column="1">
+            <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,7,0,1"/>
+            <Grid Grid.Column="1" Grid.RowSpan="2">
                 <Grid.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Template">
@@ -56,21 +60,14 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Cursor="Hand">
+                <Button Grid.Column="0" Cursor="Hand" Click="ButtonCatalog_Click">
                     <TextBlock Text="Каталог"  />
                 </Button>
-                <Button Grid.Column="1" Content="Мои заказы" Cursor="Hand"/>
-                <Button Grid.Column="2" Content="Корзина"/>
+                <Button Grid.Column="1" Content="Мои заказы" Cursor="Hand" Click="ButtonMyOrders_Click"/>
+                <Button Grid.Column="2" Content="Корзина" Cursor="Hand" Click="ButtonCart_Click"/>
             </Grid>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button  Width="37" Height="37">
+            <DockPanel Grid.Column="2" Grid.Row="0" >
+                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0" Click="ButtonMyProfile_Click" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -80,48 +77,61 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </StackPanel>
+                <Button HorizontalAlignment="Right" x:Name="btnProfile" DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" >
+                    <TextBlock Name="btnProfileText" TextDecorations="Underline" Text=""/>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
         </Grid>
-        <StackPanel Name="Base" Height="410" Background="#E6E6E6">
-            <Border CornerRadius="10" Margin="10" Height="390" Width="Auto"  Background="White">
+        <DockPanel Background="#E6E6E6" Grid.Row="1">
+            <Border CornerRadius="10" Margin="10" Padding="0,0,0,0"  Background="White">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40*"/>
-                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="40*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Оформление" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,5,0,0" Grid.Column="1"/>
-                    <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="0"/>
-                    <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="10,0,0,240" Grid.Column="0"/>
-                    <TextBox x:Name="txtFIO" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,200" BorderThickness="0" Grid.Column="0">
+                    <Label Content="Оформление" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="0,5,0,0" Grid.Column="1" VerticalAlignment="Top"/>
+                    <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="0" VerticalAlignment="Top"/>
+                    <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="10,63,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtFIO" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,84,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Номер" Style="{StaticResource LeftLbl}" Margin="10,3,0,150" Grid.Column="0"/>
-                    <TextBox x:Name="txtNumber" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,0,0,110" BorderThickness="0" Grid.Column="0">
+                    <Label Content="Номер" Style="{StaticResource LeftLbl}" Margin="10,107,0,0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="txtNumber" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,128,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Доставка" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,155,0,0" Grid.Column="0"/>
-                    <RadioButton Margin="15,180,0,0" Content="г. Казань, ул. Кул Гали, д.7" FontFamily="Roboto" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="Address1RadioBtn" Grid.Column="0"/>
-                    <RadioButton Margin="15,200,0,0" Content="г. Казань, ул. Большая Красная, д.55" FontFamily="Roboto" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" Name="Address2RadioBtn" Grid.Column="0"/>
-                    <Border CornerRadius="10" Background="#68CACD" Width="95" Height="32" HorizontalAlignment="Left" Margin="10,338,0,0" MouseLeftButtonUp="CancelButton_Click" Grid.Column="0">
+                    <Label Content="Доставка" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,155,0,0" Grid.Column="0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="ComBoxBaseAddress" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,185,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold">
+                        <ComboBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </ComboBox.Resources>
+                    </ComboBox>
+                    <Border CornerRadius="10" Background="#68CACD" Width="95" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="CancelButton_Click" Grid.Column="0" Cursor="Hand" VerticalAlignment="Bottom">
                         <TextBlock Text="Отмена" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
                             </TextBlock.Effect>
                         </TextBlock>
                     </Border>
-                    <Label Content="Тип оплаты" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,40,0,0" Grid.Column="2"/>
-                    <RadioButton Margin="47,70,0,0" Content="Наличными при получении" FontWeight="Bold" BorderThickness="1" FontFamily="Roboto" BorderBrush="Black" Name="MoneyRadioBtn" Grid.Column="2"/>
-                    <RadioButton Margin="47,90,0,0" Content="Картой онлайн" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" FontFamily="Roboto" Name="CardRadioBtn" Grid.Column="2"/>
-                    <Border Grid.Column="2" Background="#E6E6E6" Width="217" Height="109" Margin="0,0,20,50" CornerRadius="10">
+                    <Label Content="Тип оплаты" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Right" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="0,40,190,0" Grid.Column="2" VerticalAlignment="Top"/>
+                    <RadioButton Margin="0,70,81,0" Content="Наличными при получении" FontWeight="Bold" BorderThickness="1" FontFamily="Roboto" BorderBrush="Black" Name="MoneyRadioBtn" Grid.Column="2" Click="MoneyRadioBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <RadioButton Margin="0,90,158,0" Content="Картой онлайн" FontWeight="Bold" BorderThickness="1" BorderBrush="Black" FontFamily="Roboto" Name="CardRadioBtn" Grid.Column="2" Click="CardRadioBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Border Grid.Column="2" Background="#E6E6E6" Width="217" Height="109" Margin="0,115,58,0" CornerRadius="10" HorizontalAlignment="Right" VerticalAlignment="Top">
                         <StackPanel>
                             <Label Content="Номер карты" FontWeight="Medium" FontFamily="Roboto" Margin="10,12,0,0"/>
                             <TextBox Margin="5,0,5,0" BorderThickness="0" Name="txtNumberOfCard">
@@ -155,9 +165,8 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-                    <Label Content="Итоговая цена: " FontWeight="Medium" FontFamily="Roboto" Margin="32,310,0,0" Grid.Column="2" FontSize="16"/>
-                    <Label Content="0 руб." FontWeight="Bold" FontFamily="Roboto" Margin="150,310,0,0" Grid.Column="2" FontSize="16" Foreground="#A500F3" Name="TotalPrice"/>
-                    <Border CornerRadius="10" Background="#68CACD" Width="131" Height="32" HorizontalAlignment="Right" Margin="0,338,10,0" MouseLeftButtonUp="ConfirmOrderButton_Click" Grid.Column="2">
+                    <TextBlock Text="Итоговая цена:"  FontWeight="Medium" FontFamily="Roboto" Margin="0,228,70,0" Grid.Column="2" FontSize="16" Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Border CornerRadius="10" Background="#68CACD" Width="131" Height="32" Margin="0,0,10,10" MouseLeftButtonUp="ConfirmOrderButton_Click" Grid.Column="2" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                         <TextBlock Text="Оформить заказ" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
                             <TextBlock.Effect>
                                 <DropShadowEffect Opacity="0.3"/>
@@ -166,6 +175,6 @@
                     </Border>
                 </Grid>
             </Border>
-        </StackPanel>
-    </StackPanel>
+        </DockPanel>
+    </Grid>
 </Window>

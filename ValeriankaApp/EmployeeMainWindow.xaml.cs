@@ -24,18 +24,42 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadContent();
-        }
-        void LoadContent()
-        {
-            Random rand = new Random();
-            string text = "Some recipe description. сведения о Horizondation";
-            int price = 1200;
-            for (int i = 0; i < 10; i++)
+            try
             {
-                AddProductPanel(i, $"Name {i}", "от горла", rand.Next(1, 20), i * 1000);
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
+        }
+
+        void LoadContent(string searchText = "")
+        {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                List<Product> products;
+                try
+                {
+                    if (searchText == "")
+                    {
+                            products = (from p in db.Product select p).ToList<Product>();
+                    }
+                    else
+                    {
+                        IEnumerable<Product> productsSet;
+                        productsSet = (from p in db.Product select p);
+                        products = productsSet.Where(product => product.ProductName.Contains($"{searchText}")).ToList<Product>();
+                    }
+                    int i = 0;
+                    foreach (var product in products)
+                    {
+                        AddProductPanel(product, product.ProductName, product.ProductPurpose, product.ProductCount, product.ProductPrice);
+                        i++;
+                    }
+                }
+                catch { }
             }
         }
-        void AddProductPanel(int i, string name, string purpose, int quantity, int price)
+        void AddProductPanel(Product product,string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };
             StackPanel sp = new StackPanel() { };
@@ -51,7 +75,8 @@ namespace ValeriankaApp
             Button changeBtn = new Button() { Width = 80, Height = 30, Content = "Изменить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 6) };
             changeBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
             Button delBtn = new Button() { Width = 80, Height = 30, Content = "Удалить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 6) };
-       
+            delBtn.Tag = product;
+            delBtn.Click += ButtonDelete_Click;
             delBtn.Style = (Style)contentPanel.Resources["RoundedButtonStyle"];
             bottomSp.Children.Add(changeBtn);
             bottomSp.Children.Add(delBtn);
@@ -75,6 +100,22 @@ namespace ValeriankaApp
             contentPanel.Children.Add(borderPanel);
         }
 
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeProfileWindow epw = new EmployeeProfileWindow();
+            this.Close();
+            epw.ShowDialog();
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                var product = (Product)(sender as Button).Tag;
+                db.Entry(product).State = System.Data.Entity.EntityState.Deleted;
+            }
+        }
+
         private void QuantityTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -84,41 +125,21 @@ namespace ValeriankaApp
             }
             catch { if ((sender as TextBox).Text != "") (sender as TextBox).Text = "1"; }
         }
-
-        void LoadProduct()
-        {
-            contentPanel.Children.Clear();
-            StackPanel sp = new StackPanel() { Style = (Style)contentPanel.Resources["productSpStyle"] };
-
-
-            contentPanel.Children.Add(sp);
-
-        }
-
-        private void ButtonIncrease_Click(object sender, RoutedEventArgs e)
-        {
-            int tag = Convert.ToInt32(((Button)sender).Tag);
-            quantityList[tag].Text = (Convert.ToInt32(quantityList[tag].Text) + 1).ToString();
-        }
-
-        private void ButtonReduce_Click(object sender, RoutedEventArgs e)
-        {
-            int tag = Convert.ToInt32(((Button)sender).Tag);
-            int num = Convert.ToInt32(quantityList[tag].Text);
-            if (num > 1)
-                quantityList[tag].Text = (num - 1).ToString();
-        }
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
-
+            contentPanel.Children.Clear();
+            LoadContent();
         }
         private void ButtonOrders_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeOrderListWindow eolw = new EmployeeOrderListWindow();
+            this.Close();
+            eolw.ShowDialog();
         }
-        private void ButtonCart_Click(object sender, RoutedEventArgs e)
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            contentPanel.Children.Clear();
+            LoadContent(searchTxt.Text);
         }
     }
 }

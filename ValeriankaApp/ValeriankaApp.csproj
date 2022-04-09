@@ -82,8 +82,17 @@
     <Compile Include="ClientMainWindow.xaml.cs">
       <DependentUpon>ClientMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeCreateWindow.xaml.cs">
+      <DependentUpon>EmployeeCreateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeMainWindow.xaml.cs">
       <DependentUpon>EmployeeMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeOrderListWindow.xaml.cs">
+      <DependentUpon>EmployeeOrderListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeProfileWindow.xaml.cs">
+      <DependentUpon>EmployeeProfileWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="EntityModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -144,7 +153,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EmployeeCreateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EmployeeMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmployeeOrderListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmployeeProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -26,6 +26,7 @@ namespace ValeriankaApp
             txtLogin.Text = "Damirka";
             txtPassword.Password = "qqqqwwww";
         }
+
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
             var register = new RegisterWindow();
@@ -36,7 +37,6 @@ namespace ValeriankaApp
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             string result = LoginMethod(txtLogin.Text, txtPassword.Password);
-            MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
             if (result == $"Добро пожаловать, {txtLogin.Text}!")
             {
                 using (var db = new Pharmacy_ValeriankaEntities())
@@ -44,6 +44,7 @@ namespace ValeriankaApp
                     Users user = (from u in db.Users where u.UserLogin == txtLogin.Text select u).FirstOrDefault();
                     if (user.UserRole == "User")
                     {
+                        SystemContext.typeWindow = "Каталог";
                         ClientMainWindow cmw = new ClientMainWindow();
                         this.Close();
                         cmw.ShowDialog();
@@ -66,6 +67,10 @@ namespace ValeriankaApp
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show(result, "Результат", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private string LoginMethod(string login, string password)
@@ -79,9 +84,16 @@ namespace ValeriankaApp
                     return "Пользователя с таким логином не существует!";
                 if (user.UserPassword != password)
                     return "Неверный пароль!";
+                if(user.UserRole == "User")
+                    SystemContext.Client = (from c in db.Client where c.UserID == user.UserID select c).FirstOrDefault();
                 SystemContext.User = user;
             }
             return $"Добро пожаловать, {login}!";
+        }
+
+        private void txtLogin_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

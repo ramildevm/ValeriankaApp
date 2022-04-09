@@ -54,15 +54,8 @@
                 </Button>
                 <Button Grid.Column="1" Content="Заказы" Click="ButtonOrders_Click" Cursor="Hand"/>
             </Grid>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button Content="Мои профиль" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button  Width="37" Height="37">
+            <DockPanel Grid.Column="3" >
+                <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0" Click="ButtonMyProfile_Click" Cursor="Hand" VerticalAlignment="Center">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -72,13 +65,20 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </StackPanel>
+                <Button HorizontalAlignment="Right" x:Name="btnProfile" DockPanel.Dock="Right" Foreground="White" FontFamily="Rockwell" FontSize="14" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold" Margin="0,4.5,10,0" >
+                    <TextBlock Name="btnProfileText" Text=""/>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
         </Grid>
         <Grid DockPanel.Dock="Top" Height="Auto" Background="#E5E5E5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-
             </Grid.ColumnDefinitions>
             <TextBox Height="25" Margin="5" BorderThickness="1" Grid.Column="0" x:Name="searchTxt">
                 <TextBox.Resources>
@@ -88,7 +88,7 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
+            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" Click="ButtonSearch_Click" BorderThickness="1" Background="#A500F3" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

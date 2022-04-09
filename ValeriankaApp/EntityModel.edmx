@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Pharmacy_ValeriankaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Pharmacy_ValeriankaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Basket">
           <Key>
             <PropertyRef Name="BasketID" />
@@ -18,11 +18,11 @@
           <Key>
             <PropertyRef Name="ClientID" />
           </Key>
-          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="ClientFIO" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ClientNumber" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ClientPreferredAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ClientFIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="ClientNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="ClientPreferredAddress" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -44,13 +44,13 @@
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProductImage" Type="image" />
           <Property Name="ProductType" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ProductPurpose" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ProductManufacturer" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ProductDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProductDescription" Type="nvarchar(max)" />
           <Property Name="ProductCount" Type="int" Nullable="false" />
           <Property Name="ProductPrice" Type="int" Nullable="false" />
+          <Property Name="ProductImage" Type="image" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -78,7 +78,7 @@
           <Property Name="UserEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="UserRole" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Basket__ClientID__4BAC3F29">
+        <Association Name="FK__Basket__ClientID__33D4B598">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -92,7 +92,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Basket__ProductI__4CA06362">
+        <Association Name="FK__Basket__ProductI__34C8D9D1">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -106,7 +106,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Client__UserID__48CFD27E">
+        <Association Name="FK__Client__UserID__35BCFE0A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -120,7 +120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ClientID__5070F446">
+        <Association Name="FK__Orders__ClientID__36B12243">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -134,7 +134,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ProductI__5165187F">
+        <Association Name="FK__Orders__ProductI__37A5467C">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -148,7 +148,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ShopID__52593CB8">
+        <Association Name="FK__Orders__ShopID__38996AB5">
           <End Role="Shop" Type="Self.Shop" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -162,7 +162,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ShopAddre__Produ__44FF419A">
+        <Association Name="FK__ShopAddre__Produ__398D8EEE">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -176,7 +176,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ShopAddre__ShopI__440B1D61">
+        <Association Name="FK__ShopAddre__ShopI__3A81B327">
           <End Role="Shop" Type="Self.Shop" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -198,41 +198,40 @@
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopAddressLink" EntityType="Self.ShopAddressLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Basket__ClientID__4BAC3F29" Association="Self.FK__Basket__ClientID__4BAC3F29">
+          <AssociationSet Name="FK__Basket__ClientID__33D4B598" Association="Self.FK__Basket__ClientID__33D4B598">
             <End Role="Client" EntitySet="Client" />
             <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
-          <AssociationSet Name="FK__Basket__ProductI__4CA06362" Association="Self.FK__Basket__ProductI__4CA06362">
+          <AssociationSet Name="FK__Basket__ProductI__34C8D9D1" Association="Self.FK__Basket__ProductI__34C8D9D1">
             <End Role="Product" EntitySet="Product" />
             <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
-          <AssociationSet Name="FK__Client__UserID__48CFD27E" Association="Self.FK__Client__UserID__48CFD27E">
+          <AssociationSet Name="FK__Client__UserID__35BCFE0A" Association="Self.FK__Client__UserID__35BCFE0A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ClientID__5070F446" Association="Self.FK__Orders__ClientID__5070F446">
+          <AssociationSet Name="FK__Orders__ClientID__36B12243" Association="Self.FK__Orders__ClientID__36B12243">
             <End Role="Client" EntitySet="Client" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ProductI__5165187F" Association="Self.FK__Orders__ProductI__5165187F">
+          <AssociationSet Name="FK__Orders__ProductI__37A5467C" Association="Self.FK__Orders__ProductI__37A5467C">
             <End Role="Product" EntitySet="Product" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ShopID__52593CB8" Association="Self.FK__Orders__ShopID__52593CB8">
+          <AssociationSet Name="FK__Orders__ShopID__38996AB5" Association="Self.FK__Orders__ShopID__38996AB5">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ShopAddre__Produ__44FF419A" Association="Self.FK__ShopAddre__Produ__44FF419A">
+          <AssociationSet Name="FK__ShopAddre__Produ__398D8EEE" Association="Self.FK__ShopAddre__Produ__398D8EEE">
             <End Role="Product" EntitySet="Product" />
             <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
           </AssociationSet>
-          <AssociationSet Name="FK__ShopAddre__ShopI__440B1D61" Association="Self.FK__ShopAddre__ShopI__440B1D61">
+          <AssociationSet Name="FK__ShopAddre__ShopI__3A81B327" Association="Self.FK__ShopAddre__ShopI__3A81B327">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Pharmacy_ValeriankaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -251,11 +250,11 @@
           <Key>
             <PropertyRef Name="ClientID" />
           </Key>
-          <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="ClientFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientPreferredAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="true" />
+          <Property Name="ClientFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="ClientNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="ClientPreferredAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
           <NavigationProperty Name="Basket" Relationship="Self.FK__Basket__ClientID__4BAC3F29" FromRole="Client" ToRole="Basket" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Client__UserID__48CFD27E" FromRole="Client" ToRole="Users" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ClientID__5070F446" FromRole="Client" ToRole="Orders" />

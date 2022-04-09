@@ -23,6 +23,12 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadContent(searchTxt.Text);
+            try
+            {
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
         }
 
         void LoadContent(string searchText)
@@ -86,26 +92,20 @@ namespace ValeriankaApp
             UserView.Children.Add(borderPanel);
         }
 
-        private void Users_Click(object sender, MouseButtonEventArgs e)
+        private void AdminUserListClick_Button(object sender, MouseButtonEventArgs e)
         {
             UserView.Children.Clear();
             LoadContent(searchTxt.Text);
         }
 
-        private void AddUser_Click(object sender, MouseButtonEventArgs e)
+        private void AdminUserAddClick_Button(object sender, MouseButtonEventArgs e)
         {
             AdminSubWindows.AddUserWindow AUW = new AdminSubWindows.AddUserWindow();
+            this.Close();
             AUW.ShowDialog();
         }
 
-        private void MyProfile_Click(object sender, MouseButtonEventArgs e)
-        {
-            AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
-            this.Close();
-            MPAW.ShowDialog();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
         {
             AdminSubWindows.MyProfileAdminWindow MPAW = new AdminSubWindows.MyProfileAdminWindow();
             this.Close();

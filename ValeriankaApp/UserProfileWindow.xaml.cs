@@ -23,6 +23,12 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadAddress();
+            try
+            {
+                btnProfileText.Text = SystemContext.User.UserLogin;
+                btnProfile.Click += ButtonMyProfile_Click;
+            }
+            catch { }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -135,11 +141,38 @@ namespace ValeriankaApp
                 }
                    
             }
+            SystemContext.typeWindow = "Каталог";
+            ClientMainWindow cmw = new ClientMainWindow();
+            this.Close();
+            cmw.ShowDialog();       
+        }
+
+        private void ClientMainButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemContext.typeWindow = "Каталог";
             ClientMainWindow cmw = new ClientMainWindow();
             this.Close();
             cmw.ShowDialog();
+        }
 
-            
+        private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+            LoadAddress();
+        }
+
+        private void ClientCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemContext.typeWindow = "Корзина";
+            ClientMainWindow cmw = new ClientMainWindow();
+            this.Close();
+            cmw.ShowDialog();
+        }
+
+        private void MyOrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderListWindow olw = new OrderListWindow();
+            this.Close();
+            olw.ShowDialog();
         }
     }
 }

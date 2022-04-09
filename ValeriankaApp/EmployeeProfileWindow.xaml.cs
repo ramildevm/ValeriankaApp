@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ValeriankaApp.AdminSubWindows
+namespace ValeriankaApp
 {
     /// <summary>
-    /// Логика взаимодействия для MyProfileAdminWindow.xaml
+    /// Логика взаимодействия для EmployeeProfileWindow.xaml
     /// </summary>
-    public partial class MyProfileAdminWindow : Window
+    public partial class EmployeeProfileWindow : Window
     {
-        public MyProfileAdminWindow()
+        public EmployeeProfileWindow()
         {
             InitializeComponent();
             try
@@ -89,18 +89,18 @@ namespace ValeriankaApp.AdminSubWindows
             adminWindow.ShowDialog();
         }
 
-        private void AdminUserListClick_Button(object sender, MouseButtonEventArgs e)
+        private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
         {
-            AdminWindow aw = new AdminWindow();
+            EmployeeMainWindow emw = new EmployeeMainWindow();
             this.Close();
-            aw.ShowDialog();
+            emw.ShowDialog();
         }
 
-        private void AdminUserAddClick_Button(object sender, MouseButtonEventArgs e)
+        private void ButtonOrders_Click(object sender, RoutedEventArgs e)
         {
-            AddUserWindow auw = new AddUserWindow();
+            EmployeeOrderListWindow eolw = new EmployeeOrderListWindow();
             this.Close();
-            auw.ShowDialog();
+            eolw.ShowDialog();
         }
     }
 }
