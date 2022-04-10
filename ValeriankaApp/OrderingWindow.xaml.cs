@@ -23,6 +23,7 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadAddress();
+            LoadDefault();
             try
             {
                 btnProfileText.Text = SystemContext.User.UserLogin;
@@ -31,6 +32,20 @@ namespace ValeriankaApp
             catch { }
             TotalPrice.Inlines.Add(new TextBlock() { Text = $" {CalculationTotalPrice()} руб.", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
         }
+
+        private void LoadDefault()
+        {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+            }
+
+            var client = SystemContext.Client;
+            txtFIO.Text = client.ClientFIO;
+            txtNumber.Text = client.ClientNumber;
+            ComBoxBaseAddress.SelectedItem = client.ClientPreferredAddress;
+        }
+
 
         private int CalculationTotalPrice()
         {
@@ -99,6 +114,10 @@ namespace ValeriankaApp
                 db.Entry(productShopCart).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
             }
+            MessageBox.Show("Заказ успешно оформлен");
+            OrderListWindow olw = new OrderListWindow();
+            this.Close();
+            olw.ShowDialog();
         }
 
         private void CancelButton_Click(object sender, MouseButtonEventArgs e)
@@ -132,268 +151,72 @@ namespace ValeriankaApp
                     {
                         if (ComBoxBaseAddress.SelectedItem != null)
                         {
-                            client.ClientFIO = txtFIO.Text;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = txtNumber.Text;
-                            client.ClientPreferredAddress = ComBoxBaseAddress.Text;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
 
-                            if (CardRadioBtn.IsChecked == true)
+                            if (SystemContext.Client.ClientFIO == txtFIO.Text && SystemContext.Client.ClientNumber == txtNumber.Text && SystemContext.Client.ClientPreferredAddress == ComBoxBaseAddress.Text)
                             {
-                                foreach (var basket in baskets)
+                                client.ClientPreferredAddress = ComBoxBaseAddress.Text;
+                                if (CardRadioBtn.IsChecked == true)
                                 {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
+                                    foreach (var basket in baskets)
+                                    {
+                                        CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
+                                    }
                                 }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
+                                else if (MoneyRadioBtn.IsChecked == true)
                                 {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
+                                    foreach (var basket in baskets)
+                                    {
+                                        CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Выберите метод оплаты");
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else if (SystemContext.Client.ClientPreferredAddress != null)
-                        {
-                            client.ClientFIO = txtFIO.Text;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = txtNumber.Text;
-                            client.ClientPreferredAddress = SystemContext.Client.ClientPreferredAddress;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
+                                client.ClientFIO = txtFIO.Text;
+                                client.UserID = SystemContext.User.UserID;
+                                client.ClientNumber = txtNumber.Text;
+                                client.ClientPreferredAddress = ComBoxBaseAddress.Text;
+                                db.Entry(client).State = System.Data.Entity.EntityState.Modified;
+                                db.SaveChanges();
 
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
+                                if (CardRadioBtn.IsChecked == true)
                                 {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
+                                    foreach (var basket in baskets)
+                                    {
+                                        CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
+                                    }
                                 }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
+                                else if (MoneyRadioBtn.IsChecked == true)
                                 {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
+                                    foreach (var basket in baskets)
+                                    {
+                                        CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
+                                else
+                                {
+                                    MessageBox.Show("Выберите метод оплаты");
+                                }
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Выберите адрес");
-                        }
-                    }
-                    else if (SystemContext.Client.ClientNumber != null)
-                    {
-                        if (ComBoxBaseAddress.SelectedItem != null)
-                        {
-                            client.ClientFIO = txtFIO.Text;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = SystemContext.Client.ClientNumber;
-                            client.ClientPreferredAddress = ComBoxBaseAddress.Text;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
-                                }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else if (SystemContext.Client.ClientPreferredAddress != null)
-                        {
-                            client.ClientFIO = txtFIO.Text;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = SystemContext.Client.ClientNumber;
-                            client.ClientPreferredAddress = SystemContext.Client.ClientPreferredAddress;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
-                                }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Выберите адрес");
+                            MessageBox.Show("Выберите адрес!");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Напишите ваш номер телефона");
-                    }
-                }
-                else if (SystemContext.Client.ClientFIO != null)
-                {
-                    if (txtNumber.Text != "")
-                    {
-                        if (ComBoxBaseAddress.SelectedItem != null)
-                        {
-                            client.ClientFIO = SystemContext.Client.ClientFIO;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = txtNumber.Text;
-                            client.ClientPreferredAddress = ComBoxBaseAddress.Text;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
-                                }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else if (SystemContext.Client.ClientPreferredAddress != null)
-                        {
-                            client.ClientFIO = SystemContext.Client.ClientFIO;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = txtNumber.Text;
-                            client.ClientPreferredAddress = SystemContext.Client.ClientPreferredAddress;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
-                                }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Выберите адрес");
-                        }
-                    }
-                    else if (SystemContext.Client.ClientNumber != null)
-                    {
-                        if (ComBoxBaseAddress.SelectedItem != null)
-                        {
-                            client.ClientFIO = SystemContext.Client.ClientFIO;
-                            client.UserID = SystemContext.User.UserID;
-                            client.ClientNumber = SystemContext.Client.ClientNumber;
-                            client.ClientPreferredAddress = ComBoxBaseAddress.Text;
-                            db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
-                                }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else if (SystemContext.Client.ClientPreferredAddress != null)
-                        {
-                            client.ClientPreferredAddress = SystemContext.Client.ClientPreferredAddress;
-                            if (CardRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Карта");
-                                }
-                            }
-                            else if (MoneyRadioBtn.IsChecked == true)
-                            {
-                                foreach (var basket in baskets)
-                                {
-                                    CreateNewOrder(basket.ProductID.ToString(), client.ClientPreferredAddress, basket.BasketProductCount, "Наличными");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Выберите метод оплаты");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Выберите адрес");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Напишите ваш номер телефона");
+                        MessageBox.Show("Введите номер");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Напишите ваше ФИО");
+                    MessageBox.Show("Введите ФИО");
                 }
-                MessageBox.Show("Заказ успешно оформлен");
-                OrderListWindow olw = new OrderListWindow();
-                this.Close();
-                olw.ShowDialog();
             }
         }
 

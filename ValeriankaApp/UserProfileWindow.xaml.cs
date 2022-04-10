@@ -94,9 +94,9 @@ namespace ValeriankaApp
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                var client = SystemContext.Client;
-                var user = SystemContext.User;
+                //SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+                var client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+                var user = (from u in db.Users where u.UserID == SystemContext.User.UserID select u).FirstOrDefault();
 
                 if (txtLogin.Text != "" || txtEmail.Text != "" || txtPassword.Password != "")
                 {
@@ -114,12 +114,12 @@ namespace ValeriankaApp
                     }
                     if (SystemContext.User.UserLogin == txtLogin.Text && SystemContext.User.UserEmail == txtEmail.Text && SystemContext.User.UserPassword == txtPassword.Password)
                     {
-                        MessageBox.Show("Я сосу");
+
                     }
                     else
                     {
-                        /*db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();*/
+                        db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
                     }
                 }
 
@@ -139,15 +139,16 @@ namespace ValeriankaApp
                     }
                     if (SystemContext.Client.ClientFIO == txtFIO.Text && SystemContext.Client.ClientNumber == txtNumber.Text && SystemContext.Client.ClientPreferredAddress == ComBoxBaseAddress.Text)
                     {
-                        MessageBox.Show(client.ClientFIO);
+
                     }
                     else
                     {
-                        /*db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();*/
+                        db.Entry(client).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
                     }
                 }
-                   
+
+                SystemContext.User = (from u in db.Users where u.UserID == SystemContext.User.UserID select u).FirstOrDefault();
             }
             SystemContext.typeWindow = "Каталог";
             ClientMainWindow cmw = new ClientMainWindow();
