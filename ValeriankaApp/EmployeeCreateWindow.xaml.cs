@@ -153,7 +153,6 @@ namespace ValeriankaApp
 
         private string CheckData()
         {
-            int PID;
             string name = nameTxt.Text,
                 manufacturer = manufacturerTxt.Text,
                 type = typeTxt.Text,

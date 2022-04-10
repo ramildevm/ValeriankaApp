@@ -94,15 +94,16 @@ namespace ValeriankaApp
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                var client = SystemContext.Client;
-                var user = SystemContext.User;
+                
+                var client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+                var user = (from c in db.Users where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
 
                 if (txtLogin.Text != "" || txtEmail.Text != "" || txtPassword.Password != "")
                 {
                     if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != SystemContext.User.UserLogin)
                     {
                         user.UserLogin = txtLogin.Text;
+                        
                     }
                     if (txtEmail.Text != "" && txtEmail.Text != SystemContext.User.UserEmail)
                     {
@@ -118,8 +119,9 @@ namespace ValeriankaApp
                     }
                     else
                     {
-                        /*db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();*/
+                        db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        SystemContext.User = user;
                     }
                 }
 
@@ -143,8 +145,9 @@ namespace ValeriankaApp
                     }
                     else
                     {
-                        /*db.Entry(client).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();*/
+                        db.Entry(client).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        SystemContext.Client = client;
                     }
                 }
                    

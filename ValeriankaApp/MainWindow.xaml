@@ -26,9 +26,7 @@
             <ImageBrush ImageSource="Images/LoginBack.png" Opacity="0.9"/>
         </StackPanel.Background>
         <Label Content="Valerianka" FontFamily="Rockwell" FontSize="36" HorizontalAlignment="Center" Foreground="#68CACD" FontWeight="Bold" Margin="0,62,0,0"/>
-        <Label Foreground="White" Content="Заботимся о вашем здоровье 24 на 7!" Style="{StaticResource ResourceKey=Lbl13}" Margin="247,0">
-
-        </Label>
+        <Label Foreground="White" Content="Заботимся о вашем здоровье 24 на 7!" Style="{StaticResource ResourceKey=Lbl13}" Width="Auto"/>
         <Border Width="200" Height="219" Background="#68CACD" CornerRadius="10" Margin="0,19,0,0">
             <StackPanel >
                 <Label Content="Добро пожаловать!" Style="{StaticResource Lbl13}" Margin="0,5,0,5"/>

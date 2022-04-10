@@ -162,11 +162,7 @@
                     </TextBox>
                     <Label Content="Адрес магазина по умолчанию" Style="{StaticResource LeftLbl}" Margin="0,147,63,0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <ComboBox x:Name="ComBoxBaseAddress" Width="242" Height="20" HorizontalAlignment="Right" Background="#E6E6E6" Margin="0,168,10,0" BorderThickness="0" Grid.Column="2" VerticalAlignment="Top">
-                        <ComboBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </ComboBox.Resources>
+                        
                     </ComboBox>
                     <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2" VerticalAlignment="Bottom">
                         <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
