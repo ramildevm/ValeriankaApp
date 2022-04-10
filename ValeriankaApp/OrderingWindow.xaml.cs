@@ -114,10 +114,6 @@ namespace ValeriankaApp
                 db.Entry(productShopCart).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
             }
-            MessageBox.Show("Заказ успешно оформлен");
-            OrderListWindow olw = new OrderListWindow();
-            this.Close();
-            olw.ShowDialog();
         }
 
         private void CancelButton_Click(object sender, MouseButtonEventArgs e)
@@ -133,7 +129,7 @@ namespace ValeriankaApp
             using (var db = new Pharmacy_ValeriankaEntities())
             {
                 SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                Client client = new Client();
+                var client = SystemContext.Client;
                 List<Basket> baskets;
                 baskets = (from b in db.Basket where SystemContext.Client.ClientID == b.ClientID select b).ToList<Basket>();
                 if (baskets.Count == 0)
@@ -172,6 +168,7 @@ namespace ValeriankaApp
                                 else
                                 {
                                     MessageBox.Show("Выберите метод оплаты");
+                                    return;
                                 }
                             }
                             else
@@ -200,24 +197,32 @@ namespace ValeriankaApp
                                 else
                                 {
                                     MessageBox.Show("Выберите метод оплаты");
+                                    return;
                                 }
                             }
                         }
                         else
                         {
                             MessageBox.Show("Выберите адрес!");
+                            return;
                         }
                     }
                     else
                     {
                         MessageBox.Show("Введите номер");
+                        return;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Введите ФИО");
+                    return;
                 }
             }
+            MessageBox.Show("Заказ успешно оформлен");
+            OrderListWindow olw = new OrderListWindow();
+            this.Close();
+            olw.ShowDialog();
         }
 
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
