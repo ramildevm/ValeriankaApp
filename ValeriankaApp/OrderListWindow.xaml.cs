@@ -39,7 +39,7 @@ namespace ValeriankaApp
                 try
                 {
                     SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                    orders = (from o in db.Orders where o.ClientID == SystemContext.Client.ClientID select o).ToList<Orders>();
+                    orders = (from o in db.Orders where o.ClientID == SystemContext.Client.ClientID orderby o.OrderData descending select o).ToList<Orders>();
                     int i = 0;
                     foreach (var order in orders)
                     {

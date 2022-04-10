@@ -94,16 +94,15 @@ namespace ValeriankaApp
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                
+                //SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
                 var client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                var user = (from c in db.Users where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+                var user = (from u in db.Users where u.UserID == SystemContext.User.UserID select u).FirstOrDefault();
 
                 if (txtLogin.Text != "" || txtEmail.Text != "" || txtPassword.Password != "")
                 {
                     if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != SystemContext.User.UserLogin)
                     {
                         user.UserLogin = txtLogin.Text;
-                        
                     }
                     if (txtEmail.Text != "" && txtEmail.Text != SystemContext.User.UserEmail)
                     {
@@ -115,7 +114,7 @@ namespace ValeriankaApp
                     }
                     if (SystemContext.User.UserLogin == txtLogin.Text && SystemContext.User.UserEmail == txtEmail.Text && SystemContext.User.UserPassword == txtPassword.Password)
                     {
-                        MessageBox.Show("Я сосу");
+
                     }
                     else
                     {
@@ -141,7 +140,7 @@ namespace ValeriankaApp
                     }
                     if (SystemContext.Client.ClientFIO == txtFIO.Text && SystemContext.Client.ClientNumber == txtNumber.Text && SystemContext.Client.ClientPreferredAddress == ComBoxBaseAddress.Text)
                     {
-                        MessageBox.Show(client.ClientFIO);
+
                     }
                     else
                     {

@@ -22,12 +22,23 @@ namespace ValeriankaApp
         public EmployeeProfileWindow()
         {
             InitializeComponent();
+            LoadDefault();
             try
             {
                 btnProfileText.Text = SystemContext.User.UserLogin;
                 btnProfile.Click += ButtonMyProfile_Click;
             }
             catch { }
+        }
+
+        private void LoadDefault()
+        {
+            var user = SystemContext.User;
+
+            txtLogin.Text = user.UserLogin;
+            txtEmail.Text = user.UserEmail;
+            txtPassword.Password = user.UserPassword;
+            txtPasswordConfirm.Password = user.UserPassword;
         }
 
         private void ButtonMyProfile_Click(object sender, RoutedEventArgs e)
@@ -63,30 +74,37 @@ namespace ValeriankaApp
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                Client client = new Client();
-                SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                string user = SystemContext.User.UserLogin;
+                var user = (from u in db.Users where u.UserID == SystemContext.User.UserID select u).FirstOrDefault();
+
                 if (txtLogin.Text != "" || txtEmail.Text != "" || txtPassword.Password != "")
                 {
-                    if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != user)
+                    if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != SystemContext.User.UserLogin)
                     {
-                        SystemContext.User.UserLogin = txtLogin.Text;
+                        user.UserLogin = txtLogin.Text;
                     }
                     if (txtEmail.Text != "" && txtEmail.Text != SystemContext.User.UserEmail)
                     {
-                        SystemContext.User.UserEmail = txtEmail.Text;
+                        user.UserEmail = txtEmail.Text;
                     }
                     if (txtPassword.Password == txtPasswordConfirm.Password && txtPassword.Password != "" && txtPassword.Password.Length >= 8 && SystemContext.User.UserPassword != txtPassword.Password)
                     {
-                        SystemContext.User.UserPassword = txtPassword.Password;
+                        user.UserPassword = txtPassword.Password;
                     }
-                    db.Entry(SystemContext.User).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+                    if (SystemContext.User.UserLogin == txtLogin.Text && SystemContext.User.UserEmail == txtEmail.Text && SystemContext.User.UserPassword == txtPassword.Password)
+                    {
+
+                    }
+                    else
+                    {
+                        db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
                 }
+                SystemContext.User = (from u in db.Users where u.UserID == SystemContext.User.UserID select u).FirstOrDefault();
             }
-            AdminWindow adminWindow = new AdminWindow();
+            EmployeeMainWindow employeeMain = new EmployeeMainWindow();
             this.Close();
-            adminWindow.ShowDialog();
+            employeeMain.ShowDialog();
         }
 
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)

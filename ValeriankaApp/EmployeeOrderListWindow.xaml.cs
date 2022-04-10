@@ -38,7 +38,7 @@ namespace ValeriankaApp
                 List<Orders> orders;
                 try
                 {
-                    orders = (from o in db.Orders select o).ToList<Orders>();
+                    orders = (from o in db.Orders orderby o.OrderData descending select o).ToList<Orders>();
                     int i = 0;
                     foreach (var order in orders)
                     {
