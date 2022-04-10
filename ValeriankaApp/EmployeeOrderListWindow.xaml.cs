@@ -19,6 +19,7 @@ namespace ValeriankaApp
     /// </summary>
     public partial class EmployeeOrderListWindow : Window
     {
+        Dictionary<int, Orders> OrdersList = new Dictionary<int, Orders>();
         public EmployeeOrderListWindow()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace ValeriankaApp
                     int i = 0;
                     foreach (var order in orders)
                     {
-                        AddNewOrder(order.OrderID.ToString(), order.OrderData.ToString(), order.ProductID.ToString(), order.OrderProductCount, order.ShopID.ToString(), order.OrderStatus, order.OrderTotalPrice, order.ClientID.ToString());
+                        AddNewOrder(order,order.OrderID.ToString(), order.OrderData.ToString(), order.ProductID.ToString(), order.OrderProductCount, order.ShopID.ToString(), order.OrderStatus, order.OrderTotalPrice, order.ClientID.ToString());
                         i++;
                     }
                 }
@@ -53,7 +54,7 @@ namespace ValeriankaApp
             }
         }
 
-        void AddNewOrder(string OrderID, string OrderData, string ProductID, int OrderProductCount, string ShopID, string OrderStatus, int OrderTotalPrice, string ClientID)
+        void AddNewOrder(Orders order,string OrderID, string OrderData, string ProductID, int OrderProductCount, string ShopID, string OrderStatus, int OrderTotalPrice, string ClientID)
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
@@ -76,14 +77,33 @@ namespace ValeriankaApp
                 TextBlock OrderProductText = new TextBlock() { Text = "Покупка: ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(5, 5, 0, 0) };
                 TextBlock OrderProduct = new TextBlock() { Text = " - ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(5, 5, 0, 0), Foreground = Brushes.Black };
                 TextBlock OrderAddressText = new TextBlock() { Text = "Адрес доставки:", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Center };
-                TextBlock OrderAddress = new TextBlock() { Text = $"{SystemContext.Shop.ShopAddress}", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0), Foreground = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center };
-                TextBlock OrderStatusCheck = new TextBlock() { Text = "Статус: ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Right };
+                TextBlock OrderAddress = new TextBlock() { Text = $"{SystemContext.Shop.ShopAddress}", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 20, 0, 0), Foreground = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Right };
+                TextBlock OrderStatusCheck = new TextBlock() { Text = "Статус:", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 35, 0), HorizontalAlignment = HorizontalAlignment.Right };
+                TextBox OrderStatusCheckBox = new TextBox() { Background = Brushes.Transparent, BorderThickness=new Thickness(0), FontWeight = FontWeights.Bold, FontSize = 14, Text = $"{OrderStatus}", HorizontalContentAlignment = HorizontalAlignment.Left, Padding = new Thickness(2)};
+                if(OrderStatusCheckBox.Text == "Отменен")
+                {
+                    OrderStatusCheckBox.IsReadOnly = true;
+                }
+                Border borderStatusTxt = new Border() { Width = 100, Height = 25, HorizontalAlignment = HorizontalAlignment.Right, CornerRadius = new CornerRadius(5),Margin = new Thickness(0,-40,10,0), BorderThickness = new Thickness(1), BorderBrush = Brushes.Gray };
+                OrderStatusCheckBox.Tag = order;
+                OrderStatusCheckBox.TextChanged += OrderStatusCheckBox_TextChanged;
+                borderStatusTxt.Child = OrderStatusCheckBox;
                 TextBlock OrderTotalPriceCheck = new TextBlock() { Text = "Общая стоимость: ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 80, 0, 0), HorizontalAlignment = HorizontalAlignment.Right, Foreground = Brushes.Black, FontSize = 17 };
                 Order.Inlines.Add(new TextBlock() { Text = $" {data[0]}", Margin = new Thickness(0) });
                 FIO.Inlines.Add(new TextBlock() { Text = $" {SystemContext.Client.ClientFIO}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
                 Number.Inlines.Add(new TextBlock() { Text = $" {SystemContext.Client.ClientNumber}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
                 OrderProduct.Inlines.Add(new TextBlock() { Text = $" {SystemContext.Product.ProductName}.  Кол-во: {OrderProductCount}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
-                OrderStatusCheck.Inlines.Add(new TextBlock() { Text = $" {OrderStatus}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
+                var statusDot = new TextBlock() { Text = $" ●", Margin = new Thickness(0) };
+                if (OrderStatus == "Карта")
+                {
+                    statusDot.Foreground = Brushes.LightGreen;
+                    OrderStatusCheck.Inlines.Add(statusDot);
+                }
+                else if (OrderStatus == "Наличными")
+                {
+                    statusDot.Foreground = Brushes.Red;
+                    OrderStatusCheck.Inlines.Add(statusDot);
+                }
                 OrderTotalPriceCheck.Inlines.Add(new TextBlock() { Text = $" {OrderTotalPrice}", Foreground = (Brush)(new BrushConverter().ConvertFrom("#A500F3")), Margin = new Thickness(0) });
                 Button cancelBtn = new Button() { Width = 81, Height = 23, Content = "Отменить", Foreground = Brushes.White, FontWeight = FontWeights.Bold, Cursor = Cursors.Hand, Margin = new Thickness(0, 105, 0, 0), HorizontalAlignment = HorizontalAlignment.Right };
                 cancelBtn.Style = (Style)OrdersView.Resources["RoundedButtonStyle"];
@@ -99,6 +119,7 @@ namespace ValeriankaApp
                 Grid.SetColumn(OrderAddressText, 1);
                 Grid.SetColumn(OrderAddress, 1);
                 Grid.SetColumn(OrderStatusCheck, 2);
+                Grid.SetColumn(borderStatusTxt, 2);
                 Grid.SetColumn(OrderTotalPriceCheck, 2);
                 Grid.SetColumn(cancelBtn, 2);
 
@@ -110,11 +131,23 @@ namespace ValeriankaApp
                 mainGrid.Children.Add(OrderAddressText);
                 mainGrid.Children.Add(OrderAddress);
                 mainGrid.Children.Add(OrderStatusCheck);
+                mainGrid.Children.Add(borderStatusTxt);
                 mainGrid.Children.Add(OrderTotalPriceCheck);
                 mainGrid.Children.Add(cancelBtn);
                 mainGrid.Children.Add(sp);
                 borderPanel.Child = mainGrid;
                 OrdersView.Children.Add(borderPanel);
+            }
+        }
+
+        private void OrderStatusCheckBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var txtBox = sender as TextBox;
+            if (txtBox.Text.Length > 4)
+            {
+                var order = txtBox.Tag as Orders;
+                order.OrderStatus = txtBox.Text;
+                OrdersList[order.OrderID] = order;
             }
         }
 
@@ -155,11 +188,23 @@ namespace ValeriankaApp
                     }
                     SystemContext.Orders = (from o in db.Orders where o.OrderID.ToString() == OrderIDNormal select o).FirstOrDefault();
                     SystemContext.Orders.OrderStatus = "Отменен";
+                    OrdersList[order.OrderID] = SystemContext.Orders;
                     db.Entry(SystemContext.Orders).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     OrdersView.Children.Clear();
                     LoadContent();
                 }
+            }
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                foreach(var keyValue in OrdersList)
+                {
+                    db.Entry(keyValue.Value).State = System.Data.Entity.EntityState.Modified;                    
+                }
+                db.SaveChanges();
             }
         }
     }

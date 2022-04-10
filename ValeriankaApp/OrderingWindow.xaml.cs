@@ -94,9 +94,12 @@ namespace ValeriankaApp
                 orders.ShopID = SystemContext.Shop.ShopID;
                 orders.OrderProductCount = OrderProcuctCount;
                 orders.OrderTotalPrice = totalPrice;
-                orders.OrderStatus = "В пути";
                 orders.OrderData = System.DateTimeOffset.UtcNow.Date;
                 orders.OrderPaymentMethod = OrderPaymentMethod;
+                if(OrderPaymentMethod == "Наличными")
+                    orders.OrderStatus = "Не оплачен";
+                else
+                    orders.OrderStatus = "Оплачен";
                 db.Orders.Add(orders);
                 db.SaveChanges();
 
@@ -133,7 +136,7 @@ namespace ValeriankaApp
             using (var db = new Pharmacy_ValeriankaEntities())
             {
                 SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                Client client = new Client();
+                Client client = SystemContext.Client;
                 List<Basket> baskets;
                 baskets = (from b in db.Basket where SystemContext.Client.ClientID == b.ClientID select b).ToList<Basket>();
                 if (baskets.Count == 0)
