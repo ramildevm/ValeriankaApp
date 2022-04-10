@@ -153,6 +153,7 @@ namespace ValeriankaApp
 
         private string CheckData()
         {
+            int PID;
             string name = nameTxt.Text,
                 manufacturer = manufacturerTxt.Text,
                 type = typeTxt.Text,
@@ -167,25 +168,6 @@ namespace ValeriankaApp
                     throw new Exception();
             }
             catch { return "Введены некорректные данные"; }
-            List<ShopAddressLink> productShopList = new List<ShopAddressLink>();
-            foreach (var qTxt in quantityTxtList)
-            {
-                if (qTxt.Text != "")
-                {
-                    try
-                    {
-                        if (Convert.ToInt32(qTxt.Text) < 0)
-                            throw new Exception();
-                        else if (Convert.ToInt32(qTxt.Text) == 0)
-                            continue;
-                        productShopList.Add(new ShopAddressLink() { ProductID = SystemContext.Product.ProductID, ShopID = (qTxt.Tag as Shop).ShopID, ShopAddressLinkAvailability = Convert.ToInt32(qTxt.Text) });
-                    }
-                    catch
-                    {
-                        return "Введены некорректные данные";
-                    }
-                }
-            }
             if (name == "" || manufacturer == "" || type == "" || purpose == "" || description == "")
                 return "Не все поля заполнены";
             string result;
@@ -194,7 +176,10 @@ namespace ValeriankaApp
                 using (var db = new Pharmacy_ValeriankaEntities())
                 {
                     var product = db.Product.Add(new Product() { ProductName = name, ProductType = type, ProductDescription = description, ProductCount = quantity, ProductManufacturer = manufacturer, ProductPurpose = purpose, ProductPrice = price, ProductImage = imageBytes });
+
                     db.SaveChanges();
+
+                    SystemContext.Product = (from p in db.Product where p.ProductName == product.ProductName select p).FirstOrDefault();
                 }
                 result = "Товар добавен";
             }
@@ -214,9 +199,32 @@ namespace ValeriankaApp
 
                     db.Entry(product).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+
+                    SystemContext.Product = (from p in db.Product where p.ProductName == product.ProductName select p).FirstOrDefault();
                 }
                 result = "Товар изменен";
             }
+
+            List<ShopAddressLink> productShopList = new List<ShopAddressLink>();
+            foreach (var qTxt in quantityTxtList)
+            {
+                if (qTxt.Text != "")
+                {
+                    try
+                    {
+                        if (Convert.ToInt32(qTxt.Text) < 0)
+                            throw new Exception();
+                        else if (Convert.ToInt32(qTxt.Text) == 0)
+                            continue;
+                        productShopList.Add(new ShopAddressLink() { ProductID = SystemContext.Product.ProductID, ShopID = (qTxt.Tag as Shop).ShopID, ShopAddressLinkAvailability = Convert.ToInt32(qTxt.Text) });
+                    }
+                    catch
+                    {
+                        return "Введены некорректные данные";
+                    }
+                }
+            }
+
             using (var db = new Pharmacy_ValeriankaEntities())
             {
                 foreach (var shop in productShopList)

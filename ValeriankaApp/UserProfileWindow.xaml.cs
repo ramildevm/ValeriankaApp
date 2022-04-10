@@ -23,12 +23,32 @@ namespace ValeriankaApp
         {
             InitializeComponent();
             LoadAddress();
+            LoadDefault();
             try
             {
                 btnProfileText.Text = SystemContext.User.UserLogin;
                 btnProfile.Click += ButtonMyProfile_Click;
             }
             catch { }
+        }
+
+        private void LoadDefault()
+        {
+            using (var db = new Pharmacy_ValeriankaEntities())
+            {
+                SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
+            }
+
+            var client = SystemContext.Client;
+            var user = SystemContext.User;
+
+            txtLogin.Text = user.UserLogin;
+            txtEmail.Text = user.UserEmail;
+            txtPassword.Password = user.UserPassword;
+            txtPasswordConfirm.Password = user.UserPassword;
+            txtFIO.Text = client.ClientFIO;
+            txtNumber.Text = client.ClientNumber;
+            ComBoxBaseAddress.SelectedItem = client.ClientPreferredAddress;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -74,70 +94,58 @@ namespace ValeriankaApp
         {
             using (var db = new Pharmacy_ValeriankaEntities())
             {
-                Client client = new Client();
                 SystemContext.Client = (from c in db.Client where c.UserID == SystemContext.User.UserID select c).FirstOrDefault();
-                string user = SystemContext.User.UserLogin;
+                var client = SystemContext.Client;
+                var user = SystemContext.User;
+
                 if (txtLogin.Text != "" || txtEmail.Text != "" || txtPassword.Password != "")
                 {
-                    if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != user)
+                    if (txtLogin.Text != "" && txtLogin.Text.Length >= 5 && txtLogin.Text != SystemContext.User.UserLogin)
                     {
-                        SystemContext.User.UserLogin = txtLogin.Text;
+                        user.UserLogin = txtLogin.Text;
                     }
                     if (txtEmail.Text != "" && txtEmail.Text != SystemContext.User.UserEmail)
                     {
-                        SystemContext.User.UserEmail = txtEmail.Text;
+                        user.UserEmail = txtEmail.Text;
                     }
                     if (txtPassword.Password == txtPasswordConfirm.Password && txtPassword.Password != "" && txtPassword.Password.Length >= 8 && SystemContext.User.UserPassword != txtPassword.Password)
                     {
-                        SystemContext.User.UserPassword = txtPassword.Password;
+                        user.UserPassword = txtPassword.Password;
                     }
-                    db.Entry(SystemContext.User).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
-                
-                if (SystemContext.Client == null)
-                {
-                    if (txtFIO.Text != "")
+                    if (SystemContext.User.UserLogin == txtLogin.Text && SystemContext.User.UserEmail == txtEmail.Text && SystemContext.User.UserPassword == txtPassword.Password)
                     {
-                        if (txtNumber.Text != "")
-                        {
-                            if (ComBoxBaseAddress.SelectedItem != null)
-                            {
-                                client.ClientFIO = txtFIO.Text;
-                                client.UserID = SystemContext.User.UserID;
-                                client.ClientNumber = txtNumber.Text;
-                                client.ClientPreferredAddress = ComBoxBaseAddress.Text;
-                                db.Client.Add(client);
-                                db.SaveChanges();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Нужно заполнить все личные данные!");
-                            }
-                        }
+                        MessageBox.Show("Я сосу");
+                    }
+                    else
+                    {
+                        /*db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();*/
                     }
                 }
-                else
+
+                if (txtFIO.Text != "" || txtNumber.Text != "" || ComBoxBaseAddress.SelectedItem != null)
                 {
-                    if (txtFIO.Text != "" || txtNumber.Text != "" || ComBoxBaseAddress.SelectedItem != null)
+                    if (txtFIO.Text != "" && txtFIO.Text != SystemContext.Client.ClientFIO)
                     {
-                        if (txtFIO.Text != "")
-                        {
-                            SystemContext.Client.ClientFIO = txtFIO.Text;
-                        }
-                        if (txtNumber.Text != "")
-                        {
-                            SystemContext.Client.ClientNumber = txtNumber.Text;
-                        }
-                        if (ComBoxBaseAddress.SelectedItem != null)
-                        {
-                            SystemContext.Client.ClientPreferredAddress = ComBoxBaseAddress.Text;
-                        }
-                        db.Entry(SystemContext.Client).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-           
+                        client.ClientFIO = txtFIO.Text;
                     }
-                    
+                    if (txtNumber.Text != "" && txtNumber.Text != SystemContext.Client.ClientNumber)
+                    {
+                        client.ClientNumber = txtNumber.Text;
+                    }
+                    if (ComBoxBaseAddress.SelectedItem != null && ComBoxBaseAddress.Text != SystemContext.Client.ClientPreferredAddress)
+                    {
+                        client.ClientPreferredAddress = ComBoxBaseAddress.Text;
+                    }
+                    if (SystemContext.Client.ClientFIO == txtFIO.Text && SystemContext.Client.ClientNumber == txtNumber.Text && SystemContext.Client.ClientPreferredAddress == ComBoxBaseAddress.Text)
+                    {
+                        MessageBox.Show(client.ClientFIO);
+                    }
+                    else
+                    {
+                        /*db.Entry(client).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();*/
+                    }
                 }
                    
             }

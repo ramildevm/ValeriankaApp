@@ -23,8 +23,8 @@ namespace ValeriankaApp
         public MainWindow()
         {
             InitializeComponent();
-            txtLogin.Text = "ramil";
-            txtPassword.Password = "12345678";
+            txtLogin.Text = "Damirka";
+            txtPassword.Password = "qqqqwwww";
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
