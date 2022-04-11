@@ -250,9 +250,7 @@ namespace ValeriankaApp
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                if ((sender as TextBox).Text != "")
-                    (sender as TextBox).Text = "1";
+                (sender as TextBox).Text = "1";
             }
         }
         private void ButtonIncrease_Click(object sender, RoutedEventArgs e)

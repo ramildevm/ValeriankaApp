@@ -100,7 +100,7 @@
             </Button>
         </Grid>
         <ScrollViewer DockPanel.Dock="Top">
-            <WrapPanel x:Name="contentPanel" Background="#E5E5E5">
+                <WrapPanel x:Name="contentPanel" Background="#E5E5E5" MinHeight="350">
                 <WrapPanel.Resources>
                     <Style TargetType="Border" x:Key="contentBorderStyle">
                         <Setter Property="Width" Value="220"/>

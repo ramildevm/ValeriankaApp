@@ -68,7 +68,7 @@
                 <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
                     <PasswordBox x:Name="txtPassword" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
                 </Border>
-                <Label Content="Потвердите пароль" Style="{StaticResource LblLeft}"/>
+                <Label Content="Подтвердите пароль" Style="{StaticResource LblLeft}"/>
                 <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
                     <PasswordBox x:Name="txtPasswordConfirm" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
                 </Border>
