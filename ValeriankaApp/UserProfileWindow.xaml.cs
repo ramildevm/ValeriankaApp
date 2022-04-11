@@ -120,6 +120,7 @@ namespace ValeriankaApp
                     {
                         db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
+                        SystemContext.User = user;
                     }
                 }
 
@@ -145,10 +146,10 @@ namespace ValeriankaApp
                     {
                         db.Entry(client).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
+                        SystemContext.Client = client;
                     }
                 }
-
-                SystemContext.User = (from u in db.Users where u.UserID == SystemContext.User.UserID select u).FirstOrDefault();
+                   
             }
             SystemContext.typeWindow = "Каталог";
             ClientMainWindow cmw = new ClientMainWindow();

@@ -115,11 +115,6 @@
                     </TextBox>
                     <Label Content="Доставка" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Left" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="32,155,0,0" Grid.Column="0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="ComBoxBaseAddress" Width="242" Height="20" HorizontalAlignment="Left" Background="#E6E6E6" Margin="15,185,0,0" BorderThickness="0" Grid.Column="0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold">
-                        <ComboBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </ComboBox.Resources>
                     </ComboBox>
                     <Border CornerRadius="10" Background="#68CACD" Width="95" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="CancelButton_Click" Grid.Column="0" Cursor="Hand" VerticalAlignment="Bottom">
                         <TextBlock Text="Отмена" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">

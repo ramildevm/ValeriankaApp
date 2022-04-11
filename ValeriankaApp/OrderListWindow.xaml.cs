@@ -72,7 +72,7 @@ namespace ValeriankaApp
                 TextBlock Order = new TextBlock() { Text = "Заказ от ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(5, 0, 0, 0) };
                 TextBlock OrderProduct = new TextBlock() { Text = " - ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(5, 20, 0, 0), Foreground = Brushes.Black };
                 TextBlock OrderAddressText = new TextBlock() { Text = "Адрес доставки:", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Center };
-                TextBlock OrderAddress = new TextBlock() { Text = $"{SystemContext.Shop.ShopAddress}", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0), Foreground = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center };
+                TextBlock OrderAddress = new TextBlock() { Text = $"{SystemContext.Shop.ShopAddress}", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 20, 0, 0), Foreground = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center };
                 TextBlock OrderStatusCheck = new TextBlock() { Text = "Статус: ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Right };
                 TextBlock OrderTotalPriceCheck = new TextBlock() { Text = "Общая стоимость: ", Style = (Style)OrdersView.Resources["Lbl"], Margin = new Thickness(0, 40, 0, 0), HorizontalAlignment = HorizontalAlignment.Right, Foreground = Brushes.Black, FontSize = 17 };
                 Order.Inlines.Add(new TextBlock() { Text = $" {data[0]}", Margin = new Thickness(0) });
