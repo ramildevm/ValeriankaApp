@@ -121,9 +121,9 @@ namespace ValeriankaApp
 
             //Bottom
             StackPanel bottomSp = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(12, 0, 0, 0) };
-            Button reduceBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
+            Button reduceBtn = new Button() { Cursor=Cursors.Hand, Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "-", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             reduceBtn.Click += ButtonReduce_Click;
-            Border borderqTxt = new Border() { Width = 40, Height = 25, CornerRadius = new CornerRadius(5),BorderThickness=new Thickness(1),BorderBrush=Brushes.Gray };
+            Border borderqTxt = new Border() {  Width = 40, Height = 25, CornerRadius = new CornerRadius(5),BorderThickness=new Thickness(1),BorderBrush=Brushes.Gray };
             TextBox quantityTxtBox = new TextBox() { MaxLength = 3, Text = "1", BorderThickness=new Thickness(0), Background = Brushes.Transparent, FontWeight = FontWeights.Bold, FontSize = 14, TextAlignment = TextAlignment.Center };
             borderqTxt.Child = quantityTxtBox;
             if (!isCatalog)
@@ -138,10 +138,10 @@ namespace ValeriankaApp
             }
             quantityTxtBox.TextChanged += QuantityTxtBox_TextChanged;
             quantityList[product.ProductID] = quantityTxtBox;
-            Button increaseBtn = new Button() { Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
+            Button increaseBtn = new Button() {Cursor = Cursors.Hand, Tag = product.ProductID, Width = 30, Height = 40, Background = Brushes.Transparent, Content = "+", FontWeight = FontWeights.Bold, FontSize = 20, BorderThickness = new Thickness(0) };
             increaseBtn.Click += ButtonIncrease_Click;
             Button addBtn = new Button() { Width = 80, Height = 30, Content = "Добавить", Foreground = Brushes.White, Margin = new Thickness(12, 0, 0, 0), Cursor = Cursors.Hand };
-
+            
             if (isCatalog)
                 addBtn.Click += ButtonAdd_Click;
             else
@@ -180,6 +180,16 @@ namespace ValeriankaApp
             sp.Children.Add(sp2);
             sp.Children.Add(borderPanel2);
             contentPanel.Children.Add(borderPanel);
+        }
+
+        private void AddBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#68CACD") as Brush;
+        }
+
+        private void AddBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#71DCDF") as Brush;
         }
 
         private void Sp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

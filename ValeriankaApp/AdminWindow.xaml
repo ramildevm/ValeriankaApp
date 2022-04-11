@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Valerianka Админ"
         Name="window"
-        Height="500" Width="800">
+        Height="458" Width="750" MinHeight="400" MinWidth="600">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -32,15 +32,11 @@
                 <ColumnDefinition Width="25*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Valerianka" FontFamily="Rockwell" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0,0,0"/>
-            <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" MouseLeftButtonUp="AdminUserListClick_Button" Cursor="Hand" TextDecorations="Underline">
-                <TextBlock.Effect>
-                    <DropShadowEffect Opacity="0.0"/>
-                </TextBlock.Effect>
+            <TextBlock Style="{StaticResource TxtBl}" Text="Пользователи" Grid.Column="1" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" MouseLeftButtonUp="AdminUserListClick_Button" Cursor="Hand" TextDecorations="Underline">
+                
             </TextBlock>
             <TextBlock Style="{StaticResource TxtBl}" Text="Добавить пользователя" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonUp="AdminUserAddClick_Button" Cursor="Hand">
-                <TextBlock.Effect>
-                    <DropShadowEffect Opacity="0.3"/>
-                </TextBlock.Effect>
+                
             </TextBlock>
             <DockPanel Grid.Column="3" >
                 <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Width="37" Height="37" Margin="0,0,12,0" Click="ButtonMyProfile_Click" Cursor="Hand" VerticalAlignment="Center">
@@ -77,7 +73,7 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <Button Grid.Column="1" Content="Найти" Width="100" Height="25" Click="ButtonSearch_Click" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
+            <Button Grid.Column="1" Cursor="Hand" Content="Найти" MouseEnter="SBtn_MouseEnter" MouseLeave="SBtn_MouseLeave" Width="100" Height="25" Click="ButtonSearch_Click" FontWeight="Bold" Foreground="White" Margin="-20,0,10,0" BorderThickness="1" Background="#A500F3" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -112,7 +108,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
-                                        <Border CornerRadius="10" BorderThickness="1" Background="#A500F3">
+                                        <Border CornerRadius="10" BorderThickness="1" MouseEnter="Btn_MouseEnter" MouseLeave="Btn_MouseLeave" Background="#A500F3">
                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
                                     </ControlTemplate>

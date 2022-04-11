@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="RegisterWindow" 
-        Height="500" Width="750">
+        Title="Регистрация" 
+        Height="500" Width="750" MinHeight="500" MinWidth="550">
     <Window.Resources>
         <Style x:Key="Lbl13" TargetType="Label">
             <Setter Property="FontSize" Value="13"/>

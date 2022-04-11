@@ -67,6 +67,16 @@ namespace ValeriankaApp
                     BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
             }
         }
+
+        private void AddBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#68CACD") as Brush;
+        }
+
+        private void AddBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#71DCDF") as Brush;
+        }
         void AddProductPanel(Product product, string name, string purpose, int quantity, int price)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)contentPanel.Resources["contentBorderStyle"] };

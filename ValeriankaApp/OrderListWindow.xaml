@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
         Title="Заказы" 
-        Height="500" Width="800">
+        Height="458" Width="750" MinHeight="400" MinWidth="700">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>

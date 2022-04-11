@@ -60,7 +60,22 @@ namespace ValeriankaApp
                 }
             }
         }
-
+        private void Btn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#A500F3") as Brush;
+        }
+        private void Btn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#C344FF") as Brush;
+        }
+        private void SBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Background = new BrushConverter().ConvertFrom("#A500F3") as Brush;
+        }
+        private void SBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Background = new BrushConverter().ConvertFrom("#C344FF") as Brush;
+        }
         void AddNewUser(int i, string login, string email, string role)
         {
             var borderPanel = new Border() { BorderBrush = Brushes.LightGray, BorderThickness = new Thickness(2), Style = (Style)UserView.Resources["contentBorderStyle"] };

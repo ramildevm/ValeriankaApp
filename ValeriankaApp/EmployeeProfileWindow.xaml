@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
         Title="Профиль" 
-        Height="500" Width="800">
+        Height="458" Width="750" MinHeight="450" MinWidth="700">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -94,7 +94,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="41*"/>
-                        <ColumnDefinition Width="21*"/>
+                        <ColumnDefinition Width="24*"/>
                         <ColumnDefinition Width="37*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Мой профиль" Foreground="Black" Height="Auto" Width="Auto" HorizontalAlignment="Center" FontFamily="Roboto" FontSize="18" FontWeight="Bold" Margin="15,0" Grid.Column="1" VerticalAlignment="Top" Grid.RowSpan="2"/>
@@ -137,20 +137,25 @@
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.55" Direction="-90" ShadowDepth="3" BlurRadius="15" />
+                        </Button.Effect>
                     </Button>
-                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1">
+                    <Border Cursor="Hand" CornerRadius="10" MouseEnter="OtherBtn_MouseEnter" MouseLeave="OtherBtn_MouseLeave" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1">
                         <TextBlock Text="Выйти из системы" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Opacity="0.3"/>
-                            </TextBlock.Effect>
+                            
                         </TextBlock>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="10" />
+                        </Border.Effect>
                     </Border>
-                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2" VerticalAlignment="Bottom" Grid.Row="1">
+                    <Border Cursor="Hand" CornerRadius="10" MouseEnter="OtherBtn_MouseEnter" MouseLeave="OtherBtn_MouseLeave" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2" VerticalAlignment="Bottom" Grid.Row="1">
                         <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Opacity="0.3"/>
-                            </TextBlock.Effect>
+                           
                         </TextBlock>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="10" />
+                        </Border.Effect>
                     </Border>
                 </Grid>
             </Border>

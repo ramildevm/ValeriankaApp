@@ -94,12 +94,13 @@ namespace ValeriankaApp
                 Number.Inlines.Add(new TextBlock() { Text = $" {SystemContext.Client.ClientNumber}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
                 OrderProduct.Inlines.Add(new TextBlock() { Text = $" {SystemContext.Product.ProductName}.  Кол-во: {OrderProductCount}", Foreground = (Brush)(new BrushConverter().ConvertFrom("Black")), Margin = new Thickness(0) });
                 var statusDot = new TextBlock() { Text = $" ●", Margin = new Thickness(0) };
-                if (OrderStatus == "Карта")
+
+                if (OrderStatus == "Оплачен")
                 {
                     statusDot.Foreground = Brushes.LightGreen;
                     OrderStatusCheck.Inlines.Add(statusDot);
                 }
-                else if (OrderStatus == "Наличными")
+                else if (OrderStatus == "Не оплачен")
                 {
                     statusDot.Foreground = Brushes.Red;
                     OrderStatusCheck.Inlines.Add(statusDot);
@@ -109,6 +110,7 @@ namespace ValeriankaApp
                 cancelBtn.Style = (Style)OrdersView.Resources["RoundedButtonStyle"];
                 cancelBtn.Name = "btn_" + OrderID;
                 cancelBtn.Click += DeleteButtonOnClick;
+                
 
                 Grid.SetColumn(sp, 0);
                 Grid.SetColumn(Order, 0);
@@ -139,7 +141,15 @@ namespace ValeriankaApp
                 OrdersView.Children.Add(borderPanel);
             }
         }
+        private void OtherBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#68CACD") as Brush;
+        }
 
+        private void OtherBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#71DCDF") as Brush;
+        }
         private void OrderStatusCheckBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var txtBox = sender as TextBox;

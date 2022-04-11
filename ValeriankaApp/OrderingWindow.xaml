@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
         Title="OrderingWindow" 
-         Height="490" Width="800">
+         Height="458" Width="750" MinHeight="458" MinWidth="700">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -118,10 +118,11 @@
                     </ComboBox>
                     <Border CornerRadius="10" Background="#68CACD" Width="95" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="CancelButton_Click" Grid.Column="0" Cursor="Hand" VerticalAlignment="Bottom">
                         <TextBlock Text="Отмена" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Opacity="0.3"/>
-                            </TextBlock.Effect>
+                            
                         </TextBlock>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="15" />
+                        </Border.Effect>
                     </Border>
                     <Label Content="Тип оплаты" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Right" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="0,40,190,0" Grid.Column="2" VerticalAlignment="Top"/>
                     <RadioButton Margin="0,70,81,0" Content="Наличными при получении" FontWeight="Bold" BorderThickness="1" FontFamily="Roboto" BorderBrush="Black" Name="MoneyRadioBtn" Grid.Column="2" Click="MoneyRadioBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
@@ -163,10 +164,11 @@
                     <TextBlock Text="Итоговая цена:"  FontWeight="Medium" FontFamily="Roboto" Margin="0,228,70,0" Grid.Column="2" FontSize="16" Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <Border CornerRadius="10" Background="#68CACD" Width="131" Height="32" Margin="0,0,10,10" MouseLeftButtonUp="ConfirmOrderButton_Click" Grid.Column="2" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                         <TextBlock Text="Оформить заказ" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Opacity="0.3"/>
-                            </TextBlock.Effect>
+                            
                         </TextBlock>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="15" />
+                        </Border.Effect>
                     </Border>
                 </Grid>
             </Border>

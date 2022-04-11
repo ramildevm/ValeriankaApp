@@ -23,8 +23,6 @@ namespace ValeriankaApp
         public MainWindow()
         {
             InitializeComponent();
-            txtLogin.Text = "freak";
-            txtPassword.Password = "12345678";
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
@@ -51,8 +49,7 @@ namespace ValeriankaApp
                     }
                     else if (user.UserRole == "Employee")
                     {
-                        //EmployeeMainWindow emw = new EmployeeMainWindow();
-                        var emw = new EmployeeOrderListWindow();
+                        EmployeeMainWindow emw = new EmployeeMainWindow();
                         this.Close();
                         emw.ShowDialog();
                     }

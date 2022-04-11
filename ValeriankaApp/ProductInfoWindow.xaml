@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="ProductInfoWindow" Height="458" Width="750">
+        Title="О товаре" Height="458" Width="750" MinHeight="450" MinWidth="700">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Height="53" Background="#68CACD">
             <Grid.ColumnDefinitions>
@@ -130,7 +130,7 @@
                                 <TextBox Text="1" Background="Transparent" FontSize="15" FontWeight="Bold" MaxLength="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="QuantityTxtBox_TextChanged" BorderThickness="0" x:Name="quantityBasketTxt"/>
                             </Border>
                             <Button Height="40" Width="30" Margin="10,0,0,0" Click="ButtonIncrease_Click" Background="Transparent" BorderThickness="0" Content="+" FontWeight="Bold" FontSize="20"/>
-                            <Button Content="Добавить" Click="ButtonAdd_Click" Margin="20,0,0,0" Background="#68CACD" BorderThickness="0" Height="35" FontWeight="Bold" FontSize="14" Width="100" Foreground="White" Cursor="Hand">
+                            <Button Content="Добавить" Click="ButtonAdd_Click" Margin="20,0,0,0" MouseEnter="AddBtn_MouseEnter" MouseLeave="AddBtn_MouseLeave" Background="#68CACD" BorderThickness="0" Height="35" FontWeight="Bold" FontSize="14" Width="100" Foreground="White" Cursor="Hand">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="10"/>

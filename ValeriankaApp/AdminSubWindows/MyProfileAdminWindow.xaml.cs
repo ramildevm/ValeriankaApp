@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ValeriankaApp.AdminSubWindows
 {
@@ -35,7 +27,15 @@ namespace ValeriankaApp.AdminSubWindows
         {
             InitializeComponent();
         }
+        private void OtherBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#68CACD") as Brush;
+        }
 
+        private void OtherBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#71DCDF") as Brush;
+        }
         private void LoadDefault()
         {
             var user = SystemContext.User;

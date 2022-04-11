@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Заказы пользователей"
         Closing="Window_Closing"
-        Height="500" Width="800">
+        Height="458" Width="750" >
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -106,7 +106,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
-                                        <Border CornerRadius="10" BorderThickness="1" Background="#68CACD">
+                                        <Border CornerRadius="10" BorderThickness="1" MouseEnter="OtherBtn_MouseEnter" MouseLeave="OtherBtn_MouseLeave" Background="#68CACD">
                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
                                     </ControlTemplate>

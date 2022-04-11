@@ -90,6 +90,16 @@ namespace ValeriankaApp
                     (sender as TextBox).Text = "1";
             }
         }
+
+        private void AddBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Background = new BrushConverter().ConvertFrom("#68CACD") as Brush;
+        }
+
+        private void AddBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Background = new BrushConverter().ConvertFrom("#71DCDF") as Brush;
+        }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             using (var db = new Pharmacy_ValeriankaEntities())

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
-        Title="EmployeeMainWindow" Height="458" Width="750">
+        Title="VAlerianka App" Height="458" Width="750" MinHeight="400" MinWidth="550">
     <Window.Resources>
         <Style x:Key="Lbl13" TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
@@ -129,7 +129,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="10" BorderThickness="1" Background="#68CACD">
+                                    <Border CornerRadius="10" BorderThickness="1" MouseEnter="AddBtn_MouseEnter" MouseLeave="AddBtn_MouseLeave" Background="#68CACD">
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                 </ControlTemplate>
@@ -146,6 +146,9 @@
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
+            <Button.Effect>
+                <DropShadowEffect Opacity="0.55" Direction="-90" ShadowDepth="3" BlurRadius="10" />
+            </Button.Effect>
         </Button>
     </DockPanel>
 </Window>

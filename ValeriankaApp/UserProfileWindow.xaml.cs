@@ -50,7 +50,15 @@ namespace ValeriankaApp
             txtNumber.Text = client.ClientNumber;
             ComBoxBaseAddress.SelectedItem = client.ClientPreferredAddress;
         }
+        private void OtherBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#68CACD") as Brush;
+        }
 
+        private void OtherBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).Background = new BrushConverter().ConvertFrom("#71DCDF") as Brush;
+        }
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             using (var db = new Pharmacy_ValeriankaEntities())

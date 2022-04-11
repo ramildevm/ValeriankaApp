@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValeriankaApp"
         mc:Ignorable="d"
         Title="Профиль" 
-        Height="495" Width="800">
+        Height="458" Width="750" MinHeight="450" MinWidth="750">
     <Window.Resources>
         <Style x:Key="TxtBl" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -127,13 +127,17 @@
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="15" />
+                        </Button.Effect>
                     </Button>
-                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0" VerticalAlignment="Bottom">
+                    <Border MouseEnter="OtherBtn_MouseEnter" MouseLeave="OtherBtn_MouseLeave" Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="130" Height="32" HorizontalAlignment="Left" Margin="10,0,0,10" MouseLeftButtonUp="OutOfSystem_Click" Grid.Column="0" VerticalAlignment="Bottom">
                         <TextBlock Text="Выйти из системы" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Opacity="0.3"/>
-                            </TextBlock.Effect>
+                            
                         </TextBlock>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="15" />
+                        </Border.Effect>
                     </Border>
                     <Label Content="Личные данные" Foreground="#A500F3" Height="Auto" Width="Auto" HorizontalAlignment="Right" FontFamily="Roboto" FontSize="14" FontWeight="Bold" Margin="0,25,67,0" Grid.Column="2"  VerticalAlignment="Top"/>
                     <Label Content="ФИО" Style="{StaticResource LeftLbl}" Margin="0,58,217,0" Grid.Column="2"  VerticalAlignment="Top" HorizontalAlignment="Right"/>
@@ -156,12 +160,13 @@
                     <Border CornerRadius="5" Background="#E6E6E6" Width="242" Height="20" Margin="0,168,10,0" HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Top">
                         <ComboBox x:Name="ComBoxBaseAddress" Background="Transparent" BorderThickness="0"/>
                     </Border>
-                    <Border Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2" VerticalAlignment="Bottom">
+                    <Border MouseEnter="OtherBtn_MouseEnter" MouseLeave="OtherBtn_MouseLeave" Cursor="Hand" CornerRadius="10" Background="#68CACD" Width="155" Height="32" HorizontalAlignment="Right" Margin="0,0,10,10" MouseLeftButtonUp="SaveChanges_Click" Grid.Column="2" VerticalAlignment="Bottom">
                         <TextBlock Text="Сохранить изменения" HorizontalAlignment="Center" Margin="0,9,0,0" Foreground="White" FontFamily="Roboto" FontWeight="Bold">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Opacity="0.3"/>
-                            </TextBlock.Effect>
+                            
                         </TextBlock>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.45" Direction="-90" ShadowDepth="3" BlurRadius="15" />
+                        </Border.Effect>
                     </Border>
                 </Grid>
             </Border>
