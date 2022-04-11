@@ -130,7 +130,8 @@ namespace ValeriankaApp.AdminSubWindows
                                                 UserPassword = password,
                                                 UserRole = "User"
                                             };
-                                            db.Users.Add(user);
+                                            var user2 = db.Users.Add(user);
+                                            db.Client.Add(new Client() { UserID = user2.UserID, ClientFIO = null, ClientNumber = null, ClientPreferredAddress = null });
                                             db.SaveChanges();
                                         }
 

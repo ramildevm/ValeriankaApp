@@ -117,10 +117,6 @@ namespace ValeriankaApp
                 db.Entry(productShopCart).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
             }
-            MessageBox.Show("Заказ успешно оформлен");
-            OrderListWindow olw = new OrderListWindow();
-            this.Close();
-            olw.ShowDialog();
         }
 
         private void CancelButton_Click(object sender, MouseButtonEventArgs e)
@@ -175,6 +171,7 @@ namespace ValeriankaApp
                                 else
                                 {
                                     MessageBox.Show("Выберите метод оплаты");
+                                    return;
                                 }
                             }
                             else
@@ -203,24 +200,32 @@ namespace ValeriankaApp
                                 else
                                 {
                                     MessageBox.Show("Выберите метод оплаты");
+                                    return;
                                 }
                             }
                         }
                         else
                         {
                             MessageBox.Show("Выберите адрес!");
+                            return;
                         }
                     }
                     else
                     {
                         MessageBox.Show("Введите номер");
+                        return;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Введите ФИО");
+                    return;
                 }
             }
+            MessageBox.Show("Заказ успешно оформлен");
+            OrderListWindow olw = new OrderListWindow();
+            this.Close();
+            olw.ShowDialog();
         }
 
         private void ButtonCatalog_Click(object sender, RoutedEventArgs e)
